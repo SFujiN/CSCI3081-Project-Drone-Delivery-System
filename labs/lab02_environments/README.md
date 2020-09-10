@@ -150,14 +150,14 @@ Net start com.docker.service
 In this class, you will want to run all of the C++ commands inside of the docker environment in your github repository.
 This helps us make our project compatible with the wide range of devices that everyone is working on.
 
-The code provided for Lab02_Git_Basics will create an executable by compiling the provided C++ files using a makefile. Running the executable will generate 2 files that will be added to your Labs directory. A makefile manages the compilation process, which will be explored further in the next lab, so don't worry about the contents of the file right now.
+The code provided for Lab02_environments will create an executable by compiling the provided C++ files using a makefile. Running the executable will generate 2 files that will be added to your Labs directory. A makefile manages the compilation process, which will be explored further in the next lab, so don't worry about the contents of the file right now.
 ```
-$ cd labs/lab02_git_basics
+$ cd labs/lab02_environments
 $ make
 $ ls
 ```
 
-What just happened? You made lab02_git_basics your working directory with cd. You executed the makefile (named makefile) with make, which created object files with the extension .o, and the executable lab02.out. These files are displayed with ls.
+What just happened? You made lab02_environments your working directory with cd. You executed the makefile (named makefile) with make, which created object files with the extension .o, and the executable lab02.out. These files are displayed with ls.
 
 ```
 $ ./lab02.out
