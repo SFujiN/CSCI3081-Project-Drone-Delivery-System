@@ -150,14 +150,14 @@ Net start com.docker.service
 In this class, you will want to run all of the C++ commands inside of the docker environment in your github repository.
 This helps us make our project compatible with the wide range of devices that everyone is working on.
 
-The code provided for Lab02_Git_Basics will create an executable by compiling the provided C++ files using a makefile. Running the executable will generate 2 files that will be added to your Labs directory. A makefile manages the compilation process, which will be explored further in the next lab, so don't worry about the contents of the file right now.
+The code provided for Lab02_environments will create an executable by compiling the provided C++ files using a makefile. Running the executable will generate 2 files that will be added to your Labs directory. A makefile manages the compilation process, which will be explored further in the next lab, so don't worry about the contents of the file right now.
 ```
-$ cd labs/lab02_git_basics
+$ cd labs/lab02_environments
 $ make
 $ ls
 ```
 
-What just happened? You made lab02_git_basics your working directory with cd. You executed the makefile (named makefile) with make, which created object files with the extension .o, and the executable lab02.out. These files are displayed with ls.
+What just happened? You made lab02_environments your working directory with cd. You executed the makefile (named makefile) with make, which created object files with the extension .o, and the executable lab02.out. These files are displayed with ls.
 
 ```
 $ ./lab02.out
@@ -166,14 +166,13 @@ $ ls
 
 What just happened? You ran the executable with ./lab02.out, which generated 2 files private.pvt and shared.md.
 
-In the next part of this lab, you will setup the .gitignore file so that the former file is not added to the repo, but the latter is.
+Because we want private.pvt to stay private, we need to add a gitignore to this directory. You can either make a new gitignore which should ignore the same file extensions as the gitignore from the last lab, or you can copy your old gitignore to this lab's direction. A command you could use to do this would look like this:
 
-Before telling git what not to track, look at what it has been tracking.
 ```
-$ git status
+$ cp ../lab01_git_basics/.gitignore .gitignore
 ```
 
-You will see the directories and files that have been added to this repository.
+Which copies the file specified as the first argument to the location and name specified in the second argument. Or you can accomplish this through any other means.
 
 ### Getting credit for this lab
 
