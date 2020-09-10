@@ -1,5 +1,3 @@
-# instructor-repo
-
 ## Pre-requisites
   * [Git](https://git-scm.com/)
 
