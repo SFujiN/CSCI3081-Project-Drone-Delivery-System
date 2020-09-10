@@ -6,10 +6,10 @@ CFLAGS = -Wall -c $(DEBUG)
 LFLAGS = -Wall $(DEBUG)
 
 all: main.o
-	$(CC) $(LFLAGS) main.o -o lab01.out
+	$(CC) $(LFLAGS) main.o -o lab02.out
 
 main.o : main.cc
 	$(CC) $(CFLAGS) main.cc
 
 clean:
-	\rm *.o *.*~ lab01.out
+	\rm *.o *.*~ lab02.out
