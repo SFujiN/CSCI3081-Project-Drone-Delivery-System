@@ -279,11 +279,17 @@ saved to your local repository, which lives in your cselabs account (or your
 personal computer if that is what you are working on). When you _push_ those
 changes, they will be copied to the repo on the server. The difference between
 _commit_ and _push_ is what separates git from centralized version control
-systems.
+systems. 
+
+Currently, all of your changes have been on your local `support-code` branch. However, your remote repo doesn't have a `support-code` branch. Inspect the error message that pops up after running these commands:
 
     $ git add -A
     $ git commit -m "add(lab01): Adding lab01 results."
     $ git push
+
+Push your `support-code` branch using the command in the error message. Throughout the semester make sure you submit your assignments in the correct remote branch that we specify using `git merge` and `git push`.
+
+## **We will be grading your remote `support-code` branch for labs 1 and 2**  
 
 **_What just happened?_** All of the tracked changes were staged with `git add
 -A`. You could have only staged certain files by replacing _-A_ with the
