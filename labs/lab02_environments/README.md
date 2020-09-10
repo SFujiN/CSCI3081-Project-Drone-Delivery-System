@@ -166,7 +166,13 @@ $ ls
 
 What just happened? You ran the executable with ./lab02.out, which generated 2 files private.pvt and shared.md.
 
-Because we want private.pvt to stay private, we need to add a gitignore to this directory. You can copy the gitignore you made in the previous lab to this directory.
+Because we want private.pvt to stay private, we need to add a gitignore to this directory. You can either make a new gitignore which should ignore the same file extensions as the gitignore from the last lab, or you can copy your old gitignore to this lab's direction. A command you could use to do this would look like this:
+
+```
+$ cp ../lab01_git_basics/.gitignore .gitignore
+```
+
+Which copies the file specified as the first argument to the location and name specified in the second argument. Or you can accomplish this through any other means.
 
 ### Getting credit for this lab
 
