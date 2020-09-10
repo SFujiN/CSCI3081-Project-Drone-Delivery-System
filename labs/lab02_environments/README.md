@@ -168,13 +168,6 @@ What just happened? You ran the executable with ./lab02.out, which generated 2 f
 
 Because we want private.pvt to stay private, we need to add a gitignore to this directory. You can copy the gitignore you made in the previous lab to this directory.
 
-Before telling git what not to track, look at what it has been tracking.
-```
-$ git status
-```
-
-You will see the directories and files that have been added to this repository.
-
 ### Getting credit for this lab
 
 Once you have completed the steps in this lab, you should have generated a .pvt file in your directory.
