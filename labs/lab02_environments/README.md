@@ -166,7 +166,7 @@ $ ls
 
 What just happened? You ran the executable with ./lab02.out, which generated 2 files private.pvt and shared.md.
 
-In the next part of this lab, you will setup the .gitignore file so that the former file is not added to the repo, but the latter is.
+Because we want private.pvt to stay private, we need to add a gitignore to this directory. You can copy the gitignore you made in the previous lab to this directory.
 
 Before telling git what not to track, look at what it has been tracking.
 ```
