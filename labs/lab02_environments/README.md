@@ -11,7 +11,7 @@ We will list the options below:
 ### *Vole3D* 
 UMN provides Vole as a service [here](https://vole.cse.umn.edu/). 
 Make sure you choose the 3D option so that you can see the results of your program running. 
-This will open a remote control version of a CSELabs machine in your browser.
+This will open a remote control version of a CSELabs machine in your browser. If you decide to use vole3d you can SKIP the docker setup section.
  
 **Pros:** This is the most stable option, we will make sure that we always support this configuration, and there are a lot fewer things that can go wrong in this environment.
 **Cons:** Sometimes laggy, requires a network connection. You are also limited by the network administrators regarding what you can do.
