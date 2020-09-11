@@ -23,7 +23,7 @@
     bin/run-env.sh
     ```
     
-3. Build project web server (inside docker image)
+3. Build project web server (inside docker image) NOTE: You won't be able to `cd` here yet because the project directory does not exist. If you were able to launch the above commands you should now be inside the docker image. You can exit it with CTRL+D now.
 
     ```bash
     # Inside docker image
