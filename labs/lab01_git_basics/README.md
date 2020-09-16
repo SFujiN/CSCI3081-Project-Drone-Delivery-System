@@ -247,7 +247,7 @@ file with that extension will not be tracked.
 into your repo, changes to the _.gitignore_ to ignore that file have no effect;
 it only applies to FUTURE checkins to the repository.
 
-If you are still in the Lab01 directory, using your favorite text editor, create a .gitignore file (e.g., `nano .gitignore &`, which will open `nano` in a new window. Edit the .gitignore file to remove your executable.
+If you are still in the Lab01 directory, using your favorite text editor, create a .gitignore file (e.g., `nano .gitignore`, which will open `nano` in a new window. Edit the .gitignore file to remove your executable.
 
 Add these lines to the file:
 
