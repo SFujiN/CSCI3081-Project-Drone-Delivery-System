@@ -127,7 +127,7 @@ You may or may not have noticed another directory that was downloaded when you p
 If you wish, you can make use of the framework now. To do so, you need to merely using the test version of the Makefile.
 
 ```bash
-% make -f Makefile.test
+% make -f Makefile.test point2_unittest
 ```
 
 **_What just happened?_** Built the Google Test framework objects and ran our unit tests (point2_unittest) against our complied code.
