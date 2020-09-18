@@ -44,6 +44,13 @@ The general syntax is `ssh yourx500@computer_name`, where a list of computer nam
 You should enter the above command in to your terminal or command line (note that, on Windows, you may need to install additional tools like [PuTTY](https://putty.org/)).
 If you're feeling adventurous, you can combine ssh with various programs on your computer to make it very powerful, but we are not explicitly supporting that in this class.
 
+One such useful workflow involves using VS Code with SSH. This will allow you to edit files that reside on the CSELabs machines while using VS Code (a text editor) on your computer. To do this, download VS Code. On the left-hand side, click on the building blocks and search from 'Remote Development'. Install the first package you find, then restart VSCode.  
+
+You can now use SSH inside of VSCode by clicking on the green arrows that should appear in the lower-left corner of VS Code. Select `Remote SSH: Connect Current Window to Host` in the dialog that appears. The first time you do this, you will have to type in the SSH command to connect to the computer, but in the future you will be able to select your computer from a dropdown.  
+
+Note that if you follow this set-up, you will need to have an internet connection to get any work done, file navigation may be slightly laggy, and you will need to undergo (minor) additional set-up to view graphics for the project later in the semester.  
+
+
 **Pros:** Basically no set-up right now, highly extensible if you want to get fancy. Can seamlessly switch between this and Vole3D.
 **Cons:** Terminal only, will require additional steps to visualize the project later in the semester.
 
