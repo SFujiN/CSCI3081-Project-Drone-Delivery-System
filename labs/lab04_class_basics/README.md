@@ -77,6 +77,7 @@ As stated, branches are integral to Git workflow. To this end, the roles of each
 
 - Makefile.test:
   - This makefile is used to run the unit tests provided for the class Point2. It should run as is on a cselabs machine. If you are on a personal machine, then you will have to set up Google Test to get it working. Google Test: <https://github.com/google/googletest>
+  - Alternatively, googletest is already in the docker image.
 
 - README.md:
   - You're reading this now.
