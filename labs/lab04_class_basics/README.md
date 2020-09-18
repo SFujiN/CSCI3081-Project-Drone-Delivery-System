@@ -107,7 +107,9 @@ The nominal distance between two points can be calculated using Pythagorean's Th
 
 Quadrants for points are numbered 1 to 4 (as well as 0, for the edge case of a point on the origin [0, 0]), counter-clockwise starting from the upper right quadrant (e.g. point [1,1] is in quadrant 1). This is pretty straight-forward until you consider points on the axes -- which quadrants are those in? These requirements have been defined through the unit tests. Look at TEST_F(Point2Test, QuadrantBorder) in `point2_unittest.cc` and in the Set-Up at the top that defines the points used in that test.
 
-### Executing Lab Code and Pushing Results
+### Executing Lab Code Creating Gitignore and Pushing Results
+
+Before pushing your work, you should create a gitignore. You can copy the gitignore used for lab01 and lab02, then add rules to ignore the files _cluster_, _point2_, and _point2_unittest_. You can add those rules by simply adding those filenames each to a line in the `.gitignore`.
 
 The code provided for lab04 will create an executable by compiling the provided
 C++ files using the _Makefile_. The resulting executable, _cluster_, should be created if your point2.h and point2.cc files do not cause syntax errors.
