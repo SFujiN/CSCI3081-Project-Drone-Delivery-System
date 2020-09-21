@@ -11,7 +11,7 @@ class Point2Test : public ::testing::Test {
 	p11 = Point2(1.0, 1.0);
 	p21 = Point2(2.0, 1.0);
 	p12 = Point2(1.0, 2.0);
-	pPI45 = Point2(sqrt(2)/2, sqrt(2)/2);
+	pPI45 = Point2(sqrt(2)/2.0, sqrt(2)/2.0);
 	p_a = Point2(3.0, 5.0);
 	p_b = Point2(4.0, 4.0);
 
