@@ -8,5 +8,7 @@ then
 fi
 
 ROOTDIR=`git rev-parse --show-toplevel`
-docker run -p 127.0.0.1:$PORT:$PORT -v "${ROOTDIR}:/home/user/repo" -e project_port=$PORT -e USE_REPO_DIR=1 -it csci3081f20/env
-#docker run -p 127.0.0.1:$PORT:$PORT -v "${ROOTDIR}:/home/user/repo" -e project_port=$PORT -e USE_REPO_DIR=1 -it --user "$(id -u):$(id -g)" csci3081f20/env
+CONTAINER=csci3081f20-env-container
+
+docker rm ${CONTAINER}
+docker run --name=${CONTAINER} -p 127.0.0.1:$PORT:$PORT -v "${ROOTDIR}:/home/user/repo" -e project_port=$PORT -e USE_REPO_DIR=1 -it csci3081f20/env
