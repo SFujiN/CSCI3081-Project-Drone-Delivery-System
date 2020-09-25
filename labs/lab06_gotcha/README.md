@@ -1,4 +1,4 @@
-## 3081 lab05 C++ Polymorphism, Class Destructors, and Other Gotcha's
+## 3081 lab06 C++ Polymorphism, Class Destructors, and Other Gotcha's
 
 ## What You Will Learn
 1. Polymorphism and dynamic memory allocation.
