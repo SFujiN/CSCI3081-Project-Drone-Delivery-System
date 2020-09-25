@@ -1,4 +1,4 @@
-# Lab04 Dynamic Allocation Exercise
+# Lab05 Dynamic Allocation Exercise
 
 ## What You Will Learn
 1. How C++ allocates memory for static arrays.
