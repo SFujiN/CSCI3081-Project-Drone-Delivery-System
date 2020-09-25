@@ -33,7 +33,7 @@ In general, you want to check the following:
 5. `git merge support-code`
 
 ## Lab Instructions
-### What's in labs/lab05_destructors
+### What's in labs/lab06_gotcha
 
 - main.cc:
     There are 3 helper functions in main. You need to pass a command line argument when you run the executable to run 1 of these 3. The 3 helper functions are:
