@@ -10,7 +10,7 @@ export files=${@:2}
 export cpplint_main_directory=$(dirname "$0")
 export confName="CPPLINT.cfg"
 export configPath="${cpplint_main_directory%/*}"/$confName
-export dirNotChecked=("." ".." "export" "googletest" "cpplint" "bin" "lab01_git_basics" "lab02_environments" "lab03_build_process" "lab04_class_basics")
+export dirNotChecked=("." ".." "export" "googletest" "cpplint" "bin" "lab01_git_basics" "lab02_environments" "lab03_build_process" "lab04_class_basics" "lab05_dynamic_memory" "lab06_gotcha")
 export extensionsChecked=("cc" "h" "cu" "cpp")
 processDirectory () {
 	local loc_file_dir=$1
