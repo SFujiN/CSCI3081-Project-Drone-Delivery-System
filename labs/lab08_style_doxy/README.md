@@ -93,7 +93,7 @@ of the local system storage to speed up cpplint.py.  This is available by pullin
      ../../../cpplint/cpplint-cse.sh --root=.
 
      #Another example
-     ./cpplint/cpplint-cse.sh --root=labs
+     ./cpplint/cpplint-cse.sh --root=labs/lab08_style_doxy
      ```
 
 2. **Run on your local machine** - You could install from instructions above, but just in case
