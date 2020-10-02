@@ -9,7 +9,10 @@ RUN apt-get update && apt-get install -y \
     zlib1g-dev \
     dos2unix \
     rsync \
-    doxygen
+    doxygen \
+    graphviz \
+    libc6-dbg \
+    valgrind
 
 ENV project_port 8081
 ENV USE_REPO_DIR 1
