@@ -2,7 +2,7 @@
 
 export root_dir=${1#--root=}
 export cpplint_parent=../export
-export cpplint_dir=$cpplint_parent/scratch/cpplint-$USER
+export cpplint_dir=$cpplint_parent/scratch/cpplint-$USER/$(basename $PWD)
 rm -rf $cpplint_dir
 export cpplint_current_dir=$cpplint_dir
 mkdir -p $cpplint_current_dir
