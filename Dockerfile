@@ -3,6 +3,8 @@ FROM  csci3081f20/base as env
 RUN groupdel dialout
 
 RUN apt-get update && apt-get install -y \
+    python2.7\
+    python-pip\
     build-essential \
     gdb \
     libssl-dev \
@@ -14,6 +16,7 @@ RUN apt-get update && apt-get install -y \
     libc6-dbg \
     valgrind
 
+RUN pip install cpplint
 ENV project_port 8081
 ENV USE_REPO_DIR 1
 
