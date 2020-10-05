@@ -11,6 +11,9 @@ docker build $1 \
 	-t csci3081f20/env "$ROOTDIR"
 rm -rf .dependencies
 mkdir -p .dependencies
-docker rm ${CONTAINER}
+while [ "$(docker ps -aq -f name=${CONTAINER})" ]
+do
+    docker rm ${CONTAINER}
+done
 docker run --name=${CONTAINER} -v "${ROOTDIR}:/home/user/repo" csci3081f20/env cp -r ../../../project/grades/Fall-2020/csci3081/dependencies/include .dependencies
 
