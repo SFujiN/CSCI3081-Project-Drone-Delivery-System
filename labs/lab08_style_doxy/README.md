@@ -34,8 +34,8 @@ cpplint.py main.cc
 OR
 
 ```
-cpplint.py --root=.. *.h
-cpplint.py *.cc
+cpplint --root=.. *.h
+cpplint *.cc
 ```
 
 Invoking the linter on the headers and source files separately is not required,
@@ -44,7 +44,7 @@ scroll back up through screenfulls of text to see where they are. For all-in-one
 do:
 
 ```
-cpplint.py --root=.. *.h *.cc
+cpplint --root=.. *.h *.cc
 ```
 
 **_What does "--root=.." mean?_** Header guards must always be in place for header
