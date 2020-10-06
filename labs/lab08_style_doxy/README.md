@@ -28,7 +28,7 @@ _cpplint.py_ file is available on CSE labs machines. To run the linter on your
 code, navigate to src directory and do the following:
 
 ```
-cpplint.py main.cc
+cpplint --root=. main.cc
 ```
 
 OR
