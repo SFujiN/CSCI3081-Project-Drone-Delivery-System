@@ -34,7 +34,7 @@
 4. Run web server (inside docker image)
 
     ```bash
-    # Inside docker image
+    # MUST be within project/ directory inside docker image
     cd /home/user/repo/project
     ./bin/run.sh
     ```
@@ -76,7 +76,7 @@
  2. Run project
 
     ```bash
-    # within project directory
+    # MUST be within project/ directory
     ./bin/run.sh
     ```
     
