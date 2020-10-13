@@ -10,7 +10,7 @@ CXXFLAGS = -std=c++11 -g -fPIC
 INCLUDES = -I.. -I$(DEP_DIR)/include -Isrc -I.
 LIBDIRS = -L$(DEP_DIR)/lib 
 LIBS = -lEntityProject
-SOURCES = $(wildcard src/*.cc)  $(wildcard src/*/*.cc)
+SOURCES = $(wildcard src/*.cc)  $(wildcard src/*/*.cc) $(wildcard src/*.cpp)
 OBJFILES = $(notdir $(SOURCES:.cc=.o))
 OBJDIR = $(BUILD_DIR)/obj
 OBJECTS = $(addprefix $(OBJDIR)/, $(OBJFILES))
@@ -23,16 +23,16 @@ all: $(EXEFILE)
 
 # Compile source files
 $(OBJDIR)/%.o: src/%.cc
-	$(call make-depend-cxx,$<,$@,$(subst .o,.d,$@))
+	#$(call make-depend-cxx,$<,$@,$(subst .o,.d,$@))
 	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $< -o $@
 
 # Compile source files
 $(OBJDIR)/%.o: src/config/%.cc
-	$(call make-depend-cxx,$<,$@,$(subst .o,.d,$@))
+	#$(call make-depend-cxx,$<,$@,$(subst .o,.d,$@))
 	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $< -o $@
 
 # Generate dependencies
-make-depend-cxx=$(CXX) -MM -MF $3 -MP -MT $2 $(CXXFLAGS) $1
+# make-depend-cxx=$(CXX) -MM -MF $3 -MP -MT $2 $(CXXFLAGS) $1
 -include $(addprefix $(OBJDIR)/,$(OBJFILES:.o=.d))
 
 # Build shared library
