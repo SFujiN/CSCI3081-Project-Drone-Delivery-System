@@ -10,9 +10,8 @@ CXXFLAGS = -std=c++11 -g -fPIC
 INCLUDES = -I.. -I$(DEP_DIR)/include -Isrc -I.
 LIBDIRS = -L$(DEP_DIR)/lib 
 LIBS = -lEntityProject
-SOURCES = $(wildcard src/*.cc) $(wildcard src/*.cpp)
-OBJFILES_CC = $(notdir $(SOURCES:.cc=.o))
-OBJFILES = $(notdir $(OBJFILES_CC:.cpp=.o))
+SOURCES = $(wildcard src/*.cc)  $(wildcard src/*/*.cc)
+OBJFILES = $(notdir $(SOURCES:.cc=.o))
 OBJDIR = $(BUILD_DIR)/obj
 OBJECTS = $(addprefix $(OBJDIR)/, $(OBJFILES))
 -include $(DEP_DIR)/env
@@ -24,17 +23,17 @@ all: $(EXEFILE)
 
 # Compile source files
 $(OBJDIR)/%.o: src/%.cc
-	#$(call make-depend-cxx,$<,$@,$(subst .o,.d,$@))
+	$(call make-depend-cxx,$<,$@,$(subst .o,.d,$@))
 	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $< -o $@
 
 # Compile source files
-$(OBJDIR)/%.o: src/%.cpp
-	#$(call make-depend-cxx,$<,$@,$(subst .o,.d,$@))
+$(OBJDIR)/%.o: src/config/%.cc
+	$(call make-depend-cxx,$<,$@,$(subst .o,.d,$@))
 	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $< -o $@
 
 # Generate dependencies
-#make-depend-cxx=$(CXX) -MM -MF $3 -MP -MT $2 $(CXXFLAGS) $1
-#-include $(addprefix $(OBJDIR)/,$(OBJFILES:.o=.d))
+make-depend-cxx=$(CXX) -MM -MF $3 -MP -MT $2 $(CXXFLAGS) $1
+-include $(addprefix $(OBJDIR)/,$(OBJFILES:.o=.d))
 
 # Build shared library
 $(LIBFILE): $(BUILD_DIR) $(OBJECTS)
@@ -48,7 +47,7 @@ web/textures:
 
 # Build web viewer
 $(EXEFILE): $(BUILD_DIR) $(LIBFILE) web/models web/textures
-	$(CXX) $(CXXFLAGS) -Wl,-rpath,$(BUILD_DIR)/lib $(INCLUDES) $(LIBDIRS) -L$(BUILD_DIR)/lib src/main.cpp -lcsci3081proj $(LIBS) -lCppWebServer -lwebsockets -lssl -lcrypto -lz -o $@ 
+	$(CXX) $(CXXFLAGS) -Wl,-rpath,$(BUILD_DIR)/lib $(INCLUDES) $(LIBDIRS) -L$(BUILD_DIR)/lib src/main.cc -lcsci3081proj $(LIBS) -lCppWebServer -lwebsockets -lssl -lcrypto -lz -o $@ 
 
 # Build tests
 test: $(LIBFILE)
