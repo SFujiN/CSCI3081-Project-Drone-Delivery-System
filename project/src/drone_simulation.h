@@ -5,6 +5,7 @@
 #include <EntityProject/ANVIL/drone_delivery_system.h>
 #include <vector>
 #include <string>
+#include "src/json_helper.h"
 namespace csci3081 {
 
 
@@ -18,7 +19,13 @@ class DroneSimulation : public entity_project::DroneDeliverySystem {
   const std::string& GetTeamName() const { return teamName_; }
 
   /// TODO: Add documentation.
-  entity_project::Entity* CreateEntity(const picojson::object& val) { return NULL; }
+  entity_project::Entity* CreateEntity(const picojson::object& val) {
+  
+    // Investigate json object that is passed in
+    JsonHelper::PrintEntityDetails(val);
+
+    return NULL;
+  }
 
   /// TODO: Add documentation.
   void AddEntity(entity_project::Entity* entity) {}

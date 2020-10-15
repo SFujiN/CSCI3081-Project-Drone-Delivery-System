@@ -9,15 +9,16 @@ CXX = g++
 -include $(DEP_DIR)/env
 
 TESTEXE = ${BUILD_DIR}/test/csci3081tests
+LIBFILE = ${BUILD_DIR}/lib/libcsci3081proj.so
 
 all: $(TESTEXE) 
 
-$(TESTEXE): ${BUILD_DIR}/test
+$(TESTEXE): ${BUILD_DIR}/test $(LIBFILE)
 	$(CXX) -std=c++11 -fPIC -Wl,-rpath,$(BUILD_DIR)/lib -I$(DEP_DIR)/include -I../src -I. -I.. -L$(DEP_DIR)/lib -L$(BUILD_DIR)/lib *.cc -lgtest_main -lgtest -lgmock -pthread -lcsci3081proj -lEntityProject -lCppWebServer -lwebsockets -lssl -lcrypto -lz -o $@
 
 ${BUILD_DIR}/test:
 	mkdir -p ${BUILD_DIR}/test
 
 clean:
-	rm -rf ${BUILD_DIR}
+	rm -rf ${BUILD_DIR}/test
 
