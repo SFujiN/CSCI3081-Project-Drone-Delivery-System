@@ -64,7 +64,7 @@ public:
     if (JsonHelper::ContainsKey(val, "position")) {
         const picojson::array& position = JsonHelper::GetArray(val, "position");
         for (int f = 0; f < position.size(); f++) {
-        std::cout << "  position[" << f << "]: " << position[f] << std::endl;
+          std::cout << "  position[" << f << "]: " << position[f] << std::endl;
         }
     }
     std::cout << std::endl;
