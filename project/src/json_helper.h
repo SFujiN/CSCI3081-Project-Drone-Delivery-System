@@ -1,5 +1,5 @@
-#ifndef DRONE_H_
-#define DRONE_H_
+#ifndef JSON_HELPER_H_
+#define JSON_HELPER_H_
 
 #include <iostream>
 #include <string>
