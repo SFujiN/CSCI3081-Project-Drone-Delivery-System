@@ -8,7 +8,7 @@
 
 ## Iteration 1 Deliverable 2 Delayed!
 
-<b>Important:</b> turn in your Doxygen by zipping your html folder! Then turn in the zip file. (when its due)
+<b>Important:</b> turn in your Doxygen by zipping your html folder! Then turn in the zip file. (when its due, Oct 23 11:55pm)
 
 ### Required group meeting between now and Oct 23 11:55pm
 
