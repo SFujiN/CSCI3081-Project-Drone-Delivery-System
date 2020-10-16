@@ -18,9 +18,9 @@ Some things you might have something to say about:
 
 * Discuss broad topic C++/coding stuff. Any lingering questions that you may have.
 
-* Talk about how to implement the drone_simulation. Has anybody started and found a cool trick, or got stuck and need some input?
+* Talk about how to implement the drone_simulation. A key design philosophy with the Facade pattern is breaking work up into smaller subsystems. What subsystems do you think would be most helpful? Remember, the goal is to move <b>as much</b> logic out of the DroneSimulation class as possible.
 
-* Anything about the UML or Doxygen that you wish you knew before the deliverables were due? If you are meeting on/before Oct 16, is there anything you want some input on before you turn in your Doxygen?
+* Anything Doxygen that you feel like you want to discuss before the deliverable? Do you want to compare/contrast documentation before you turn in your Doxygen?
 
 
 
