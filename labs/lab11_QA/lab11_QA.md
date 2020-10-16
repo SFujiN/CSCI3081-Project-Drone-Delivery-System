@@ -106,7 +106,7 @@ If you haven't already read and <b>fully</b> digested the pdf here: <https://git
 
 * Git termonology, you should be <b>VERY</b> comfortable with these terms and definitions
 
-  - Branch: a state of the repo separate from other branches
+  - Branch: a state of the code separate from other branches
 
   - To checkout: Move your change the branch you are currently working on.
 
