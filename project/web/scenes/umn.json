@@ -1,39 +1,49 @@
 [
     { "command": "reset", "params": {} },
     {
-	"command": "createEntity",
-	"params": {
-	    "type": "drone",
-	    "mesh": "models/s9drone.glb",
-	    "position": [498.292, 253.883, -228.623],
-	    "scale": [0.1, 0.1, 0.1],
-	    "rotation": [0, 0, 0, 0],
-	    "start": 2.0,
-	    "duration": 2.0
-	}
+        "command": "createEntity",
+      	"params": {
+      	    "type": "drone",
+            "name": "drone",
+      	    "mesh": "models/s9drone.glb",
+      	    "position": [498.292, 253.883, -228.623],
+      	    "scale": [0.1, 0.1, 0.1],
+      	    "rotation": [0, 0, 0, 0],
+            "direction": [1,0,0],
+            "speed": 30.0,
+            "radius": 1.0,
+      	    "start": 2.0,
+      	    "duration": 2.0
+    	  }
     },
-    { 
-        "command": "createEntity", 
+    {
+        "command": "createEntity",
         "params": {
             "type": "customer",
-	    "mesh": "models/RobotExpressive.glb",
+            "name": "customer",
+            "mesh": "models/RobotExpressive.glb",
             "position": [-951.412, 254.665, 298.271],
-	    "scale": [0.25, 0.25, 0.25],
-	    "rotation": [0, 0, 0, 0]
+            "scale": [0.25, 0.25, 0.25],
+            "direction": [1,0,0],
+            "radius": 1.0,
+            "rotation": [0, 0, 0, 0]
         }
     },
-    { 
-        "command": "createEntity", 
+    {
+        "command": "createEntity",
         "params": {
             "type": "package",
+            "name": "package",
             "mesh": "models/cardboardBox.glb",
-	    "position": [-255.994, 257.798, -296.859],
-	    "scale": [0.02, 0.02, 0.01],
-	    "rotation": [0, 0, 0, 0]
+            "position": [-255.994, 257.798, -296.859],
+            "scale": [0.02, 0.02, 0.01],
+            "direction": [1,0,0],
+            "radius": 1.0,
+            "rotation": [0, 0, 0, 0]
         }
     },
-    { 
-        "command": "setScene", 
+    {
+        "command": "setScene",
         "params": {
             "type": "scene",
             "x": 0.0,
@@ -66,7 +76,6 @@
     { "command": "addEntity", "params": {"index" : 0} },
     { "command": "addEntity", "params": {"index" : 1} },
     { "command": "addEntity", "params": {"index" : 2} },
-    { "command": "addEntity", "params": {"index" : 3} },
     {
 	"command": "scheduleDelivery",
 	"params": {
