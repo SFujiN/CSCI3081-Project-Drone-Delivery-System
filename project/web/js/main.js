@@ -19,11 +19,18 @@ const mixers = [];
 const clock = new THREE.Clock();
 const loader = new THREE.GLTFLoader();
 const objloader = new THREE.OBJLoader();
-
+var simSpeed = 1.0;
 // Function definitions start here...
 
 // This is the function that is called once the document is started.
 $( document ).ready(function() {
+  var simSpeedSlider = document.getElementById("simSpeed");
+  
+  // Update the current slider value (each time you drag the slider handle)
+  simSpeedSlider.oninput = function() {
+    simSpeed = this.value / 10.0;
+  }
+
   // Init() starts up the scene and its update loop.
   init();
 
@@ -40,6 +47,10 @@ $( document ).ready(function() {
       if (data.command == "createEntity") {
         displayJSON(data);
         createEntity(data);
+      }
+      if (data.command == "eraseEntity") {
+        console.log(data);
+        eraseEntity(data.id);
       }
       if (data.command == "update") {
         for (var i = 0; i < data.e.length; i++) {
@@ -340,6 +351,18 @@ function createEntity(data) {
   
 }
 
+function eraseEntity(id) {
+  console.log(models);
+  var model = entities[id];
+  models = models.filter(function(value, index, arr){ return value != model;});
+  scene.remove( model );
+  $("#entitySelect option[value='" + id + "']").remove();
+  delete entities[id];
+  if (currentView == id) {
+    currentView = -1;
+  }
+  console.log(models);
+}
 
 // This function kills the webpage's socket connection.
 function kill() {
@@ -372,7 +395,8 @@ function update() {
 
   // Send the update command to the socket.
   if (connected) {
-    socket.send(JSON.stringify({command: "update", delta: delta}));
+    //socket.send(JSON.stringify({command: "update", delta: delta}));
+    socket.send(JSON.stringify({command: "update", delta: delta, simSpeed: simSpeed}));
   }
 }
 
