@@ -34,6 +34,6 @@ TEST_F(FactoryTest, DroneCreated) {
   ASSERT_EQ(system->GetEntities().size(), 0);
   system->AddEntity(drone);
   ASSERT_EQ(system->GetEntities().size(), 1);
-  ASSERT_EQ(system->GetEntities()[0]->GetDetails(), obj);
+  ASSERT_EQ(picojson::value(system->GetEntities()[0]->GetDetails()).serialize(), picojson::value(obj).serialize());
 }
 }  // namespace csci3081
