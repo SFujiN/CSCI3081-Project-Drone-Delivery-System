@@ -1,11 +1,11 @@
 #ifndef DRONE_SIMULATION_H_
 #define DRONE_SIMULATION_H_
 
-
 #include <EntityProject/ANVIL/drone_delivery_system.h>
 #include <vector>
 #include <string>
 #include "src/json_helper.h"
+#include <EntityProject/entity_console_logger.h>
 namespace csci3081 {
 
 
@@ -28,7 +28,14 @@ class DroneSimulation : public entity_project::DroneDeliverySystem {
   }
 
   /// TODO: Add documentation.
-  void AddEntity(entity_project::Entity* entity) {}
+  void AddEntity(entity_project::Entity* entity) {
+    // Console Observer
+    static entity_project::EntityConsoleLogger logger;
+    AddObserver(entity, &logger);
+  }
+
+  /// TODO: Add documentation.
+  void SetGraph(const entity_project::IGraph* graph) {}
 
   /// TODO: Add documentation.
   void ScheduleDelivery(entity_project::Package* package,

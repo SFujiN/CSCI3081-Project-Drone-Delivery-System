@@ -1,5 +1,6 @@
 #include <EntityProject/project_settings.h>
 #include <EntityProject/web_scene_viewer.h>
+#include <EntityProject/osm_graph_parser.h>
 
 #include <cmath>
 #include <iostream>
@@ -11,10 +12,18 @@ int main(int argc, char**argv) {
   if (argc > 2) {
     int port = std::atoi(argv[1]);
     std::string webDir(argv[2]);
+
+
     entity_project::DroneDeliverySystem* entitySystem = GetDroneDeliverySystem("default");
+
+    // Create and set the graph
+    entity_project::OSMGraphParser parser;
+    const entity_project::IGraph* graph = parser.CreateGraph("data/umn.osm", "data/umn-height.csv");
+    entitySystem->SetGraph(graph);
 
     entity_project::WebSceneViewer viewer(port, webDir);
     viewer.SetEntitySystem(entitySystem);
+
     while (viewer.Run()) {}
     delete entitySystem;
   }
