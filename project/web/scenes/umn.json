@@ -58,16 +58,8 @@
     {
         "command": "addMesh",
         "params": {
-            "mesh": "models/alm2wal.obj",
-            "position": [-0.0,-12.5,-0.0],
-            "scale": [0.0705,0.05,0.0705],
-            "color": "0xff00e1"
-        }
-    },
-    {
-        "command": "addMesh",
-        "params": {
-            "mesh": "models/wal2car.obj",
+            "type": "route",
+            "mesh": "models/routes.obj",
             "position": [-0.0,-12.5,-0.0],
             "scale": [0.0705,0.05,0.0705],
             "color": "0xff00e1"

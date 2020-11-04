@@ -10,7 +10,9 @@ var sceneScale = [0.05,0.05,0.05];
 var scenePosition = [0,-13,0];
 var camera, scene, renderer, controls;
 var models = [];
+var routes = [];
 var currentView = -1;
+var showRoutes = false;
 
 // More important related to models and animation.
 var geometry, material, mesh;
@@ -262,6 +264,14 @@ function loadModels() {
   );
 }
 
+function toggleRoutes() {
+  showRoutes = !showRoutes;
+  for (var routeNum = 0; routeNum < routes.length; routeNum++) {
+    routes[routeNum].visible = showRoutes;
+  }
+
+}
+
 // This function is a helper for loadScene().
 function addMesh(obj) {
   // instantiate a loader
@@ -292,6 +302,10 @@ function addMesh(obj) {
         
       } );
 
+      if (obj.type == "route") {
+        object.visible = showRoutes;
+        routes.push(object);
+      }
         models.push(object);
       scene.add( object );
     },

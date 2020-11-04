@@ -13,7 +13,6 @@ int main(int argc, char**argv) {
     int port = std::atoi(argv[1]);
     std::string webDir(argv[2]);
 
-
     entity_project::DroneDeliverySystem* entitySystem = GetDroneDeliverySystem("default");
 
     // Create and set the graph
