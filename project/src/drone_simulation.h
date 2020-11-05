@@ -34,8 +34,10 @@ class DroneSimulation : public entity_project::DroneDeliverySystem {
     AddObserver(entity, &logger);
   }
 
+#ifdef ANVIL2
   /// TODO: Add documentation.
   void SetGraph(const entity_project::IGraph* graph) {}
+#endif
 
   /// TODO: Add documentation.
   void ScheduleDelivery(entity_project::Package* package,
