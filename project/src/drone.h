@@ -33,6 +33,8 @@ class Drone : public entity_project::Drone {
   /// Gets the base acceleration
   float GetBaseAcceleration() const override;
 
+  void Update(float dt);
+
   /**
    * @brief Move the drone speed*dt distance along its current route
    * @return true if the route end has been reached, otherwise false

@@ -17,6 +17,25 @@ Drone::Drone(const picojson::object& initfrom) : Drone() {
   }
 }
 
+void csci3081::Drone::Update(float dt) {
+  // TODO Call FollowRoute and manage package lifecycles
+
+  /* old code:
+    if (!IsDispatched()) return;
+    bool completed = FollowRoute(dt);
+    CarryPackage();
+    if (!completed) return;
+    if (!hasPickedPackage) {
+      hasPickedPackage = true;
+      RouteTo(destination);
+    } else {
+      hasPickedPackage = false;
+      destination = nullptr;
+      pickup = nullptr;
+    }
+   */
+}
+
 bool Drone::FollowRoute(float dt) {
   auto pos = GetVecPos();
   float remainingDistance = GetCurrentSpeed() * dt;
