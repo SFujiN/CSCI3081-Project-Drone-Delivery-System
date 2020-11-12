@@ -13,6 +13,10 @@ class Drone : public entity_project::Drone {
  public:
   /// TODO: Add documentation.
   Drone() { AddType<Drone>(); }
+  /**
+   * @brief Create a Drone from the JSON encoding.
+   */
+  explicit Drone(const picojson::object&);
   /// Gets the current route
   const std::vector<std::string>& GetCurrentRoute() const override;
   /// Gets the remaining battery life

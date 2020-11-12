@@ -13,6 +13,10 @@ class Package : public entity_project::Package {
  public:
   /// TODO: Add documentation.
   Package() { AddType<Package>(); }
+  /**
+   * @brief Create a Package from the JSON encoding.
+   */
+  explicit Package(const picojson::object&);
   /// Provides the package weight
   float GetWeight() const override;
 };

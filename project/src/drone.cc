@@ -6,6 +6,16 @@
 
 namespace csci3081 {
 
+Drone::Drone(const picojson::object& initfrom) : Drone() {
+  details_ = initfrom;
+  if (details_.find("position") != details_.end()) {
+    int len = details_["position"].get<picojson::array>().size();
+    for (int i = 0; i < len && i < 3; i++) {
+      position_[i] = details_["position"].get<picojson::array>()[i].get<double>();
+    }
+  }
+}
+
 const std::vector<std::string>& Drone::GetCurrentRoute() const {
   return *((std::vector<std::string>*) nullptr);
 }
