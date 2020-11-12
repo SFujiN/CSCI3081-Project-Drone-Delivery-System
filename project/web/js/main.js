@@ -202,10 +202,12 @@ function displayJSON(data) {
     type_lookup = {
       'scheduled': ' scheduled.',
       'delivered': ' delivered to customer.',
-      'en route': ' picked up.'
+      'en route': ' picked up.',
+      'moving': ' now moving.',
+      'idle': ' stopped moving.'
     }
     string_ending = type_lookup[data["value"]];
-    additional_string = "Package #" + data["id"] + string_ending + "\r\n";
+    additional_string = "Entity #" + data["id"] + string_ending + "\r\n";
     notifbar = document.getElementById("notification-bar");
     notifbar.textContent += additional_string;
   }
