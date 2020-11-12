@@ -19,6 +19,17 @@ class Package : public entity_project::Package {
   explicit Package(const picojson::object&);
   /// Provides the package weight
   float GetWeight() const override;
+
+  /// Tell the drone that it has been picked up so it becomes dynamic
+  void NotifyScheduled() { HasBeenScheduled = true; }
+  void NotifyDelivered() { HasBeenDelivered = true; }
+
+  bool ShouldDelete() { return HasBeenDelivered; }
+  bool IsDynamic() const override { return HasBeenScheduled; }
+
+ private:
+  bool HasBeenScheduled = false;
+  bool HasBeenDelivered = false;
 };
 
 }  // namespace csci3081
