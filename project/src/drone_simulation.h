@@ -6,6 +6,7 @@
 #include <string>
 #include "src/json_helper.h"
 #include "entity_factory.h"
+#include "routing_scheduler.h"
 #include <EntityProject/entity_console_logger.h>
 namespace csci3081 {
 
@@ -38,12 +39,14 @@ class DroneSimulation : public entity_project::DroneDeliverySystem {
 
 #ifdef ANVIL2
   /// TODO: Add documentation.
-  void SetGraph(const entity_project::IGraph* graph) {}
+  void SetGraph(const entity_project::IGraph* graph) { scheduler.SetGraph(graph); }
 #endif
 
   /// TODO: Add documentation.
   void ScheduleDelivery(entity_project::Package* package,
-    entity_project::Customer* dest, const picojson::object& details) {}
+    entity_project::Customer* dest, const picojson::object& details) {
+    scheduler.ScheduleDelivery(package->AsType<Package>(), dest->AsType<Customer>(), entities_);
+  }
 
   /// TODO: Add documentation.
   void AddObserver(entity_project::Entity* entity, entity_project::EntityObserver* observer) {}
@@ -60,6 +63,7 @@ class DroneSimulation : public entity_project::DroneDeliverySystem {
  private:
   std::string teamName_;
   std::vector<entity_project::Entity*> entities_;
+  RoutingScheduler scheduler;
 };
 
 }  // namespace csci3081
