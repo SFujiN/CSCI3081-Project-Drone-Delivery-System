@@ -5,6 +5,7 @@
 #include <vector>
 #include <string>
 #include "src/json_helper.h"
+#include "entity_factory.h"
 #include <EntityProject/entity_console_logger.h>
 namespace csci3081 {
 
@@ -24,7 +25,7 @@ class DroneSimulation : public entity_project::DroneDeliverySystem {
     // Investigate json object that is passed in
     JsonHelper::PrintEntityDetails(val);
 
-    return NULL;
+    return EntityFactory::CreateEntity(val);
   }
 
   /// TODO: Add documentation.
@@ -32,6 +33,7 @@ class DroneSimulation : public entity_project::DroneDeliverySystem {
     // Console Observer
     static entity_project::EntityConsoleLogger logger;
     AddObserver(entity, &logger);
+    entities_.push_back(entity);
   }
 
 #ifdef ANVIL2
