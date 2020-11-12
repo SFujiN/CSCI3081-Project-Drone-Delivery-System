@@ -2,6 +2,9 @@
 #define DRONE_H_
 
 #include <EntityProject/ANVIL2/drone.h>
+#include <queue>
+#include <EntityProject/graph.h>
+#include "vector_3d.h"
 
 namespace csci3081 {
 
@@ -29,6 +32,19 @@ class Drone : public entity_project::Drone {
   float GetRemainingCapacity() const override;
   /// Gets the base acceleration
   float GetBaseAcceleration() const override;
+
+  /**
+   * @brief Move the drone speed*dt distance along its current route
+   * @return true if the route end has been reached, otherwise false
+   */
+  bool FollowRoute(float dt);
+  /// Get the current position in the form of a Vector3d
+  Vector3d GetVecPos();
+  /// Move to the location of the Vector3d
+  void SetVecPos(Vector3d);
+
+ private:
+  std::queue<entity_project::IGraphNode*> route;
 };
 
 }  // namespace csci3081
