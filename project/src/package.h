@@ -1,7 +1,7 @@
 #ifndef PACKAGE_H_
 #define PACKAGE_H_
 
-#include <EntityProject/ANVIL/package.h>
+#include <EntityProject/ANVIL2/package.h>
 
 namespace csci3081 {
 
@@ -11,8 +11,10 @@ namespace csci3081 {
  */
 class Package : public entity_project::Package {
  public:
-    /// TODO: Add documentation.
-    Package() { AddType<Package>(); }
+  /// TODO: Add documentation.
+  Package() { AddType<Package>(); }
+  /// Provides the package weight
+  float GetWeight() const override;
 };
 
 }  // namespace csci3081

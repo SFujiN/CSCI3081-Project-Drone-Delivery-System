@@ -1,7 +1,7 @@
 #ifndef DRONE_H_
 #define DRONE_H_
 
-#include <EntityProject/ANVIL/drone.h>
+#include <EntityProject/ANVIL2/drone.h>
 
 namespace csci3081 {
 
@@ -11,8 +11,20 @@ namespace csci3081 {
  */
 class Drone : public entity_project::Drone {
  public:
-    /// TODO: Add documentation.
-    Drone() { AddType<Drone>(); }
+  /// TODO: Add documentation.
+  Drone() { AddType<Drone>(); }
+  /// Gets the current route
+  const std::vector<std::string>& GetCurrentRoute() const override;
+  /// Gets the remaining battery life
+  float GetRemainingBattery() const override;
+  /// Gets the current speed
+  float GetCurrentSpeed() const override;
+  /// Gets the max carrying capacity
+  float GetMaxCapacity() const override;
+  /// Gets the remaining capacity
+  float GetRemainingCapacity() const override;
+  /// Gets the base acceleration
+  float GetBaseAcceleration() const override;
 };
 
 }  // namespace csci3081
