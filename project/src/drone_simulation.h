@@ -55,7 +55,7 @@ class DroneSimulation : public entity_project::DroneDeliverySystem {
   const std::vector<entity_project::Entity*>& GetEntities() const { return entities_; }
 
   /// TODO: Add documentation.
-  void Update(float dt) {}
+  void Update(float dt);
 
  private:
   std::string teamName_;
