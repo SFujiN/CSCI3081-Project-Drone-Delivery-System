@@ -10,8 +10,12 @@ namespace csci3081 {
  */
 class Customer : public entity_project::Customer {
  public:
-    /// TODO: Add documentation.
-    Customer() { AddType<Customer>(); }
+  /// TODO: Add documentation.
+  Customer() { AddType<Customer>(); }
+  /**
+   * @brief Create a Customer from the JSON encoding.
+   */
+  explicit Customer(const picojson::object&);
 };
 
 }  // namespace csci3081
