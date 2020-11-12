@@ -4,6 +4,7 @@
 #include "src/drone.h"
 #include "src/package.h"
 #include "src/customer.h"
+#include "route_utils.h"
 #include <EntityProject/entity.h>
 #include <vector>
 
@@ -23,7 +24,10 @@ class RoutingScheduler {
    */
   void ScheduleDelivery(Package*, Customer*, const std::vector<entity_project::Entity*>&);
 
+  void SetGraph(const entity_project::IGraph* graph) { routemanager.SetGraph(graph); }
+
  private:
+  RouteManager routemanager;
 
   /**
    * @brief Get the right drone to deliver the package to the customer

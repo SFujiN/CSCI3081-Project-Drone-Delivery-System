@@ -38,8 +38,10 @@ class RouteManager {
    */
   static Vector3d AsVec(const entity_project::IGraphNode*);
 
+  void SetGraph(const entity_project::IGraph* g) { graph = g; }
+
  private:
-  entity_project::IGraph* graph;
+  const entity_project::IGraph* graph;
 };
 
 }  // namespace csci3081
