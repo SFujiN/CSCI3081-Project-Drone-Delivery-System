@@ -51,8 +51,12 @@ class DroneSimulation : public entity_project::DroneDeliverySystem {
   /// TODO: Add documentation.
   void AddObserver(entity_project::Entity* entity, entity_project::EntityObserver* observer) {
     csci3081::Package* p = entity->AsType<Package>();
-    p->Attach(observer);
-    //p->Notify();
+    if (p != nullptr) {
+      p->Attach(observer);
+      p->Notify();
+    }
+    
+    
   }
 
   /// TODO: Add documentation.
