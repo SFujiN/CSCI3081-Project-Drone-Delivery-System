@@ -99,4 +99,29 @@ float csci3081::Drone::GetBaseAcceleration() const {
   return 0;
 }
 
+void Drone::SetDeliveryPlan(csci3081::Package* package, csci3081::Customer* customer, RouteManager rm) {
+  package->SetDestination(customer);
+  packages.push_back(package);
+  routemanager = rm;
+  RecalculateRoute();
+}
+
+void Drone::RecalculateRoute() {
+  if (packages.empty()) { return; }
+  if (packages.front()->PickedUp()) {
+    RouteTo(packages.front()->GetDestination());
+  } else {
+    RouteTo(packages.front());
+  }
+}
+void Drone::RouteTo(entity_project::Entity* dest) {
+  SetRoute(routemanager.GetRoute(
+      routemanager.GetRoutePointFor(this),
+      routemanager.GetRoutePointFor(dest)));
+}
+void Drone::SetRoute(std::vector<entity_project::IGraphNode*> newRoute) {
+  std::cout << "New route calculated to be set" << std::endl;
+  // TODO
+}
+
 }  // nmespace csci3081

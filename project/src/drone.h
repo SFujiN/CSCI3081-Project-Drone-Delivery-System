@@ -47,32 +47,13 @@ class Drone : public entity_project::Drone {
   /// Move to the location of the Vector3d
   void SetVecPos(Vector3d);
   /// Update the deliveries assigned to this drone
-  void SetDeliveryPlan(csci3081::Package* package, csci3081::Customer* customer, RouteManager rm) {
-    package->SetDestination(customer);
-    packages.push_back(package);
-    routemanager = rm;
-    RecalculateRoute();
-  }
+  void SetDeliveryPlan(csci3081::Package* package, csci3081::Customer* customer, RouteManager rm);
   /// Update the drone's route based on current state
-  void RecalculateRoute() {
-    if (packages.empty()) { return; }
-    if (packages.front()->PickedUp()) {
-      RouteTo(packages.front()->GetDestination());
-    } else {
-      RouteTo(packages.front());
-    }
-  }
+  void RecalculateRoute();
   /// Sets route to a destination
-  void RouteTo(entity_project::Entity* dest) {
-    SetRoute(routemanager.GetRoute(
-        routemanager.GetRoutePointFor(this),
-        routemanager.GetRoutePointFor(dest)));
-  }
+  void RouteTo(entity_project::Entity* dest);
   /// Sets route from a vector of IGraphNodes
-  void SetRoute(std::vector<entity_project::IGraphNode*> newRoute) {
-    std::cout << "New route calculated to be set" << std::endl;
-    // TODO
-  }
+  void SetRoute(std::vector<entity_project::IGraphNode*> newRoute);
 
  private:
   std::queue<entity_project::IGraphNode*> route;
