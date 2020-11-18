@@ -25,7 +25,7 @@ Drone* RoutingScheduler::findAppropriateDrone(
   // TODO: this should more intelligently choose a drone
   for (auto* entity : vector) {
     auto drone = entity->AsType<csci3081::Drone>();
-    if (drone != nullptr) {
+    if (drone != nullptr && !drone->IsDelivering()) { // this will break if short circuit evaluation does not happen
       return drone;
     }
   }

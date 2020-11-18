@@ -55,6 +55,9 @@ class Drone : public entity_project::Drone {
   /// Sets route from a vector of IGraphNodes
   void SetRoute(std::vector<entity_project::IGraphNode*> newRoute);
 
+  /// Returns true if the drone has incomplete deliveries
+  bool IsDelivering() { return !packages.empty(); }
+
  private:
   std::queue<entity_project::IGraphNode*> route;
   std::vector<Package*> packages;
