@@ -19,21 +19,12 @@ Drone::Drone(const picojson::object& initfrom) : Drone() {
 
 void csci3081::Drone::Update(float dt) {
   // TODO Call FollowRoute and manage package lifecycles
-  FollowRoute(dt);
-  /* old code:
-    if (!IsDispatched()) return;
-    bool completed = FollowRoute(dt);
-    CarryPackage();
-    if (!completed) return;
-    if (!hasPickedPackage) {
-      hasPickedPackage = true;
-      RouteTo(destination);
-    } else {
-      hasPickedPackage = false;
-      destination = nullptr;
-      pickup = nullptr;
-    }
-   */
+  if (!IsDelivering()) return;
+  bool completed = FollowRoute(dt);
+  CarryPackages();
+  if (!completed) return;
+  UpdatePackages();
+  RecalculateRoute();
 }
 
 bool Drone::FollowRoute(float dt) {
@@ -126,7 +117,23 @@ void Drone::SetRoute(std::vector<entity_project::IGraphNode*> newRoute) {
     std::cout << node->GetPosition()[0] << ' '<< node->GetPosition()[1] << ' '<< node->GetPosition()[2] << std::endl;
   }
   route = newRouteQueue;
-  // TODO
+}
+
+void Drone::CarryPackages() {
+  for (auto* package : packages) {
+    // package.SetPosition......
+  }
+}
+
+void Drone::UpdatePackages() {
+  for (auto* package : packages) {
+    if (/*package.AtDestination()*/ false) {
+      // Drop off package
+      package->NotifyDelivered();
+    } else if (/*Touching(package)*/ true) {
+      package->DronePickUp();
+    }
+  }
 }
 
 }  // nmespace csci3081
