@@ -37,9 +37,15 @@ class Package : public entity_project::Package {
     return dest;
   }
 
+  /// Lets the package know if it has been picked up by a Drone
+  void DronePickUp() { HasBeenPickedUp = true; }
+  /// True if being carried by drone
+  bool PickedUp() { return HasBeenPickedUp; }
+
  private:
   bool HasBeenScheduled = false;
   bool HasBeenDelivered = false;
+  bool HasBeenPickedUp = false;
   Customer* dest;
 };
 

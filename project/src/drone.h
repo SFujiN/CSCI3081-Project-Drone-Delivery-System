@@ -51,6 +51,25 @@ class Drone : public entity_project::Drone {
     packages.push_back(package);
     routemanager = rm;
   }
+  /// Update the drone's route based on current state
+  void RecalculateRoute() {
+    if (packages.empty()) { return; }
+    if (packages.front()->PickedUp()) {
+      RouteTo(packages.front()->GetDestination());
+    } else {
+      RouteTo(packages.front());
+    }
+  }
+  /// Sets route to a destination
+  void RouteTo(entity_project::Entity* dest) {
+    SetRoute(routemanager.GetRoute(
+        routemanager.GetRoutePointFor(this),
+        routemanager.GetRoutePointFor(dest)));
+  }
+  /// Sets route from a vector of IGraphNodes
+  void SetRoute(std::vector<entity_project::IGraphNode*> newRoute) {
+    // TODO
+  }
 
  private:
   std::queue<entity_project::IGraphNode*> route;
