@@ -19,7 +19,6 @@ Drone::Drone(const picojson::object& initfrom) : Drone() {
 
 void csci3081::Drone::Update(float dt) {
   // TODO Call FollowRoute and manage package lifecycles
-
   /* old code:
     if (!IsDispatched()) return;
     bool completed = FollowRoute(dt);
@@ -120,7 +119,12 @@ void Drone::RouteTo(entity_project::Entity* dest) {
       routemanager.GetRoutePointFor(dest)));
 }
 void Drone::SetRoute(std::vector<entity_project::IGraphNode*> newRoute) {
-  std::cout << "New route calculated to be set" << std::endl;
+  std::queue<entity_project::IGraphNode*> newRouteQueue;
+  for (auto node : newRoute) {
+    newRouteQueue.push(node);
+    std::cout << node->GetPosition()[0] << ' '<< node->GetPosition()[1] << ' '<< node->GetPosition()[2] << std::endl;
+  }
+  route = newRouteQueue;
   // TODO
 }
 
