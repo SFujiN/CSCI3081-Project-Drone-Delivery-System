@@ -1,7 +1,8 @@
 #ifndef OBSERVABLE_H_
 #define OBSERVABLE_H_
 
-#include <EntityProject/ANVIL2/entity_observer.h>
+#include <EntityProject/entity_observer.h>
+#include <EntityProject/entity_console_logger.h>
 #include <vector>
 
 namespace csci3081 {
@@ -12,12 +13,15 @@ namespace csci3081 {
  */
 class Observable {
  public:
-  void Attach(const entity_project::EntityObserver* observer) { observers.push_back(observer); }
-  void Detach(const entity_project::EntityObserver* observer) {
+  void Attach(entity_project::EntityObserver* observer) { observers.push_back(observer); }
+  void Detach(entity_project::EntityObserver* observer) {
       observers.erase(std::remove(observers.begin(), observers.end(), observer), observers.end()); }
   void Notify(const picojson::value& event);
+  void SetEntity(entity_project::Entity* e) { entity = e; }
  private:
-  std::vector<const entity_project::EntityObserver*> observers;
+  
+  const entity_project::Entity* entity = nullptr;
+  std::vector<entity_project::EntityObserver*> observers;
 };
 
 }  // namespace csci3081
