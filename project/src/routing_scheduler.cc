@@ -23,7 +23,13 @@ void csci3081::RoutingScheduler::ScheduleDelivery(
 Drone* RoutingScheduler::findAppropriateDrone(
         Package* package, Customer* customer,
         const std::vector<entity_project::Entity*>& vector) {
-  // TODO
+  // TODO: this should more intelligently choose a drone
+  for (auto i = vector.begin(); i != vector.end(); ++i) {
+    auto drone = (*i)->AsType<csci3081::Drone>();
+    if (drone != nullptr) {
+      return drone;
+    }
+  }
   return nullptr;
 }
 
