@@ -6,10 +6,24 @@
 
 namespace csci3081 {
 
-entity_project::IGraphNode* RouteManager::GetRoutePointFor(entity_project::Entity*) {
-  // TODO
-  // we can't instantiate IGraphNodes...I think I will repurpose this to find the closest graph node to the entity
-  return nullptr;
+entity_project::IGraphNode* RouteManager::GetRoutePointFor(entity_project::Entity* entity) {
+  std::vector<float> entityPosVec = entity->GetPosition();
+  Vector3d entityPos(entityPosVec[0],entityPosVec[1],entityPosVec[2]);
+  std::vector<float> nodePosVec;
+  entity_project::IGraphNode* bestNode = nullptr;
+  float bestDist = 9e10;
+  for (auto* node : graph->GetNodes()) {
+    nodePosVec = node->GetPosition();
+    float dist = entityPos.distanceTo(Vector3d(nodePosVec[0],nodePosVec[1],nodePosVec[2]));
+    if (dist < bestDist) {
+      bestNode = node;
+      bestDist = dist;
+    }
+  }
+  std::cout << "Requested: " << entityPosVec[0] << ' ' << entityPosVec[1] << ' ' << entityPosVec[2] << std::endl;
+  nodePosVec = bestNode->GetPosition();
+  std::cout << "Found: " << nodePosVec[0] << ' ' << nodePosVec[1] << ' ' << nodePosVec[2] << std::endl;
+  return bestNode;
 }
 
 float
