@@ -17,6 +17,7 @@ namespace csci3081 {
  */
 class DroneSimulation : public entity_project::DroneDeliverySystem {
  public:
+  ~DroneSimulation() override;
   /// TODO: Add documentation.
   const std::string& GetTeamName() const { return teamName_; }
 
