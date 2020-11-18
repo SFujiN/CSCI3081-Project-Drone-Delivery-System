@@ -19,6 +19,7 @@ Drone::Drone(const picojson::object& initfrom) : Drone() {
 
 void csci3081::Drone::Update(float dt) {
   // TODO Call FollowRoute and manage package lifecycles
+  FollowRoute(dt);
   /* old code:
     if (!IsDispatched()) return;
     bool completed = FollowRoute(dt);
@@ -80,7 +81,7 @@ float csci3081::Drone::GetRemainingBattery() const {
 
 float csci3081::Drone::GetCurrentSpeed() const {
   // TODO
-  return 0;
+  return 30;
 }
 
 float csci3081::Drone::GetMaxCapacity() const {
