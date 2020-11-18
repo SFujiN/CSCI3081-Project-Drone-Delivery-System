@@ -93,6 +93,7 @@ TEST_F(DroneSimRegTest, EntityCreationRegression) {
 
   // All attributes given
   // Drone
+  obj["type"] = picojson::value("drone");
   obj["position"] = picojson::value(picojson::array(
    {picojson::value(1.0),
    picojson::value(2.0),
@@ -117,6 +118,7 @@ TEST_F(DroneSimRegTest, EntityCreationRegression) {
   ASSERT_FLOAT_EQ(drone->GetRadius(),4.9);
 
   //Package
+  obj["type"] = picojson::value("package");
   obj["position"] = picojson::value(picojson::array(
     {picojson::value(1.0),
     picojson::value(2.0),
@@ -141,6 +143,7 @@ TEST_F(DroneSimRegTest, EntityCreationRegression) {
   ASSERT_FLOAT_EQ(package->GetRadius(),4.9);
 
   //Customer
+  obj["type"] = picojson::value("customer");
   obj["position"] = picojson::value(picojson::array(
     {picojson::value(1.0),
     picojson::value(2.0),
