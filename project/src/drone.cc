@@ -24,7 +24,7 @@ void csci3081::Drone::Update(float dt) {
   CarryPackages();
   if (!completed) return;
   UpdatePackages();
-  RecalculateRoute();
+  //RecalculateRoute();
 }
 
 bool Drone::FollowRoute(float dt) {
