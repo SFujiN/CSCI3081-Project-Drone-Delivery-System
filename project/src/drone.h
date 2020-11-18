@@ -48,6 +48,7 @@ class Drone : public entity_project::Drone {
   void SetVecPos(Vector3d);
   /// Update the deliveries assigned to this drone
   void SetDeliveryPlan(csci3081::Package* package, csci3081::Customer* customer, RouteManager rm) {
+    package->SetDestination(customer);
     packages.push_back(package);
     routemanager = rm;
   }
