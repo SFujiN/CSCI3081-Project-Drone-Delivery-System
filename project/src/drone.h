@@ -51,6 +51,7 @@ class Drone : public entity_project::Drone {
     package->SetDestination(customer);
     packages.push_back(package);
     routemanager = rm;
+    RecalculateRoute();
   }
   /// Update the drone's route based on current state
   void RecalculateRoute() {
@@ -69,6 +70,7 @@ class Drone : public entity_project::Drone {
   }
   /// Sets route from a vector of IGraphNodes
   void SetRoute(std::vector<entity_project::IGraphNode*> newRoute) {
+    std::cout << "New route calculated to be set" << std::endl;
     // TODO
   }
 
