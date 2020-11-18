@@ -2,6 +2,7 @@
 #define PACKAGE_H_
 
 #include <EntityProject/ANVIL2/package.h>
+#include "src/customer.h"
 
 namespace csci3081 {
 
@@ -27,9 +28,19 @@ class Package : public entity_project::Package {
   bool ShouldDelete() { return HasBeenDelivered; }
   bool IsDynamic() const override { return HasBeenScheduled; }
 
+  /// Sets a destination Customer
+  void SetDestination(Customer* customer) {
+    dest = customer;
+  }
+  /// Gets the Customer to be delivered to
+  Customer* GetDestination() {
+    return dest;
+  }
+
  private:
   bool HasBeenScheduled = false;
   bool HasBeenDelivered = false;
+  Customer* dest;
 };
 
 }  // namespace csci3081

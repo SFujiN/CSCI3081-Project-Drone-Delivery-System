@@ -5,6 +5,7 @@
 #include <queue>
 #include <EntityProject/graph.h>
 #include "vector_3d.h"
+#include "src/package.h"
 
 namespace csci3081 {
 
@@ -44,9 +45,14 @@ class Drone : public entity_project::Drone {
   Vector3d GetVecPos();
   /// Move to the location of the Vector3d
   void SetVecPos(Vector3d);
+  /// Update the deliveries assigned to this drone
+  void SetDeliveryPlan(csci3081::Package* package, csci3081::Customer* customer) {
+    packages.push_back(package);
+  }
 
  private:
   std::queue<entity_project::IGraphNode*> route;
+  std::vector<Package*> packages;
 };
 
 }  // namespace csci3081
