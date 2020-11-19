@@ -16,14 +16,19 @@ void csci3081::RoutingScheduler::ScheduleDelivery(
     std::cerr << "No drone was a available for this delivery! Try again later!" << std::endl;
     return;
   }
-  // TODO: Tell the drone where to go
-  //to_dispatch->SetDeliveryPlan(package, customer);
+  to_dispatch->SetDeliveryPlan(package, customer, routemanager);
 }
 
 Drone* RoutingScheduler::findAppropriateDrone(
         Package* package, Customer* customer,
         const std::vector<entity_project::Entity*>& vector) {
-  // TODO
+  // TODO: this should more intelligently choose a drone
+  for (auto* entity : vector) {
+    auto drone = entity->AsType<csci3081::Drone>();
+    if (drone != nullptr && !drone->IsDelivering()) { // this will break if short circuit evaluation does not happen
+      return drone;
+    }
+  }
   return nullptr;
 }
 

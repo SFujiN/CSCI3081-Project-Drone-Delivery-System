@@ -8,6 +8,8 @@
 #include <EntityProject/graph.h>
 #include <EntityProject/entity.h>
 #include "src/vector_3d.h"
+#include <unordered_map>
+#include <iostream>
 
 namespace csci3081 {
 
