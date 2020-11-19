@@ -26,7 +26,7 @@ class Package : public entity_project::Package {
   /// Tell the drone that it has been picked up so it becomes dynamic
   void NotifyScheduled();
   void NotifyDelivered();
-  
+
   Observable& GetObservable() { return packageObservable; }
 
   bool ShouldDelete() { return HasBeenDelivered; }
@@ -35,7 +35,6 @@ class Package : public entity_project::Package {
  private:
   bool HasBeenScheduled = false;
   bool HasBeenDelivered = false;
-  std::vector<entity_project::EntityObserver*> observers;
   Observable packageObservable;
 };
 
