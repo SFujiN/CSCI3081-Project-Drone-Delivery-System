@@ -50,10 +50,20 @@ class DroneSimulation : public entity_project::DroneDeliverySystem {
   }
 
   /// TODO: Add documentation.
-  void AddObserver(entity_project::Entity* entity, entity_project::EntityObserver* observer) {}
+  void AddObserver(entity_project::Entity* entity, entity_project::EntityObserver* observer) {
+    csci3081::Package* p = entity->AsType<Package>();
+    if (p != nullptr) {
+      p->GetObservable().Attach(observer);
+    }
+  }
 
   /// TODO: Add documentation.
-  void RemoveObserver(entity_project::Entity* entity, entity_project::EntityObserver* observer) {}
+  void RemoveObserver(entity_project::Entity* entity, entity_project::EntityObserver* observer) {
+    csci3081::Package* p = entity->AsType<Package>();
+    if (p != nullptr) {
+      p->GetObservable().Detach(observer);
+    }
+  }
 
   /// TODO: Add documentation.
   const std::vector<entity_project::Entity*>& GetEntities() const { return entities_; }

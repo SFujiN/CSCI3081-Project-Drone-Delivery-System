@@ -29,21 +29,12 @@ Drone::Drone(const picojson::object& initfrom) : Drone() {
 
 void csci3081::Drone::Update(float dt) {
   // TODO Call FollowRoute and manage package lifecycles
-
-  /* old code:
-    if (!IsDispatched()) return;
-    bool completed = FollowRoute(dt);
-    CarryPackage();
-    if (!completed) return;
-    if (!hasPickedPackage) {
-      hasPickedPackage = true;
-      RouteTo(destination);
-    } else {
-      hasPickedPackage = false;
-      destination = nullptr;
-      pickup = nullptr;
-    }
-   */
+  if (!IsDelivering()) return;
+  bool completed = FollowRoute(dt);
+  CarryPackages();
+  if (!completed) return;
+  UpdatePackages();
+  //RecalculateRoute();
 }
 
 bool Drone::FollowRoute(float dt) {
@@ -91,7 +82,7 @@ float csci3081::Drone::GetRemainingBattery() const {
 
 float csci3081::Drone::GetCurrentSpeed() const {
   // TODO
-  return 0;
+  return 30;
 }
 
 float csci3081::Drone::GetMaxCapacity() const {
@@ -107,6 +98,52 @@ float csci3081::Drone::GetRemainingCapacity() const {
 float csci3081::Drone::GetBaseAcceleration() const {
   // TODO
   return 0;
+}
+
+void Drone::SetDeliveryPlan(csci3081::Package* package, csci3081::Customer* customer, RouteManager rm) {
+  package->SetDestination(customer);
+  packages.push_back(package);
+  routemanager = rm;
+  RecalculateRoute();
+}
+
+void Drone::RecalculateRoute() {
+  if (packages.empty()) { return; }
+  if (packages.front()->PickedUp()) {
+    RouteTo(packages.front()->GetDestination());
+  } else {
+    RouteTo(packages.front());
+  }
+}
+void Drone::RouteTo(entity_project::Entity* dest) {
+  SetRoute(routemanager.GetRoute(
+      routemanager.GetRoutePointFor(this),
+      routemanager.GetRoutePointFor(dest)));
+}
+void Drone::SetRoute(std::vector<entity_project::IGraphNode*> newRoute) {
+  std::queue<entity_project::IGraphNode*> newRouteQueue;
+  for (auto node : newRoute) {
+    newRouteQueue.push(node);
+    std::cout << node->GetPosition()[0] << ' '<< node->GetPosition()[1] << ' '<< node->GetPosition()[2] << std::endl;
+  }
+  route = newRouteQueue;
+}
+
+void Drone::CarryPackages() {
+  for (auto* package : packages) {
+    // package.SetPosition......
+  }
+}
+
+void Drone::UpdatePackages() {
+  for (auto* package : packages) {
+    if (/*package.AtDestination()*/ false) {
+      // Drop off package
+      package->NotifyDelivered();
+    } else if (/*Touching(package)*/ true) {
+      package->DronePickUp();
+    }
+  }
 }
 
 }  // nmespace csci3081
