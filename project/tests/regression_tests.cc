@@ -53,13 +53,13 @@ TEST_F(DroneSimRegTest, EntityCreationRegression) {
   ASSERT_NE(entity, nullptr);
   Drone* drone = entity->AsType<Drone>();
   ASSERT_NE(drone, nullptr);
-  ASSERT_FLOAT_EQ(drone->GetPosition()[0],0);
-  ASSERT_FLOAT_EQ(drone->GetPosition()[1],0);
-  ASSERT_FLOAT_EQ(drone->GetPosition()[2],0);
-  ASSERT_FLOAT_EQ(drone->GetDirection()[0],1);
-  ASSERT_FLOAT_EQ(drone->GetDirection()[1],0);
-  ASSERT_FLOAT_EQ(drone->GetDirection()[2],0);
-  ASSERT_NE(drone->GetRadius(),0);
+  EXPECT_FLOAT_EQ(drone->GetPosition()[0],0);
+  EXPECT_FLOAT_EQ(drone->GetPosition()[1],0);
+  EXPECT_FLOAT_EQ(drone->GetPosition()[2],0);
+  EXPECT_FLOAT_EQ(drone->GetDirection()[0],1);
+  EXPECT_FLOAT_EQ(drone->GetDirection()[1],0);
+  EXPECT_FLOAT_EQ(drone->GetDirection()[2],0);
+  EXPECT_NE(drone->GetRadius(),0);
 
   //Package
   obj["type"] = picojson::value("package");
@@ -68,13 +68,13 @@ TEST_F(DroneSimRegTest, EntityCreationRegression) {
   ASSERT_NE(entity, nullptr);
   Package* package = entity->AsType<Package>();
   ASSERT_NE(package, nullptr);
-  ASSERT_FLOAT_EQ(package->GetPosition()[0],0);
-  ASSERT_FLOAT_EQ(package->GetPosition()[1],0);
-  ASSERT_FLOAT_EQ(package->GetPosition()[2],0);
-  ASSERT_FLOAT_EQ(package->GetDirection()[0],1);
-  ASSERT_FLOAT_EQ(package->GetDirection()[1],0);
-  ASSERT_FLOAT_EQ(package->GetDirection()[2],0);
-  ASSERT_NE(package->GetRadius(),0);
+  EXPECT_FLOAT_EQ(package->GetPosition()[0],0);
+  EXPECT_FLOAT_EQ(package->GetPosition()[1],0);
+  EXPECT_FLOAT_EQ(package->GetPosition()[2],0);
+  EXPECT_FLOAT_EQ(package->GetDirection()[0],1);
+  EXPECT_FLOAT_EQ(package->GetDirection()[1],0);
+  EXPECT_FLOAT_EQ(package->GetDirection()[2],0);
+  EXPECT_NE(package->GetRadius(),0);
 
   //Customer
   obj["type"] = picojson::value("customer");
@@ -83,16 +83,17 @@ TEST_F(DroneSimRegTest, EntityCreationRegression) {
   ASSERT_NE(entity, nullptr);
   Customer* customer = entity->AsType<Customer>();
   ASSERT_NE(customer, nullptr);
-  ASSERT_FLOAT_EQ(customer->GetPosition()[0],0);
-  ASSERT_FLOAT_EQ(customer->GetPosition()[1],0);
-  ASSERT_FLOAT_EQ(customer->GetPosition()[2],0);
-  ASSERT_FLOAT_EQ(customer->GetDirection()[0],1);
-  ASSERT_FLOAT_EQ(customer->GetDirection()[1],0);
-  ASSERT_FLOAT_EQ(customer->GetDirection()[2],0);
-  ASSERT_NE(customer->GetRadius(),0);
+  EXPECT_FLOAT_EQ(customer->GetPosition()[0],0);
+  EXPECT_FLOAT_EQ(customer->GetPosition()[1],0);
+  EXPECT_FLOAT_EQ(customer->GetPosition()[2],0);
+  EXPECT_FLOAT_EQ(customer->GetDirection()[0],1);
+  EXPECT_FLOAT_EQ(customer->GetDirection()[1],0);
+  EXPECT_FLOAT_EQ(customer->GetDirection()[2],0);
+  EXPECT_NE(customer->GetRadius(),0);
 
   // All attributes given
   // Drone
+  obj["type"] = picojson::value("drone");
   obj["position"] = picojson::value(picojson::array(
    {picojson::value(1.0),
    picojson::value(2.0),
@@ -108,15 +109,16 @@ TEST_F(DroneSimRegTest, EntityCreationRegression) {
   delete drone;
   drone = entity->AsType<Drone>();
   ASSERT_NE(drone, nullptr);
-  ASSERT_FLOAT_EQ(drone->GetPosition()[0],1);
-  ASSERT_FLOAT_EQ(drone->GetPosition()[1],2);
-  ASSERT_FLOAT_EQ(drone->GetPosition()[2],3);
-  ASSERT_FLOAT_EQ(drone->GetDirection()[0],-1);
-  ASSERT_FLOAT_EQ(drone->GetDirection()[1],-2);
-  ASSERT_FLOAT_EQ(drone->GetDirection()[2],-3);
-  ASSERT_FLOAT_EQ(drone->GetRadius(),4.9);
+  EXPECT_FLOAT_EQ(drone->GetPosition()[0],1);
+  EXPECT_FLOAT_EQ(drone->GetPosition()[1],2);
+  EXPECT_FLOAT_EQ(drone->GetPosition()[2],3);
+  EXPECT_FLOAT_EQ(drone->GetDirection()[0],-1);
+  EXPECT_FLOAT_EQ(drone->GetDirection()[1],-2);
+  EXPECT_FLOAT_EQ(drone->GetDirection()[2],-3);
+  EXPECT_FLOAT_EQ(drone->GetRadius(),4.9);
 
   //Package
+  obj["type"] = picojson::value("package");
   obj["position"] = picojson::value(picojson::array(
     {picojson::value(1.0),
     picojson::value(2.0),
@@ -132,15 +134,16 @@ TEST_F(DroneSimRegTest, EntityCreationRegression) {
   delete package;
   package = entity->AsType<Package>();
   ASSERT_NE(package, nullptr);
-  ASSERT_FLOAT_EQ(package->GetPosition()[0],1);
-  ASSERT_FLOAT_EQ(package->GetPosition()[1],2);
-  ASSERT_FLOAT_EQ(package->GetPosition()[2],3);
-  ASSERT_FLOAT_EQ(package->GetDirection()[0],-1);
-  ASSERT_FLOAT_EQ(package->GetDirection()[1],-2);
-  ASSERT_FLOAT_EQ(package->GetDirection()[2],-3);
-  ASSERT_FLOAT_EQ(package->GetRadius(),4.9);
+  EXPECT_FLOAT_EQ(package->GetPosition()[0],1);
+  EXPECT_FLOAT_EQ(package->GetPosition()[1],2);
+  EXPECT_FLOAT_EQ(package->GetPosition()[2],3);
+  EXPECT_FLOAT_EQ(package->GetDirection()[0],-1);
+  EXPECT_FLOAT_EQ(package->GetDirection()[1],-2);
+  EXPECT_FLOAT_EQ(package->GetDirection()[2],-3);
+  EXPECT_FLOAT_EQ(package->GetRadius(),4.9);
 
   //Customer
+  obj["type"] = picojson::value("customer");
   obj["position"] = picojson::value(picojson::array(
     {picojson::value(1.0),
     picojson::value(2.0),
@@ -156,13 +159,13 @@ TEST_F(DroneSimRegTest, EntityCreationRegression) {
   delete customer;
   customer = entity->AsType<Customer>();
   ASSERT_NE(customer, nullptr);
-  ASSERT_FLOAT_EQ(customer->GetPosition()[0],1);
-  ASSERT_FLOAT_EQ(customer->GetPosition()[1],2);
-  ASSERT_FLOAT_EQ(customer->GetPosition()[2],3);
-  ASSERT_FLOAT_EQ(customer->GetDirection()[0],-1);
-  ASSERT_FLOAT_EQ(customer->GetDirection()[1],-2);
-  ASSERT_FLOAT_EQ(customer->GetDirection()[2],-3);
-  ASSERT_FLOAT_EQ(customer->GetRadius(),4.9);
+  EXPECT_FLOAT_EQ(customer->GetPosition()[0],1);
+  EXPECT_FLOAT_EQ(customer->GetPosition()[1],2);
+  EXPECT_FLOAT_EQ(customer->GetPosition()[2],3);
+  EXPECT_FLOAT_EQ(customer->GetDirection()[0],-1);
+  EXPECT_FLOAT_EQ(customer->GetDirection()[1],-2);
+  EXPECT_FLOAT_EQ(customer->GetDirection()[2],-3);
+  EXPECT_FLOAT_EQ(customer->GetRadius(),4.9);
 }
 
 TEST_F(DroneSimRegTest, AddEntityToSimulationRegression) {
