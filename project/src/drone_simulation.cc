@@ -25,4 +25,10 @@ void DroneSimulation::Update(float dt) {
   }
 }
 
+DroneSimulation::~DroneSimulation() {
+  for (auto* entity : entities_) {
+    delete entity;
+  }
+}
+
 }  // namespace csci3081

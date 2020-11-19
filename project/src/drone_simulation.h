@@ -17,6 +17,7 @@ namespace csci3081 {
  */
 class DroneSimulation : public entity_project::DroneDeliverySystem {
  public:
+  ~DroneSimulation() override;
   /// TODO: Add documentation.
   const std::string& GetTeamName() const { return teamName_; }
 
@@ -53,11 +54,6 @@ class DroneSimulation : public entity_project::DroneDeliverySystem {
     csci3081::Package* p = entity->AsType<Package>();
     if (p != nullptr) {
       p->GetObservable().Attach(observer);
-      picojson::object obj;
-      obj["type"] = picojson::value("notify");
-      obj["value"] = picojson::value("en route");
-      const picojson::value& event = picojson::value(obj);
-      p->GetObservable().Notify(event);
     }
   }
 
