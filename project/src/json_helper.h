@@ -33,6 +33,40 @@ public:
       return obj.find(key) != obj.end();
   }
 
+  /// Gets a value associated with a key from a object, returning a value if it fails
+  /**
+   * This function is meant to prevent runtime errors occurring due to key-value
+   * pairs either not existing or not having the expected types. It checks for
+   * both of these conditions and returns the value passed in as failvalue if
+   * either of these conditions are not met.
+   */
+  template <class T> // Must keep this in header file because template
+  static T GetNoFail(const picojson::object& obj, std::string key, T failvalue) {
+    if (ContainsKey(obj,key)) {
+      if (GetValue(obj,key).is<T>()) {
+        return GetValue(obj, key).get<T>();
+      }
+    }
+    return failvalue;
+  }
+
+  /// Gets a value associated with an index from an array, returning a value if it fails
+  /**
+   * This function is meant to prevent runtime errors occurring due to the index
+   * being out of bounds or the array not containing the expected types. It checks for
+   * both of these conditions and returns the value passed in as failvalue if
+   * either of these conditions are not met.
+   */
+  template <class T> // Must keep this in header file because template
+  static T ArrayGetNoFail(const picojson::array& arr, int index, T failvalue) {
+    if (0 <= index && index < arr.size()) {
+      if (arr.at(index).is<T>()) {
+        return arr.at(index).get<T>();
+      }
+    }
+    return failvalue;
+  }
+
   static void PrintKeyValues(const picojson::object& obj, std::string prefix = "  ") {
       for (picojson::object::const_iterator it = obj.begin(); it != obj.end(); it++) {
           std::cout << prefix << it->first << ": " << it->second << std::endl;
