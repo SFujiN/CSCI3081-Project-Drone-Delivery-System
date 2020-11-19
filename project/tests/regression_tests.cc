@@ -5,6 +5,7 @@
 #include "EntityProject/ANVIL/customer.h"
 #include <EntityProject/project_settings.h>
 #include "src/json_helper.h"
+#include <EntityProject/osm_graph_parser.h>
 
 
 #include <iostream>
@@ -21,6 +22,10 @@ class DroneSimRegTest : public ::testing::Test {
  protected:
   virtual void SetUp() {
     system = GetDroneDeliverySystem("default");
+    // Create and set the graph
+    entity_project::OSMGraphParser parser;
+    const entity_project::IGraph* graph = parser.CreateGraph("data/umn.osm", "data/umn-height.csv");
+    system->SetGraph(graph);
   }
   virtual void TearDown() {}
 
