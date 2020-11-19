@@ -24,12 +24,9 @@ class Package : public entity_project::Package {
   float GetWeight() const override;
 
   /// Tell the drone that it has been picked up so it becomes dynamic
-  void NotifyScheduled(); // { HasBeenScheduled = true; } Notify();
-  void NotifyDelivered(); // { HasBeenDelivered = true; } Notify(); 
-  // void Attach(entity_project::EntityObserver* observer) { observers.push_back(observer); }//observers.push_back(observer); }
-  // void Detach(entity_project::EntityObserver* observer) { observers.erase(std::remove(observers.begin(), observers.end(), observer), observers.end()); }
-  // void Notify();
-
+  void NotifyScheduled();
+  void NotifyDelivered();
+  
   Observable& GetObservable() { return packageObservable; }
 
   bool ShouldDelete() { return HasBeenDelivered; }
