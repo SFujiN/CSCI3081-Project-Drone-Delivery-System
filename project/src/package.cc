@@ -40,4 +40,14 @@ void Package::NotifyDelivered() {
   const picojson::value& event = picojson::value(obj);
   packageObservable.Notify(event);
 }
+
+void Package::NotifyPickedUp() {
+  picojson::object obj;
+  obj["type"] = picojson::value("notify");
+  obj["value"] = picojson::value("en route");
+  const picojson::value& event = picojson::value(obj);
+  packageObservable.Notify(event);
+}
+
+
 }  // namespace csci3081

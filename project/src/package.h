@@ -26,6 +26,7 @@ class Package : public entity_project::Package {
   /// Tell the drone that it has been picked up so it becomes dynamic
   void NotifyScheduled();
   void NotifyDelivered();
+  void NotifyPickedUp();
 
   Observable& GetObservable() { return packageObservable; }
 
