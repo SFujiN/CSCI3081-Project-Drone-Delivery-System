@@ -46,3 +46,12 @@ std::vector<csci3081::droneSpecs> csci3081::createDroneModelList(std::string fil
 	}
 	return drone_model_list;
 }
+
+std::ostream& csci3081::operator<<(std::ostream& out, const csci3081::droneSpecs& d) {
+	return out << "Model#: " << d.model_ << "\n"
+		   << "Mass (kg): " << d.mass_ << "\n"
+		   << "Max Speed (km/h): " << d.max_speed_ << "\n"
+		   << "Base Acceleration (m/s^2): " << d.base_acc_ << "\n"
+		   << "WeightCapacity (kg): " << d.weight_cap_ << "\n"
+		   << "Base Battery Capacity (seconds): " << d.base_bat_cap_ << "\n";
+}

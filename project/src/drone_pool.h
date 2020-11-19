@@ -32,6 +32,7 @@ namespace csci3081 {
 };
 
 std::vector<droneSpecs> createDroneModelList(std::string filename);
+std::ostream& operator<<(std::ostream& out, const droneSpecs& d);
 
 } // namespace csci3081
 
