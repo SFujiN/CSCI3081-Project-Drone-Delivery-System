@@ -7,6 +7,7 @@
 
 #include <EntityProject/entity.h>
 #include <picojson.h>
+#include "src/json_helper.h"
 
 namespace csci3081 {
 
