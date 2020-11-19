@@ -2,17 +2,20 @@
 #define PACKAGE_H_
 
 #include <EntityProject/ANVIL2/package.h>
+#include <EntityProject/entity_console_logger.h>
+#include "src/observable.h"
+#include <vector>
 #include "src/customer.h"
 
 namespace csci3081 {
 
-/// TODO: Add documentation. You may edit this class including adding members or methods.
+/// Represents a package in the drone system.
 /**
- * TODO: Add detailed documentation.
+ * @brief Package class
  */
 class Package : public entity_project::Package {
  public:
-  /// TODO: Add documentation.
+  /// @brief Default package constructor
   Package() { AddType<Package>(); }
   /**
    * @brief Create a Package from the JSON encoding.
@@ -21,9 +24,30 @@ class Package : public entity_project::Package {
   /// Provides the package weight
   float GetWeight() const override;
 
-  /// Tell the drone that it has been picked up so it becomes dynamic
-  void NotifyScheduled() { HasBeenScheduled = true; }
-  void NotifyDelivered() { HasBeenDelivered = true; }
+  /**
+  * Tell the drone that it has been picked up so it becomes dynamic.
+  * Call's Notify from Observable& to notify observers that package is
+  * scheduled.
+  */
+  void NotifyScheduled();
+  /**
+  * Called when package has been delivered, and sets HasBeenDelivered
+  * to true. Call's Notify from Observable& to notify observers that package is
+  * delivered.
+  */
+  void NotifyDelivered();
+  /**
+  * Called when package has been picked up. Call's Notify from Observable&
+  * to notify observers that package is picked up and en route.
+  */
+  void NotifyPickedUp();
+  /**
+  * Retrieves a Package's Observable reference to call functions
+  * related to the subject of an observer pattern. 
+  * 
+  * @return Observable object reference. Returns packageObservable
+  */
+  Observable& GetObservable() { return packageObservable; }
 
   bool ShouldDelete() { return HasBeenDelivered; }
   bool IsDynamic() const override { return HasBeenScheduled; }
@@ -38,13 +62,19 @@ class Package : public entity_project::Package {
   }
 
   /// Lets the package know if it has been picked up by a Drone
-  void DronePickUp() { HasBeenPickedUp = true; }
+  void DronePickUp() {
+    if(!HasBeenPickedUp) {
+      HasBeenPickedUp = true;
+      NotifyPickedUp();
+    }
+  }
   /// True if being carried by drone
   bool PickedUp() { return HasBeenPickedUp; }
 
  private:
-  bool HasBeenScheduled = false;
-  bool HasBeenDelivered = false;
+  bool HasBeenScheduled = false;  ///< boolean to track scheduled state
+  bool HasBeenDelivered = false;  ///< boolean to track delivered state
+  Observable packageObservable;  ///< Calls subject functionality
   bool HasBeenPickedUp = false;
   Customer* dest;
 };
