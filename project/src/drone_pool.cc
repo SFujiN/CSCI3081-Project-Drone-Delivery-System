@@ -47,7 +47,14 @@ std::vector<csci3081::droneSpecs> csci3081::createDroneModelList(std::string fil
 	return drone_model_list;
 }
 
-bool csci3081::isModelListed(std::vector<csci3081::droneSpecs> list, std::string model) { return false; }
+bool csci3081::isModelListed(std::vector<csci3081::droneSpecs> list, std::string model) {
+	for (std::vector<csci3081::droneSpecs>::iterator it = list.begin(); it != list.end(); ++it) {
+		if (it->model_ == model) {
+			return true;
+		}
+	}
+	return false;
+}
 
 std::ostream& csci3081::operator<<(std::ostream& out, const csci3081::droneSpecs& d) {
 	return out << "Model#: " << d.model_ << "\n"
