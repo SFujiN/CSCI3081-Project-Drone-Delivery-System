@@ -23,9 +23,9 @@ class DroneSimulation : public entity_project::DroneDeliverySystem {
 
   /// TODO: Add documentation.
   entity_project::Entity* CreateEntity(const picojson::object& val) {
-  
+
     // Investigate json object that is passed in
-    JsonHelper::PrintEntityDetails(val);
+    JsonHelper::PrintKeyValues(val);
 
     return EntityFactory::CreateEntity(val);
   }
