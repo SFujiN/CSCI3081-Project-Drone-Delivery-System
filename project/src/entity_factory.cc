@@ -8,8 +8,7 @@
 #include "src/customer.h"
 
 entity_project::Entity* csci3081::EntityFactory::CreateEntity(const picojson::object& val) {
-  if (val.find("type") == val.end()) return nullptr;
-  auto type = val.at("type").get<std::string>();
+  auto type = JsonHelper::GetNoFail<std::string>(val, "type", "No Type");
   if (type == "drone") {
     return new Drone(val);
   } else if (type == "package") {
@@ -18,7 +17,7 @@ entity_project::Entity* csci3081::EntityFactory::CreateEntity(const picojson::ob
     return new Customer(val);
   } else {
     std::cerr << "Incorrect attempt to create entity with unknown type\""
-              << val.at("type").get<std::string>()
+              << type
               << "\"" << std::endl;
     return nullptr;
   }

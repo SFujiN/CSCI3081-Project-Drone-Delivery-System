@@ -6,6 +6,7 @@
 #include "src/observable.h"
 #include <vector>
 #include "src/customer.h"
+#include "src/json_helper.h"
 
 namespace csci3081 {
 
@@ -43,8 +44,8 @@ class Package : public entity_project::Package {
   void NotifyPickedUp();
   /**
   * Retrieves a Package's Observable reference to call functions
-  * related to the subject of an observer pattern. 
-  * 
+  * related to the subject of an observer pattern.
+  *
   * @return Observable object reference. Returns packageObservable
   */
   Observable& GetObservable() { return packageObservable; }

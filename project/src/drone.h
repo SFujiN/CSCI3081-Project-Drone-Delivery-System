@@ -7,6 +7,7 @@
 #include "vector_3d.h"
 #include "src/package.h"
 #include "src/route_utils.h"
+#include "src/json_helper.h"
 
 namespace csci3081 {
 
