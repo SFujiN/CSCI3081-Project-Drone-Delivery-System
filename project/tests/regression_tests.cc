@@ -168,4 +168,40 @@ TEST_F(DroneSimRegTest, EntityCreationRegression) {
   EXPECT_FLOAT_EQ(customer->GetRadius(),4.9);
 }
 
+TEST_F(DroneSimRegTest, AddEntityToSimulationRegression) {
+  picojson::object obj;
+  obj["type"] = picojson::value("drone");
+  entity = system->CreateEntity(obj);
+  ASSERT_NE(entity, nullptr);
+  Drone* drone = entity->AsType<Drone>();
+  ASSERT_NE(drone, nullptr);
+  ASSERT_EQ(system->GetEntities().size(), 0);
+  system->AddEntity(drone);
+  ASSERT_EQ(system->GetEntities().size(), 1);
+  ASSERT_EQ(picojson::value(system->GetEntities()[0]->GetDetails()).serialize(),
+      picojson::value(obj).serialize());
+
+  obj["type"] = picojson::value("package");
+  entity = system->CreateEntity(obj);
+  ASSERT_NE(entity, nullptr);
+  Package* package = entity->AsType<Package>();
+  ASSERT_NE(package, nullptr);
+  ASSERT_EQ(system->GetEntities().size(), 1);
+  system->AddEntity(package);
+  ASSERT_EQ(system->GetEntities().size(), 2);
+  ASSERT_EQ(picojson::value(system->GetEntities()[1]->GetDetails()).serialize(),
+      picojson::value(obj).serialize());
+
+  obj["type"] = picojson::value("customer");
+  entity = system->CreateEntity(obj);
+  ASSERT_NE(entity, nullptr);
+  Customer* customer = entity->AsType<Customer>();
+  ASSERT_NE(customer, nullptr);
+  ASSERT_EQ(system->GetEntities().size(), 2);
+  system->AddEntity(customer);
+  ASSERT_EQ(system->GetEntities().size(), 3);
+  ASSERT_EQ(picojson::value(system->GetEntities()[2]->GetDetails()).serialize(),
+      picojson::value(obj).serialize());
+}
+
 } // namespace csci3081
