@@ -9,12 +9,22 @@ namespace csci3081 {
 
 Drone::Drone(const picojson::object& initfrom) : Drone() {
   details_ = initfrom;
-  if (details_.find("position") != details_.end()) {
-    int len = details_["position"].get<picojson::array>().size();
-    for (int i = 0; i < len && i < 3; i++) {
-      position_[i] = details_["position"].get<picojson::array>()[i].get<double>();
-    }
+
+  name_ = JsonHelper::GetNoFail<std::string>(initfrom, "name", "default name");
+
+  picojson::array arr;
+  arr = JsonHelper::GetNoFail<picojson::array>(initfrom, "position", picojson::array{});
+  for (int i = 0; i<3; ++i) {
+    position_[i] = JsonHelper::ArrayGetNoFail<double>(arr, i, 0);
   }
+
+  std::vector<float> default_direction{1,0,0};
+  arr = JsonHelper::GetNoFail<picojson::array>(initfrom, "direction", picojson::array{});
+  for (int i = 0; i<3; ++i) {
+    direction_[i] = JsonHelper::ArrayGetNoFail<double>(arr, i, default_direction.at(i));
+  }
+
+  radius_ = JsonHelper::GetNoFail<double>(initfrom, "radius", 3);
 }
 
 void csci3081::Drone::Update(float dt) {

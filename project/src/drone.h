@@ -5,6 +5,7 @@
 #include <queue>
 #include <EntityProject/graph.h>
 #include "vector_3d.h"
+#include "src/json_helper.h"
 
 namespace csci3081 {
 

@@ -2,6 +2,7 @@
 #define CUSTOMER_H_
 
 #include <EntityProject/ANVIL2/customer.h>
+#include "src/json_helper.h"
 
 namespace csci3081 {
 /// TODO: Add documentation. You may edit this class including adding members or methods.

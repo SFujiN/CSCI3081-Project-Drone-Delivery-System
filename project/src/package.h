@@ -2,6 +2,7 @@
 #define PACKAGE_H_
 
 #include <EntityProject/ANVIL2/package.h>
+#include "src/json_helper.h"
 
 namespace csci3081 {
 
