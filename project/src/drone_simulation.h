@@ -64,7 +64,9 @@ class DroneSimulation : public entity_project::DroneDeliverySystem {
   /// TODO: Add documentation.
   void RemoveObserver(entity_project::Entity* entity, entity_project::EntityObserver* observer) {
     csci3081::Package* p = entity->AsType<Package>();
-    p->GetObservable().Detach(observer);
+    if (p != nullptr) {
+      p->GetObservable().Detach(observer);
+    }
   }
 
   /// TODO: Add documentation.
