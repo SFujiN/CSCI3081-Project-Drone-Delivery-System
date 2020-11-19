@@ -204,4 +204,66 @@ TEST_F(DroneSimRegTest, AddEntityToSimulationRegression) {
       picojson::value(obj).serialize());
 }
 
+TEST_F(DroneSimRegTest, ScheduleDeliveryRegression) {
+  std::vector<float> drone_start_position{100.0, 2.0, 3.0};
+  picojson::object droneobj;
+  picojson::object custobj;
+  picojson::object packobj;
+  picojson::object dummyobj;
+  int steps;
+
+  droneobj["type"] = picojson::value("drone");
+  custobj["type"] = picojson::value("customer");
+  packobj["type"] = picojson::value("package");
+
+  droneobj["position"] = picojson::value(picojson::array(
+    {picojson::value(drone_start_position[0]),
+    picojson::value(drone_start_position[1]),
+    picojson::value(drone_start_position[2])} ));
+  packobj["position"] = picojson::value(picojson::array(
+    {picojson::value(1.0),
+    picojson::value(200.0),
+    picojson::value(3.0)} ));
+  custobj["position"] = picojson::value(picojson::array(
+    {picojson::value(1.0),
+    picojson::value(2.0),
+    picojson::value(300.0)} ));
+
+  entity = system->CreateEntity(droneobj);
+  Drone* drone = entity->AsType<Drone>();
+  entity = system->CreateEntity(custobj);
+  Customer* customer = entity->AsType<Customer>();
+  entity = system->CreateEntity(packobj);
+  Package* package = entity->AsType<Package>();
+  system->AddEntity(drone);
+  system->AddEntity(customer);
+  system->AddEntity(package);
+
+  // make sure drone is at its starting position
+  for (int i = 0; i < 3; i++) {
+    ASSERT_FLOAT_EQ(drone->GetPosition()[i],drone_start_position[i]);
+  }
+
+  steps = 10;
+  for (int i = 0; i < steps; i++) {
+    system->Update(0.1);
+  }
+
+  // make sure drone has not moved
+  for (int i = 0; i < 3; i++) {
+    EXPECT_FLOAT_EQ(drone->GetPosition()[i],drone_start_position[i]);
+  }
+
+  system->ScheduleDelivery(package,customer,dummyobj);
+  steps = 50;
+  for (int i = 0; i < steps; i++) {
+    system->Update(0.1);
+  }
+
+  // check that drone is moving in response to ScheduleDelivery
+  for (int i = 0; i < 3; i++) {
+    EXPECT_NE(drone->GetPosition()[i],drone_start_position[i]);
+  }
+}
+
 } // namespace csci3081
