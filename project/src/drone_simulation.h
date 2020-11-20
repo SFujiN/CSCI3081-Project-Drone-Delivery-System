@@ -79,7 +79,7 @@ class DroneSimulation : public entity_project::DroneDeliverySystem {
    * @brief The simulation's routing manager. This is called whenever a new delivery is scheduled and must be routed.
    */
   csci3081::RoutingScheduler scheduler;
-  std::vector<csci3081::droneSpecs> models_ = csci3081::createDroneModelList("data/planet-x.csv");
+  std::unordered_map<std::string,csci3081::droneSpecs> models_ = csci3081::createDroneModelList("data/planet-x.csv");
 };
 
 }  // namespace csci3081
