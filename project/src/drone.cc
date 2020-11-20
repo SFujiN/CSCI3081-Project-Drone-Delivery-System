@@ -127,6 +127,7 @@ void Drone::SetRoute(std::vector<entity_project::IGraphNode*> newRoute) {
     std::cout << node->GetPosition()[0] << ' '<< node->GetPosition()[1] << ' '<< node->GetPosition()[2] << std::endl;
   }
   route = newRouteQueue;
+  //NotifyMoving();
 }
 
 void Drone::CarryPackages() {
@@ -151,6 +152,15 @@ void Drone::NotifyIdled() {
   picojson::object obj;
   obj["type"] = picojson::value("notify");
   obj["value"] = picojson::value("idle");
+  const picojson::value& event = picojson::value(obj);
+  droneObservable.Notify(event);
+}
+
+void Drone::NotifyMoving() {
+  picojson::object obj;
+  obj["type"] = picojson::value("notify");
+  obj["value"] = picojson::value("moving");
+  //obj["path"] = picojson::value(path);
   const picojson::value& event = picojson::value(obj);
   droneObservable.Notify(event);
 }
