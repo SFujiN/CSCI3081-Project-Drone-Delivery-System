@@ -160,6 +160,7 @@ void Drone::NotifyMoving() {
   picojson::object obj;
   obj["type"] = picojson::value("notify");
   obj["value"] = picojson::value("moving");
+  
   std::queue<entity_project::IGraphNode*> routeCopy = route;
   
   std::vector<std::vector<float>> arr;
@@ -169,6 +170,7 @@ void Drone::NotifyMoving() {
     routeCopy.pop();
   }
   obj["path"] = JsonHelper::EncodeArray(arr);
+  
   const picojson::value& event = picojson::value(obj);
   droneObservable.Notify(event);
 }
