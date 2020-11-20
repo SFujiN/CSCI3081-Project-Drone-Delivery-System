@@ -32,9 +32,9 @@ namespace csci3081 {
                  base_bat_cap_(battery) {}
 };
 
-std::vector<droneSpecs> createDroneModelList(std::string filename);
-void updateDroneModelList(std::vector<droneSpecs> &list, std::string filename);
-bool isModelListed(std::vector<droneSpecs> list, std::string model);
+std::unordered_map<std::string,droneSpecs> createDroneModelList(std::string filename);
+void updateDroneModelList(std::unordered_map<std::string,droneSpecs> &list, std::string filename);
+bool isModelListed(std::unordered_map<std::string,csci3081::droneSpecs> list, std::string model);
 std::ostream& operator<<(std::ostream& out, const droneSpecs& d);
 
 } // namespace csci3081
