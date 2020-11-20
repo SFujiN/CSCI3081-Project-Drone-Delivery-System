@@ -128,7 +128,10 @@ void Drone::SetRoute(std::vector<entity_project::IGraphNode*> newRoute) {
   route = newRouteQueue;
 }
 
-void Drone::CarryPackages() {// package.SetPosition......
+void Drone::CarryPackages() {
+  if (hasPickedUpPackage_) {
+    package->SetVecPos(this->GetVecPos() - Vector3d(0, 0.5, 0));
+  }
 }
 
 void Drone::UpdatePackages() {
