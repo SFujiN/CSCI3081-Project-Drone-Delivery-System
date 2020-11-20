@@ -35,7 +35,7 @@ std::unordered_map<std::string,csci3081::droneSpecs> csci3081::createDroneModelL
 								stof(row[header["Max Speed (km/h)"]]),
 								stof(row[header["Base Acceleration (m/s^2)"]]),
 								stof(row[header["WeightCapacity (kg)"]]),
-								stoi(row[header["Base Battery Capacity (seconds)"]]));
+								stof(row[header["Base Battery Capacity (seconds)"]]));
 			}
 		}
 		fin.close();
@@ -77,7 +77,7 @@ void csci3081::updateDroneModelList(std::unordered_map<std::string,csci3081::dro
 								stof(row[header["Max Speed (km/h)"]]),
 								stof(row[header["Base Acceleration (m/s^2)"]]),
 								stof(row[header["WeightCapacity (kg)"]]),
-								stoi(row[header["Base Battery Capacity (seconds)"]])));
+								stof(row[header["Base Battery Capacity (seconds)"]])));
 			}
 		}
 		fin.close();
