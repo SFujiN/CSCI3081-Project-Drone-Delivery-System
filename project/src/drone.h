@@ -69,9 +69,17 @@ class Drone : public entity_project::Drone {
   bool IsDelivering() { return !packages.empty(); }
 
  private:
-  std::queue<entity_project::IGraphNode*> route;
-  std::vector<Package*> packages;
-  RouteManager routemanager;
+    /// The speed at which the drone moves, in simulation-units per second
+
+    std::queue<entity_project::IGraphNode*> route;
+    std::vector<Package*> packages;
+    RouteManager routemanager;
+    float speed = 100;
+    std::string model_;
+    float maxSpd_;
+    float baseAcc_;
+    float weightCap_;
+    int baseBatCap_;
 };
 
 }  // namespace csci3081
