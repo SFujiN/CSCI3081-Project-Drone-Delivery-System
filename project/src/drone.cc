@@ -33,8 +33,15 @@ void csci3081::Drone::Update(float dt) {
   bool completed = FollowRoute(dt);
   CarryPackages();
   if (!completed) return;
-  UpdatePackages();
-  //RecalculateRoute();
+  if (!hasPickedUpPackage_) {
+    hasPickedUpPackage_ = true;
+    package->NotifyPickedUp();
+    RouteTo(package->GetDestination());
+  } else {
+    package->NotifyDelivered();
+    hasPickedUpPackage_ = false;
+    package = nullptr;
+  }
 }
 
 bool Drone::FollowRoute(float dt) {
@@ -72,7 +79,7 @@ void csci3081::Drone::SetVecPos(Vector3d vec) {
 }
 
 const std::vector<std::string>& Drone::GetCurrentRoute() const {
-  return *((std::vector<std::string>*) nullptr);
+  return route_by_node_name;
 }
 
 float csci3081::Drone::GetRemainingBattery() const {
@@ -100,21 +107,13 @@ float csci3081::Drone::GetBaseAcceleration() const {
   return 0;
 }
 
-void Drone::SetDeliveryPlan(csci3081::Package* package, csci3081::Customer* customer, RouteManager rm) {
+void Drone::SetDeliveryPlan(csci3081::Package* package_, csci3081::Customer* customer, RouteManager rm) {
+  package = package_;
   package->SetDestination(customer);
-  packages.push_back(package);
   routemanager = rm;
-  RecalculateRoute();
+  RouteTo(package);
 }
 
-void Drone::RecalculateRoute() {
-  if (packages.empty()) { return; }
-  if (packages.front()->PickedUp()) {
-    RouteTo(packages.front()->GetDestination());
-  } else {
-    RouteTo(packages.front());
-  }
-}
 void Drone::RouteTo(entity_project::Entity* dest) {
   SetRoute(routemanager.GetRoute(
       routemanager.GetRoutePointFor(this),
@@ -122,8 +121,10 @@ void Drone::RouteTo(entity_project::Entity* dest) {
 }
 void Drone::SetRoute(std::vector<entity_project::IGraphNode*> newRoute) {
   std::queue<entity_project::IGraphNode*> newRouteQueue;
+  route_by_node_name.clear();
   for (auto node : newRoute) {
     newRouteQueue.push(node);
+    route_by_node_name.push_back(node->GetName());
     std::cout << node->GetPosition()[0] << ' '<< node->GetPosition()[1] << ' '<< node->GetPosition()[2] << std::endl;
   }
   route = newRouteQueue;
@@ -131,13 +132,12 @@ void Drone::SetRoute(std::vector<entity_project::IGraphNode*> newRoute) {
 }
 
 void Drone::CarryPackages() {
-  for (auto* package : packages) {
-    // package.SetPosition......
+  if (hasPickedUpPackage_) {
+    package->SetVecPos(this->GetVecPos() - Vector3d(0, 0.5, 0));
   }
 }
 
 void Drone::UpdatePackages() {
-  for (auto* package : packages) {
     if (/*package.AtDestination()*/ false) {
       // Drop off package
       package->NotifyDelivered();
@@ -145,7 +145,6 @@ void Drone::UpdatePackages() {
     } else if (/*Touching(package)*/ true) {
       package->DronePickUp();
     }
-  }
 }
 
 void Drone::NotifyIdled() {
