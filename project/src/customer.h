@@ -1,7 +1,8 @@
 #ifndef CUSTOMER_H_
 #define CUSTOMER_H_
 
-#include <EntityProject/ANVIL/customer.h>
+#include <EntityProject/ANVIL2/customer.h>
+#include "src/json_helper.h"
 
 namespace csci3081 {
 /// TODO: Add documentation. You may edit this class including adding members or methods.
@@ -10,8 +11,12 @@ namespace csci3081 {
  */
 class Customer : public entity_project::Customer {
  public:
-    /// TODO: Add documentation.
-    Customer() { AddType<Customer>(); }
+  /// TODO: Add documentation.
+  Customer() { AddType<Customer>(); }
+  /**
+   * @brief Create a Customer from the JSON encoding.
+   */
+  explicit Customer(const picojson::object&);
 };
 
 }  // namespace csci3081
