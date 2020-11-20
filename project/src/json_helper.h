@@ -4,11 +4,26 @@
 #include <iostream>
 #include <string>
 #include <picojson.h>
+#include <vector>
+
+using std::vector;
 
 namespace csci3081 {
 
 class JsonHelper {
 public:
+  static picojson::value EncodeArray(const vector<vector<float>> arr) {
+    vector<picojson::value> result;
+    for(vector<float> subarr : arr) {
+      vector<picojson::value> subarr_encode;
+      for(float val : subarr) {
+        subarr_encode.push_back(picojson::value(val));
+      }
+      result.push_back(picojson::value(subarr_encode));
+    }
+    return picojson::value(result);
+  }
+  
   static const picojson::value& GetValue(const picojson::object& obj, std::string key) {
       return obj.find(key)->second;
   }
@@ -68,9 +83,11 @@ public:
   }
 
   static void PrintKeyValues(const picojson::object& obj, std::string prefix = "  ") {
+    std::cout << "PrintKeyValues ---------" << std::endl;
       for (picojson::object::const_iterator it = obj.begin(); it != obj.end(); it++) {
           std::cout << prefix << it->first << ": " << it->second << std::endl;
       }
+    std::cout << "End PrintKeyValues ---------" << std::endl;
   }
 
   static void Print(const picojson::object& obj, std::string prefix = "  ") {
