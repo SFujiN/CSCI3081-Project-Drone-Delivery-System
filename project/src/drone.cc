@@ -160,7 +160,7 @@ void Drone::NotifyMoving() {
   picojson::object obj;
   obj["type"] = picojson::value("notify");
   obj["value"] = picojson::value("moving");
-  //obj["path"] = picojson::value(path);
+  //obj["path"] = JsonHelper::EncodeArray(route);
   const picojson::value& event = picojson::value(obj);
   droneObservable.Notify(event);
 }
