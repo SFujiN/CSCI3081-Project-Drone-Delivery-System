@@ -4,6 +4,8 @@
 
 #include "src/drone.h"
 #include "src/route_utils.h"
+#include <picojson.h>
+#include <string>
 
 namespace csci3081 {
 
@@ -22,6 +24,11 @@ Drone::Drone(const picojson::object& initfrom) : Drone() {
   arr = JsonHelper::GetNoFail<picojson::array>(initfrom, "direction", picojson::array{});
   for (int i = 0; i<3; ++i) {
     direction_[i] = JsonHelper::ArrayGetNoFail<double>(arr, i, default_direction.at(i));
+  }
+  if (details_.find("model") != details_.end()) {
+    model_ = details_["model"].get<std::string>();
+  } else {
+    model_ = "Q-36-01";
   }
 
   radius_ = JsonHelper::GetNoFail<double>(initfrom, "radius", 3);
