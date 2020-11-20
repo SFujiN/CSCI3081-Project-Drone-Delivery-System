@@ -66,12 +66,13 @@ class Drone : public entity_project::Drone {
   void UpdatePackages();
 
   /// Returns true if the drone has incomplete deliveries
-  bool IsDelivering() { return !packages.empty(); }
+  bool IsDelivering() { return package != nullptr; }
 
  private:
   std::queue<entity_project::IGraphNode*> route;
+  csci3081::Package* package = nullptr;
+  bool hasPickedUpPackage_ = false;
   std::vector<std::string> route_by_node_name;
-  std::vector<Package*> packages;
   RouteManager routemanager;
 };
 
