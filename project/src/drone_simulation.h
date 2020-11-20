@@ -5,8 +5,8 @@
 #include <vector>
 #include <string>
 #include "src/json_helper.h"
-#include "entity_factory.h"
-#include "routing_scheduler.h"
+#include "src/entity_factory.h"
+#include "src/routing_scheduler.h"
 #include <EntityProject/entity_console_logger.h>
 namespace csci3081 {
 
