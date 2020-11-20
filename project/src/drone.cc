@@ -79,7 +79,7 @@ void csci3081::Drone::SetVecPos(Vector3d vec) {
 }
 
 const std::vector<std::string>& Drone::GetCurrentRoute() const {
-  return *((std::vector<std::string>*) nullptr);
+  return route_by_node_name;
 }
 
 float csci3081::Drone::GetRemainingBattery() const {
@@ -121,8 +121,10 @@ void Drone::RouteTo(entity_project::Entity* dest) {
 }
 void Drone::SetRoute(std::vector<entity_project::IGraphNode*> newRoute) {
   std::queue<entity_project::IGraphNode*> newRouteQueue;
+  route_by_node_name.clear();
   for (auto node : newRoute) {
     newRouteQueue.push(node);
+    route_by_node_name.push_back(node->GetName());
     std::cout << node->GetPosition()[0] << ' '<< node->GetPosition()[1] << ' '<< node->GetPosition()[2] << std::endl;
   }
   route = newRouteQueue;

@@ -72,6 +72,7 @@ class Drone : public entity_project::Drone {
   std::queue<entity_project::IGraphNode*> route;
   csci3081::Package* package = nullptr;
   bool hasPickedUpPackage_ = false;
+  std::vector<std::string> route_by_node_name;
   RouteManager routemanager;
 };
 
