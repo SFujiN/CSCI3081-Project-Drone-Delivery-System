@@ -52,16 +52,22 @@ class DroneSimulation : public entity_project::DroneDeliverySystem {
   /// TODO: Add documentation.
   void AddObserver(entity_project::Entity* entity, entity_project::EntityObserver* observer) {
     csci3081::Package* p = entity->AsType<Package>();
+    csci3081::Drone* d = entity->AsType<Drone>();
     if (p != nullptr) {
       p->GetObservable().Attach(observer);
+    } else if (d != nullptr) {
+      d->GetObservable().Attach(observer);
     }
   }
 
   /// TODO: Add documentation.
   void RemoveObserver(entity_project::Entity* entity, entity_project::EntityObserver* observer) {
     csci3081::Package* p = entity->AsType<Package>();
+    csci3081::Drone* d = entity->AsType<Drone>();
     if (p != nullptr) {
       p->GetObservable().Detach(observer);
+    } else if (d != nullptr) {
+      d->GetObservable().Detach(observer);
     }
   }
 
