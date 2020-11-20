@@ -89,29 +89,29 @@ const std::vector<std::string>& Drone::GetCurrentRoute() const {
   return route_by_node_name;
 }
 
-float csci3081::Drone::GetRemainingBattery() const {
+float csci3081::Drone::GetRemainingBattery() {
   // TODO
-  return 0;
+  return battery;
 }
 
-float csci3081::Drone::GetCurrentSpeed() const {
+float csci3081::Drone::GetCurrentSpeed() {
   // TODO
-  return 30;
+  return speed;
 }
 
-float csci3081::Drone::GetMaxCapacity() const {
+float csci3081::Drone::GetMaxCapacity() {
   // TODO
-  return 0;
+  return spec_.weight_cap_;
 }
 
-float csci3081::Drone::GetRemainingCapacity() const {
+float csci3081::Drone::GetRemainingCapacity() {
   // TODO
-  return 0;
+  return spec_.weight_cap_ - currLoadWeight;
 }
 
-float csci3081::Drone::GetBaseAcceleration() const {
+float csci3081::Drone::GetBaseAcceleration() {
   // TODO
-  return 0;
+  return spec_.base_acc_;
 }
 
 void Drone::SetDeliveryPlan(csci3081::Package* package_, csci3081::Customer* customer, RouteManager rm) {

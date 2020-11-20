@@ -26,17 +26,17 @@ class Drone : public entity_project::Drone {
    */
   explicit Drone(const picojson::object&);
   /// Gets the current route
-  const std::vector<std::string>& GetCurrentRoute() const override;
+  const std::vector<std::string>& GetCurrentRoute();
   /// Gets the remaining battery life
-  float GetRemainingBattery() const override;
+  float GetRemainingBattery();
   /// Gets the current speed
-  float GetCurrentSpeed() const override;
+  float GetCurrentSpeed();
   /// Gets the max carrying capacity
-  float GetMaxCapacity() const override;
+  float GetMaxCapacity();
   /// Gets the remaining capacity
-  float GetRemainingCapacity() const override;
+  float GetRemainingCapacity();
   /// Gets the base acceleration
-  float GetBaseAcceleration() const override;
+  float GetBaseAcceleration();
 
   void Update(float dt);
 
