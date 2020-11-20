@@ -68,17 +68,19 @@ class Drone : public entity_project::Drone {
   void UpdatePackages();
 
   /// Returns true if the drone has incomplete deliveries
-  bool IsDelivering() { return !packages.empty(); }
+  bool IsDelivering() { return package != nullptr; }
 
     void SetDroneSpecs(const std::unordered_map<std::string,droneSpecs> list);
 
  private:
-    /// The speed at which the drone moves, in simulation-units per second
+  std::queue<entity_project::IGraphNode*> route;
+  csci3081::Package* package = nullptr;
+  bool hasPickedUpPackage_ = false;
+  std::vector<std::string> route_by_node_name;
+  RouteManager routemanager;
 
-    std::queue<entity_project::IGraphNode*> route;
-    std::vector<Package*> packages;
-    RouteManager routemanager;
-    float speed = 100;
+  /// The speed at which the drone moves, in simulation-units per second
+  float speed = 100;
   std::string modelNum;
   droneSpecs spec_;
 };

@@ -3,6 +3,7 @@
 //
 
 #include "src/package.h"
+#include "src/vector_3d.h"
 #include <vector>
 #include <algorithm>
 
@@ -31,6 +32,16 @@ Package::Package(const picojson::object& initfrom) : Package() {
 
 float Package::GetWeight() const {
   return 0;
+}
+
+Vector3d csci3081::Package::GetVecPos() {
+  return {position_[0], position_[1], position_[2]};
+}
+
+void csci3081::Package::SetVecPos(Vector3d vec) {
+  position_[0] = vec.x;
+  position_[1] = vec.y;
+  position_[2] = vec.z;
 }
 
 void Package::NotifyScheduled() {

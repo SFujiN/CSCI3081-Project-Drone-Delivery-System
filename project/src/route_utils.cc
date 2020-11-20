@@ -54,21 +54,27 @@ RouteManager::GetRoute(const entity_project::IGraphNode* start, const entity_pro
   for( auto i = graph->GetNodes().begin(); i != graph->GetNodes().end(); ++i ) {
     Q[(*i)->GetName()] = DijkNode(*i);
   }
-  Q[end->GetName()].pathLength = 0;
+  Q[start->GetName()].pathLength = 0;
 
   while(!Q.empty()) {
     u = Q.begin()->second;
     for( auto i = Q.begin(); i != Q.end(); ++i ) {
       u = (u < i->second) ? u : i->second;
     }
-    if( u.thisNode->GetName() == start->GetName() ) {
-      std::vector<entity_project::IGraphNode*> solution = {u.thisNode};
+    if( u.thisNode->GetName() == end->GetName() ) {
+      std::vector<entity_project::IGraphNode*> rev_solution = {u.thisNode};
+      std::vector<entity_project::IGraphNode*> solution;
       while(u.prevNode) {
         u = explored.at(u.prevNode->GetName());
-        solution.push_back(u.thisNode);
+        rev_solution.push_back(u.thisNode);
+      }
+      for (auto i = rev_solution.rbegin(); i != rev_solution.rend(); ++i ) {
+        solution.push_back(*i);
       }
       if( (*--solution.end())->GetName() != end->GetName() ) {
         std::cout << "WARNING: Dijkstra solution does not end at desired end node" << std::endl;
+        std::cout << "Desired: " << end->GetName() <<std::endl;
+        std::cout << "Actual: " << (*--solution.end())->GetName() <<std::endl;
         solution.push_back(explored.at(end->GetName()).thisNode);
       }
       return solution;
