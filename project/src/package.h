@@ -7,6 +7,7 @@
 #include <vector>
 #include "src/customer.h"
 #include "src/json_helper.h"
+#include "src/vector_3d.h"
 
 namespace csci3081 {
 
@@ -24,6 +25,12 @@ class Package : public entity_project::Package {
   explicit Package(const picojson::object&);
   /// Provides the package weight
   float GetWeight() const override;
+
+  /// Get the packages's position, converted into a Vector3d
+  Vector3d GetVecPos();
+
+  /// Copy the Vector3d into the package's position value
+  void SetVecPos(Vector3d vec);
 
   /**
   * Tell the drone that it has been picked up so it becomes dynamic.
