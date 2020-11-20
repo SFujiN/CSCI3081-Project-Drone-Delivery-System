@@ -27,14 +27,15 @@ std::vector<csci3081::droneSpecs> csci3081::createDroneModelList(std::string fil
 			while (std::getline(s, word, ',')) {
 				row.push_back(word);
 			}
-
-			drone_model_list.push_back(droneSpecs(row[header["Model #"]],
-							stof(row[header["Mass (kg)"]]),
-							stof(row[header["Max Speed (km/h)"]]),
-							stof(row[header["Base Acceleration (m/s^2)"]]),
-							stof(row[header["WeightCapacity (kg)"]]),
-							stoi(row[header["Base Battery Capacity (seconds)"]])));
 			
+			if (!csci3081::isModelListed(drone_model_list, row[header["Model #"]])) {
+				drone_model_list.push_back(droneSpecs(row[header["Model #"]],
+								stof(row[header["Mass (kg)"]]),
+								stof(row[header["Max Speed (km/h)"]]),
+								stof(row[header["Base Acceleration (m/s^2)"]]),
+								stof(row[header["WeightCapacity (kg)"]]),
+								stoi(row[header["Base Battery Capacity (seconds)"]])));
+			}
 		}
 		
 
