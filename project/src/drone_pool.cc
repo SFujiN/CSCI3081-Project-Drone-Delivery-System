@@ -1,13 +1,14 @@
 #include "src/drone_pool.h"
 
-std::vector<csci3081::droneSpecs> csci3081::createDroneModelList(std::string filename) {
-	std::vector<droneSpecs> drone_model_list;
+std::unordered_map<std::string,csci3081::droneSpecs> csci3081::createDroneModelList(std::string filename) {
+	std::unordered_map<std::string,droneSpecs> drone_model_list;
 
 	std::fstream fin;
 	std::string line, word;
 	std::unordered_map<std::string,int> header;
 	std::vector<std::string> row;
 	int header_count = 0;
+	
 	fin.open(filename, std::fstream::in);
 	
 	if (fin.is_open()) {
@@ -26,20 +27,18 @@ std::vector<csci3081::droneSpecs> csci3081::createDroneModelList(std::string fil
 			while (std::getline(s, word, ',')) {
 				row.push_back(word);
 			}
-			
-			if (!csci3081::isModelListed(drone_model_list, row[header["Model #"]])) {
-				drone_model_list.push_back(droneSpecs(row[header["Model #"]],
+
+			if (drone_model_list.find(row[header["Model #"]]) == drone_model_list.end()) {
+				drone_model_list[row[header["Model #"]]] =
+								droneSpecs(row[header["Model #"]],
 								stof(row[header["Mass (kg)"]]),
 								stof(row[header["Max Speed (km/h)"]]),
 								stof(row[header["Base Acceleration (m/s^2)"]]),
 								stof(row[header["WeightCapacity (kg)"]]),
-								stoi(row[header["Base Battery Capacity (seconds)"]])));
+								stoi(row[header["Base Battery Capacity (seconds)"]]));
 			}
 		}
-		
-
 		fin.close();
-
 	}
 	else {
 		std::cout << "Error, failed to open file" << std::endl;
@@ -47,7 +46,7 @@ std::vector<csci3081::droneSpecs> csci3081::createDroneModelList(std::string fil
 	return drone_model_list;
 }
 
-void csci3081::updateDroneModelList(std::vector<csci3081::droneSpecs> &list, std::string filename) {
+void csci3081::updateDroneModelList(std::unordered_map<std::string,csci3081::droneSpecs> &list, std::string filename) {
 	std::fstream fin;
 	std::string line, word;
 	std::unordered_map<std::string,int> header;
@@ -71,8 +70,9 @@ void csci3081::updateDroneModelList(std::vector<csci3081::droneSpecs> &list, std
 				row.push_back(word);
 			}
 
-			if (!csci3081::isModelListed(list, row[header["Model #"]])) {
-				list.push_back(droneSpecs(row[header["Model #"]],
+			if (list.find(row[header["Model #"]]) == list.end()) {
+				list[row[header["Model #"]]] =
+								(droneSpecs(row[header["Model #"]],
 								stof(row[header["Mass (kg)"]]),
 								stof(row[header["Max Speed (km/h)"]]),
 								stof(row[header["Base Acceleration (m/s^2)"]]),
@@ -87,13 +87,9 @@ void csci3081::updateDroneModelList(std::vector<csci3081::droneSpecs> &list, std
 	}
 }
 
-bool csci3081::isModelListed(std::vector<csci3081::droneSpecs> list, std::string model) {
-	for (std::vector<csci3081::droneSpecs>::iterator it = list.begin(); it != list.end(); ++it) {
-		if (it->model_ == model) {
-			return true;
-		}
-	}
-	return false;
+
+bool csci3081::isModelListed(std::unordered_map<std::string,csci3081::droneSpecs> list, std::string model) {
+	return (list.find(model) != list.end());
 }
 
 std::ostream& csci3081::operator<<(std::ostream& out, const csci3081::droneSpecs& d) {
