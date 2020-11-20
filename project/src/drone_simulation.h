@@ -25,10 +25,9 @@ class DroneSimulation : public entity_project::DroneDeliverySystem {
 
   /// TODO: Add documentation.
   entity_project::Entity* CreateEntity(const picojson::object& val) {
-
     // Investigate json object that is passed in
     JsonHelper::PrintKeyValues(val);
-
+    csci3081::updateDroneModelList(models_, "data/planet-x.csv");
     return EntityFactory::CreateEntity(val);
   }
 
@@ -80,7 +79,7 @@ class DroneSimulation : public entity_project::DroneDeliverySystem {
    * @brief The simulation's routing manager. This is called whenever a new delivery is scheduled and must be routed.
    */
   csci3081::RoutingScheduler scheduler;
-  std::vector<csci3081::droneSpecs> models_;
+  std::vector<csci3081::droneSpecs> models_ = csci3081::createDroneModelList("data/planet-x.csv");
 };
 
 }  // namespace csci3081
