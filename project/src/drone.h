@@ -65,6 +65,14 @@ class Drone : public entity_project::Drone {
    */
   void UpdatePackages();
 
+  /**
+  * Retrieves a Drone's Observable reference to call functions
+  * related to the subject of an observer pattern.
+  *
+  * @return Observable object reference. Returns droneObservable
+  */
+  Observable& GetObservable() { return droneObservable; }
+
   /// Returns true if the drone has incomplete deliveries
   bool IsDelivering() { return !packages.empty(); }
 
@@ -72,6 +80,7 @@ class Drone : public entity_project::Drone {
   std::queue<entity_project::IGraphNode*> route;
   std::vector<Package*> packages;
   RouteManager routemanager;
+  Observable droneObservable;
 };
 
 }  // namespace csci3081
