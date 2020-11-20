@@ -33,6 +33,7 @@ namespace csci3081 {
 };
 
 std::vector<droneSpecs> createDroneModelList(std::string filename);
+void updateDroneModelList(std::vector<droneSpecs> &list, std::string filename);
 bool isModelListed(std::vector<droneSpecs> list, std::string model);
 std::ostream& operator<<(std::ostream& out, const droneSpecs& d);
 
