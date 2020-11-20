@@ -135,8 +135,8 @@ TEST_F(RouteManagerTest, NoRoute) {
   n8.SetNeighbors(std::vector<entity_project::IGraphNode*>{&n8});
   n1.SetNeighbors(std::vector<entity_project::IGraphNode*>{&n0,&n4,&n2});
   n3.SetNeighbors(std::vector<entity_project::IGraphNode*>{&n0,&n4,&n6});
-  n5.SetNeighbors(std::vector<entity_project::IGraphNode*>{&n8,&n4,&n2});
-  n7.SetNeighbors(std::vector<entity_project::IGraphNode*>{&n6,&n4,&n8});
+  n5.SetNeighbors(std::vector<entity_project::IGraphNode*>{&n4,&n2});
+  n7.SetNeighbors(std::vector<entity_project::IGraphNode*>{&n6,&n4});
   n4.SetNeighbors(std::vector<entity_project::IGraphNode*>{&n1,&n3,&n5,&n7,&n0});
 
   g.AddNodes(std::vector<entity_project::IGraphNode*>{&n0,&n1,&n2,&n3,&n4,&n5,&n6,&n7,&n8});
@@ -149,7 +149,7 @@ TEST_F(RouteManagerTest, NoRoute) {
     std::cout << (*i)->GetName() << std::endl;
     routeNames += (*i)->GetName();
   }
-  ASSERT_EQ(routeNames,"08");
+  ASSERT_EQ(routeNames,"8");
 }
 
 }  // namespace csci3081
