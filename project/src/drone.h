@@ -6,8 +6,10 @@
 #include <EntityProject/graph.h>
 #include "vector_3d.h"
 #include "src/package.h"
+#include "src/vector_3d.h"
 #include "src/route_utils.h"
 #include "src/json_helper.h"
+#include "src/drone_pool.h"
 
 namespace csci3081 {
 
@@ -68,6 +70,8 @@ class Drone : public entity_project::Drone {
   /// Returns true if the drone has incomplete deliveries
   bool IsDelivering() { return !packages.empty(); }
 
+    void SetDroneSpecs(const std::unordered_map<std::string,droneSpecs> list);
+
  private:
     /// The speed at which the drone moves, in simulation-units per second
 
@@ -75,11 +79,8 @@ class Drone : public entity_project::Drone {
     std::vector<Package*> packages;
     RouteManager routemanager;
     float speed = 100;
-    std::string model_;
-    float maxSpd_;
-    float baseAcc_;
-    float weightCap_;
-    int baseBatCap_;
+  std::string modelNum;
+  droneSpecs spec_;
 };
 
 }  // namespace csci3081

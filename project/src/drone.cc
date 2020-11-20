@@ -26,9 +26,9 @@ Drone::Drone(const picojson::object& initfrom) : Drone() {
     direction_[i] = JsonHelper::ArrayGetNoFail<double>(arr, i, default_direction.at(i));
   }
   if (details_.find("model") != details_.end()) {
-    model_ = details_["model"].get<std::string>();
+    modelNum = details_["model"].get<std::string>();
   } else {
-    model_ = "Q-36-01";
+    modelNum = "Q-36-01";
   }
 
   radius_ = JsonHelper::GetNoFail<double>(initfrom, "radius", 3);
@@ -154,3 +154,9 @@ void Drone::UpdatePackages() {
 }
 
 }  // nmespace csci3081
+
+  void csci3081::Drone::SetDroneSpecs(const std::unordered_map<std::string,csci3081::droneSpecs> list) {
+    if (csci3081::isModelListed(list, modelNum)) {
+      spec_ = list.at(modelNum);
+    }
+  }
