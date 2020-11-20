@@ -3,7 +3,7 @@
 //
 
 #include "src/drone.h"
-#include "src/route_utils.h"
+//#include "src/route_utils.h"
 
 namespace csci3081 {
 
@@ -161,6 +161,7 @@ void Drone::NotifyMoving() {
   obj["type"] = picojson::value("notify");
   obj["value"] = picojson::value("moving");
   std::queue<entity_project::IGraphNode*> routeCopy = route;
+  
   std::vector<std::vector<float>> arr;
   for(int i = 0; i < routeCopy.size(); ++i) {
     std::vector<float> temp = routeCopy.front()->GetPosition();

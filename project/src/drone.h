@@ -6,7 +6,7 @@
 #include <EntityProject/graph.h>
 #include "vector_3d.h"
 #include "src/package.h"
-#include "src/route_utils.h"
+#include "route_utils.h"
 #include "src/json_helper.h"
 
 namespace csci3081 {
@@ -77,6 +77,12 @@ class Drone : public entity_project::Drone {
   * Notify observers that the drone is idle.
   */
   void NotifyIdled();
+
+  /**
+  * Notify observers that the drone is moving.
+  * 
+  */
+  void NotifyMoving();
 
   /// Returns true if the drone has incomplete deliveries
   bool IsDelivering() { return !packages.empty(); }
