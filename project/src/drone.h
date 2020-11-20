@@ -70,6 +70,7 @@ class Drone : public entity_project::Drone {
 
  private:
   std::queue<entity_project::IGraphNode*> route;
+  std::vector<std::string> route_by_node_name;
   std::vector<Package*> packages;
   RouteManager routemanager;
 };
