@@ -100,21 +100,13 @@ float csci3081::Drone::GetBaseAcceleration() const {
   return 0;
 }
 
-void Drone::SetDeliveryPlan(csci3081::Package* package, csci3081::Customer* customer, RouteManager rm) {
+void Drone::SetDeliveryPlan(csci3081::Package* package_, csci3081::Customer* customer, RouteManager rm) {
+  package = package_;
   package->SetDestination(customer);
-  packages.push_back(package);
   routemanager = rm;
-  RecalculateRoute();
+  RouteTo(package);
 }
 
-void Drone::RecalculateRoute() {
-  if (packages.empty()) { return; }
-  if (packages.front()->PickedUp()) {
-    RouteTo(packages.front()->GetDestination());
-  } else {
-    RouteTo(packages.front());
-  }
-}
 void Drone::RouteTo(entity_project::Entity* dest) {
   SetRoute(routemanager.GetRoute(
       routemanager.GetRoutePointFor(this),
@@ -129,21 +121,16 @@ void Drone::SetRoute(std::vector<entity_project::IGraphNode*> newRoute) {
   route = newRouteQueue;
 }
 
-void Drone::CarryPackages() {
-  for (auto* package : packages) {
-    // package.SetPosition......
-  }
+void Drone::CarryPackages() {// package.SetPosition......
 }
 
 void Drone::UpdatePackages() {
-  for (auto* package : packages) {
     if (/*package.AtDestination()*/ false) {
       // Drop off package
       package->NotifyDelivered();
     } else if (/*Touching(package)*/ true) {
       package->DronePickUp();
     }
-  }
 }
 
 }  // nmespace csci3081
