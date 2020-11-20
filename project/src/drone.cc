@@ -33,8 +33,15 @@ void csci3081::Drone::Update(float dt) {
   bool completed = FollowRoute(dt);
   CarryPackages();
   if (!completed) return;
-  UpdatePackages();
-  //RecalculateRoute();
+  if (!hasPickedUpPackage_) {
+    hasPickedUpPackage_ = true;
+    package->NotifyPickedUp();
+    RouteTo(package->GetDestination());
+  } else {
+    package->NotifyDelivered();
+    hasPickedUpPackage_ = false;
+    package = nullptr;
+  }
 }
 
 bool Drone::FollowRoute(float dt) {
