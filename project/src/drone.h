@@ -73,6 +73,11 @@ class Drone : public entity_project::Drone {
   */
   Observable& GetObservable() { return droneObservable; }
 
+  /**
+  * Notify observers that the drone is idle.
+  */
+  void NotifyIdled();
+
   /// Returns true if the drone has incomplete deliveries
   bool IsDelivering() { return !packages.empty(); }
 

@@ -140,10 +140,19 @@ void Drone::UpdatePackages() {
     if (/*package.AtDestination()*/ false) {
       // Drop off package
       package->NotifyDelivered();
+      NotifyIdled();
     } else if (/*Touching(package)*/ true) {
       package->DronePickUp();
     }
   }
 }
 
-}  // nmespace csci3081
+void Drone::NotifyIdled() {
+  picojson::object obj;
+  obj["type"] = picojson::value("notify");
+  obj["value"] = picojson::value("idle");
+  const picojson::value& event = picojson::value(obj);
+  droneObservable.Notify(event);
+}
+
+}  // namespace csci3081
