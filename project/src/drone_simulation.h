@@ -55,7 +55,8 @@ class DroneSimulation : public entity_project::DroneDeliverySystem {
     csci3081::Drone* d = entity->AsType<Drone>();
     if (p != nullptr) {
       p->GetObservable().Attach(observer);
-    } else if (d != nullptr) {
+    } 
+    if (d != nullptr) {
       d->GetObservable().Attach(observer);
     }
   }
@@ -66,7 +67,8 @@ class DroneSimulation : public entity_project::DroneDeliverySystem {
     csci3081::Drone* d = entity->AsType<Drone>();
     if (p != nullptr) {
       p->GetObservable().Detach(observer);
-    } else if (d != nullptr) {
+    }
+    if (d != nullptr) {
       d->GetObservable().Detach(observer);
     }
   }

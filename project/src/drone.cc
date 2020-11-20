@@ -36,6 +36,7 @@ void csci3081::Drone::Update(float dt) {
   if (!hasPickedUpPackage_) {
     hasPickedUpPackage_ = true;
     package->NotifyPickedUp();
+    NotifyMoving();
     RouteTo(package->GetDestination());
   } else {
     package->NotifyDelivered();
@@ -128,7 +129,8 @@ void Drone::SetRoute(std::vector<entity_project::IGraphNode*> newRoute) {
     std::cout << node->GetPosition()[0] << ' '<< node->GetPosition()[1] << ' '<< node->GetPosition()[2] << std::endl;
   }
   route = newRouteQueue;
-  //NotifyMoving();
+  NotifyMoving();
+  //NotifyIdled();
 }
 
 void Drone::CarryPackages() {
@@ -156,12 +158,10 @@ void Drone::NotifyIdled() {
 }
 
 void Drone::NotifyMoving() {
-  
   picojson::object obj;
   obj["type"] = picojson::value("notify");
   obj["value"] = picojson::value("moving");
   
-  /*
   std::queue<entity_project::IGraphNode*> routeCopy = route;
   
   std::vector<std::vector<float>> arr;
@@ -171,7 +171,7 @@ void Drone::NotifyMoving() {
     routeCopy.pop();
   }
   obj["path"] = JsonHelper::EncodeArray(arr);
-  */
+  
   const picojson::value& event = picojson::value(obj);
   
   droneObservable.Notify(event);
