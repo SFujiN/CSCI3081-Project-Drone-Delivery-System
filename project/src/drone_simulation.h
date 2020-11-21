@@ -5,8 +5,8 @@
 #include <vector>
 #include <string>
 #include "src/json_helper.h"
-#include "entity_factory.h"
-#include "routing_scheduler.h"
+#include "src/entity_factory.h"
+#include "src/routing_scheduler.h"
 #include <EntityProject/entity_console_logger.h>
 namespace csci3081 {
 
@@ -52,16 +52,24 @@ class DroneSimulation : public entity_project::DroneDeliverySystem {
   /// TODO: Add documentation.
   void AddObserver(entity_project::Entity* entity, entity_project::EntityObserver* observer) {
     csci3081::Package* p = entity->AsType<Package>();
+    csci3081::Drone* d = entity->AsType<Drone>();
     if (p != nullptr) {
       p->GetObservable().Attach(observer);
+    } 
+    if (d != nullptr) {
+      d->GetObservable().Attach(observer);
     }
   }
 
   /// TODO: Add documentation.
   void RemoveObserver(entity_project::Entity* entity, entity_project::EntityObserver* observer) {
     csci3081::Package* p = entity->AsType<Package>();
+    csci3081::Drone* d = entity->AsType<Drone>();
     if (p != nullptr) {
       p->GetObservable().Detach(observer);
+    }
+    if (d != nullptr) {
+      d->GetObservable().Detach(observer);
     }
   }
 
