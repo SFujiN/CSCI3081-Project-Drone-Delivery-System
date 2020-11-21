@@ -10,6 +10,8 @@ namespace csci3081 {
 Drone::Drone(const picojson::object& initfrom) : Drone() {
   details_ = initfrom;
 
+  droneObservable.SetEntity(this);
+
   name_ = JsonHelper::GetNoFail<std::string>(initfrom, "name", "default name");
 
   picojson::array arr;
