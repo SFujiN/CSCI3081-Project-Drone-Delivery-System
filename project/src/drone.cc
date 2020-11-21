@@ -11,6 +11,7 @@ Drone::Drone(const picojson::object& initfrom) : Drone() {
   details_ = initfrom;
 
   droneObservable.SetEntity(this);
+  NotifyIdled();
 
   name_ = JsonHelper::GetNoFail<std::string>(initfrom, "name", "default name");
 
@@ -38,13 +39,14 @@ void csci3081::Drone::Update(float dt) {
   if (!hasPickedUpPackage_) {
     hasPickedUpPackage_ = true;
     package->NotifyPickedUp();
-    NotifyMoving();
     RouteTo(package->GetDestination());
   } else {
     package->NotifyDelivered();
+    NotifyIdled();
     hasPickedUpPackage_ = false;
     package = nullptr;
   }
+  
 }
 
 bool Drone::FollowRoute(float dt) {
@@ -132,7 +134,6 @@ void Drone::SetRoute(std::vector<entity_project::IGraphNode*> newRoute) {
   }
   route = newRouteQueue;
   NotifyMoving();
-  //NotifyIdled();
 }
 
 void Drone::CarryPackages() {
@@ -145,7 +146,6 @@ void Drone::UpdatePackages() {
     if (/*package.AtDestination()*/ false) {
       // Drop off package
       package->NotifyDelivered();
-      NotifyIdled();
     } else if (/*Touching(package)*/ true) {
       package->DronePickUp();
     }
