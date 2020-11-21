@@ -167,7 +167,7 @@ void Drone::NotifyMoving() {
   std::queue<entity_project::IGraphNode*> routeCopy = route;
   
   std::vector<std::vector<float>> arr;
-  for(int i = 0; i < routeCopy.size(); ++i) {
+  while (!routeCopy.empty()) {
     std::vector<float> temp = routeCopy.front()->GetPosition();
     arr.push_back(temp);
     routeCopy.pop();
