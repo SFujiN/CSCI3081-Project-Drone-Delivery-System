@@ -30,7 +30,9 @@ Drone::Drone(const picojson::object& initfrom) : Drone() {
   } else {
     modelNum = "Q-36-01";
   }
-  SetDroneSpecs(models_);
+  // SetDroneSpecs(models_);
+  SetDroneSpecs(csci3081::createDroneModelList("data/planet-x.csv"));
+  //std::cout << "\ndroneList: \n" << spec_ << "\n";
 
   radius_ = JsonHelper::GetNoFail<double>(initfrom, "radius", 3);
 }
@@ -159,5 +161,6 @@ void Drone::UpdatePackages() {
     if (csci3081::isModelListed(list, modelNum)) {
       spec_ = list.at(modelNum);
     }
+
     battery = spec_.base_bat_cap_;
   }
