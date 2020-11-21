@@ -13,6 +13,9 @@
 
 namespace csci3081 {
 
+  static std::unordered_map<std::string,csci3081::droneSpecs> models_ = csci3081::createDroneModelList("data/planet-x.csv");
+
+
 /// TODO: Add documentation. You may edit this class including adding members or methods.
 /**
  * TODO: Add detailed documentation.
@@ -26,17 +29,17 @@ class Drone : public entity_project::Drone {
    */
   explicit Drone(const picojson::object&);
   /// Gets the current route
-  const std::vector<std::string>& GetCurrentRoute();
+  const std::vector<std::string>& GetCurrentRoute() const override;
   /// Gets the remaining battery life
-  float GetRemainingBattery();
+  float GetRemainingBattery() const override;
   /// Gets the current speed
-  float GetCurrentSpeed();
+  float GetCurrentSpeed() const override;
   /// Gets the max carrying capacity
-  float GetMaxCapacity();
+  float GetMaxCapacity() const override;
   /// Gets the remaining capacity
-  float GetRemainingCapacity();
+  float GetRemainingCapacity() const override;
   /// Gets the base acceleration
-  float GetBaseAcceleration();
+  float GetBaseAcceleration() const override;
 
   void Update(float dt);
 

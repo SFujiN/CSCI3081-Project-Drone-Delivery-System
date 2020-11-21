@@ -30,6 +30,7 @@ Drone::Drone(const picojson::object& initfrom) : Drone() {
   } else {
     modelNum = "Q-36-01";
   }
+  SetDroneSpecs(models_);
 
   radius_ = JsonHelper::GetNoFail<double>(initfrom, "radius", 3);
 }
@@ -89,27 +90,27 @@ const std::vector<std::string>& Drone::GetCurrentRoute() const {
   return route_by_node_name;
 }
 
-float csci3081::Drone::GetRemainingBattery() {
+float csci3081::Drone::GetRemainingBattery() const {
   // TODO
   return battery;
 }
 
-float csci3081::Drone::GetCurrentSpeed() {
+float csci3081::Drone::GetCurrentSpeed() const {
   // TODO
   return speed;
 }
 
-float csci3081::Drone::GetMaxCapacity() {
+float csci3081::Drone::GetMaxCapacity() const {
   // TODO
   return spec_.weight_cap_;
 }
 
-float csci3081::Drone::GetRemainingCapacity() {
+float csci3081::Drone::GetRemainingCapacity() const {
   // TODO
   return spec_.weight_cap_ - currLoadWeight;
 }
 
-float csci3081::Drone::GetBaseAcceleration() {
+float csci3081::Drone::GetBaseAcceleration() const {
   // TODO
   return spec_.base_acc_;
 }
@@ -158,4 +159,5 @@ void Drone::UpdatePackages() {
     if (csci3081::isModelListed(list, modelNum)) {
       spec_ = list.at(modelNum);
     }
+    battery = spec_.base_bat_cap_;
   }
