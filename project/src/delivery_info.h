@@ -12,12 +12,13 @@ namespace csci3081 {
 
 class DeliveryInfo {
  public:
-  DeliveryInfo(const picojson::object&);
+  DeliveryInfo() = default;
+  explicit DeliveryInfo(const picojson::object&);
   std::string GetPriority() const { return priority; }
   float GetMinTime() const { return minTime; }
  private:
   std::string priority;
-  float minTime;
+  float minTime = 0;
 };
 
 
