@@ -8,6 +8,7 @@ void csci3081::RoutingScheduler::ScheduleDelivery(
     csci3081::Package* package, csci3081::Customer* customer,
     const std::vector<entity_project::Entity*>& entities
 ) {
+  if(package->IsDynamic()) return;
   package->NotifyScheduled();
   Drone* to_dispatch = findAppropriateDrone(
       package, customer, entities);
