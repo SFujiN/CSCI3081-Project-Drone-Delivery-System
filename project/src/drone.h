@@ -6,8 +6,7 @@
 #include <EntityProject/graph.h>
 #include "vector_3d.h"
 #include "src/package.h"
-#include "src/vector_3d.h"
-#include "src/route_utils.h"
+#include "route_utils.h"
 #include "src/json_helper.h"
 #include "src/drone_pool.h"
 
@@ -70,6 +69,25 @@ class Drone : public entity_project::Drone {
    */
   void UpdatePackages();
 
+  /**
+  * Retrieves a Drone's Observable reference to call functions
+  * related to the subject of an observer pattern.
+  *
+  * @return Observable object reference. Returns droneObservable
+  */
+  Observable& GetObservable() { return droneObservable; }
+
+  /**
+  * Notify observers that the drone is idle.
+  */
+  void NotifyIdled();
+
+  /**
+  * Notify observers that the drone is moving.
+  * 
+  */
+  void NotifyMoving();
+
   /// Returns true if the drone has incomplete deliveries
   bool IsDelivering() { return package != nullptr; }
 
@@ -81,7 +99,7 @@ class Drone : public entity_project::Drone {
   bool hasPickedUpPackage_ = false;
   std::vector<std::string> route_by_node_name;
   RouteManager routemanager;
-
+  Observable droneObservable;
   /// The speed at which the drone moves, in simulation-units per second
   float speed = 100;
   float battery;

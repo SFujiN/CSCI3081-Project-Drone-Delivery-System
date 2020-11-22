@@ -10,6 +10,8 @@
 entity_project::Entity* csci3081::EntityFactory::CreateEntity(const picojson::object& val) {
   auto type = JsonHelper::GetNoFail<std::string>(val, "type", "No Type");
   if (type == "drone") {
+    //entity_project::Entity* d = new Drone(val);
+    //d->AsType<Drone>()->NotifyIdled();
     return new Drone(val);
   } else if (type == "package") {
     return new Package(val);

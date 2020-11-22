@@ -3,14 +3,15 @@
 //
 
 #include "src/drone.h"
-#include "src/route_utils.h"
-#include <picojson.h>
-#include <string>
+//#include "src/route_utils.h"
 
 namespace csci3081 {
 
 Drone::Drone(const picojson::object& initfrom) : Drone() {
   details_ = initfrom;
+
+  droneObservable.SetEntity(this);
+  NotifyIdled();
 
   name_ = JsonHelper::GetNoFail<std::string>(initfrom, "name", "default name");
 
@@ -49,9 +50,11 @@ void csci3081::Drone::Update(float dt) {
     RouteTo(package->GetDestination());
   } else {
     package->NotifyDelivered();
+    NotifyIdled();
     hasPickedUpPackage_ = false;
     package = nullptr;
   }
+  
 }
 
 bool Drone::FollowRoute(float dt) {
@@ -138,6 +141,7 @@ void Drone::SetRoute(std::vector<entity_project::IGraphNode*> newRoute) {
     std::cout << node->GetPosition()[0] << ' '<< node->GetPosition()[1] << ' '<< node->GetPosition()[2] << std::endl;
   }
   route = newRouteQueue;
+  NotifyMoving();
 }
 
 void Drone::CarryPackages() {
@@ -155,6 +159,7 @@ void Drone::UpdatePackages() {
     }
 }
 
+<<<<<<< HEAD
 }  // nmespace csci3081
 
   void csci3081::Drone::SetDroneSpecs(const std::unordered_map<std::string,csci3081::droneSpecs> list) {
@@ -164,3 +169,34 @@ void Drone::UpdatePackages() {
 
     battery = spec_.base_bat_cap_;
   }
+=======
+void Drone::NotifyIdled() {
+  picojson::object obj;
+  obj["type"] = picojson::value("notify");
+  obj["value"] = picojson::value("idle");
+  const picojson::value& event = picojson::value(obj);
+  droneObservable.Notify(event);
+}
+
+void Drone::NotifyMoving() {
+  picojson::object obj;
+  obj["type"] = picojson::value("notify");
+  obj["value"] = picojson::value("moving");
+  
+  std::queue<entity_project::IGraphNode*> routeCopy = route;
+  
+  std::vector<std::vector<float>> arr;
+  while (!routeCopy.empty()) {
+    std::vector<float> temp = routeCopy.front()->GetPosition();
+    arr.push_back(temp);
+    routeCopy.pop();
+  }
+  obj["path"] = JsonHelper::EncodeArray(arr);
+  
+  const picojson::value& event = picojson::value(obj);
+  
+  droneObservable.Notify(event);
+}
+
+}  // namespace csci3081
+>>>>>>> devel

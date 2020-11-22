@@ -6,7 +6,9 @@ namespace csci3081 {
 
 void Observable::Notify(const picojson::value& event) {
     for (auto& o : observers) {
-        o->OnEvent(event, *entity);
+        if (entity != nullptr) {
+            o->OnEvent(event, *entity);
+        }
     }
 }
 
