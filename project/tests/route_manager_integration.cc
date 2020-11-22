@@ -80,7 +80,7 @@ class RoutingIntegrationTest : public ::testing::Test {
  ******************************************************************************/
 
 TEST_F(RoutingIntegrationTest, BasicRouteInt) {
-  scheduler.ScheduleDelivery(package, customer, entities);
+  scheduler.ScheduleDelivery(package, customer, entities, picojson::object());
 
   std::vector<std::string> route_node_names = drone->GetCurrentRoute();
 
@@ -98,7 +98,7 @@ TEST_F(RoutingIntegrationTest, SpecificRouteInt) {
   n0.SetNeighbors(std::vector<entity_project::IGraphNode*>{&n1, &n3, &n4});
   n4.SetNeighbors(std::vector<entity_project::IGraphNode*>{&n1, &n3, &n5, &n7, &n0});
 
-  scheduler.ScheduleDelivery(package, customer, entities);
+  scheduler.ScheduleDelivery(package, customer, entities, picojson::object());
 
   std::vector<std::string> route_node_names = drone->GetCurrentRoute();
   std::string routeNames = "";
@@ -118,7 +118,7 @@ TEST_F(RoutingIntegrationTest, NoRouteInt) {
   n7.SetNeighbors(std::vector<entity_project::IGraphNode*>{&n6, &n4});
   n4.SetNeighbors(std::vector<entity_project::IGraphNode*>{&n1, &n3, &n5, &n7, &n0});
 
-  scheduler.ScheduleDelivery(package, customer, entities);
+  scheduler.ScheduleDelivery(package, customer, entities, picojson::object());
 
   std::vector<std::string> route_node_names = drone->GetCurrentRoute();
   std::string routeNames = "";

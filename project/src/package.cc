@@ -4,6 +4,7 @@
 
 #include "src/package.h"
 #include "src/vector_3d.h"
+#include <utility>
 #include <vector>
 #include <string>
 
@@ -68,6 +69,10 @@ void Package::NotifyPickedUp() {
   obj["value"] = picojson::value("en route");
   const picojson::value& event = picojson::value(obj);
   packageObservable.Notify(event);
+}
+
+void Package::SetDeliveryInfo(DeliveryInfo inf) {
+  info = std::move(inf);
 }
 
 }  // namespace csci3081

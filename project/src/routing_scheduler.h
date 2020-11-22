@@ -18,11 +18,13 @@ namespace csci3081 {
 class RoutingScheduler {
  public:
   /**
-   * @brief Find the drone that can deliver the Package to the Customer the fastest, and dispatch it
+   * @brief Find the drone that can deliver the Package to the Customer the fastest, and dispatch.
    *
-   * This ends up being the closest drone to the package that is not already en-route to a package or delivery point.
+   * This ends up being the closest drone to the package that is not already en-route
+   * to a package or delivery point.
    */
-  void ScheduleDelivery(Package*, Customer*, const std::vector<entity_project::Entity*>&);
+  void ScheduleDelivery(Package*, Customer*, const std::vector<entity_project::Entity*>&,
+      const picojson::object&);
 
   void SetGraph(const entity_project::IGraph* graph) { routemanager.SetGraph(graph); }
 
