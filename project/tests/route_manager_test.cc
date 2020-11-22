@@ -1,5 +1,6 @@
 #include "gtest/gtest.h"
 #include "src/route_utils.h"
+#include "src/test_graph.h"
 #include <EntityProject/project_settings.h>
 
 #include <iostream>
@@ -13,54 +14,7 @@ class RouteManagerTest : public ::testing::Test {
 
 };
 
-class TestGraph : public entity_project::IGraph {
-public:
-  const entity_project::IGraphNode* GetNode(const std::string& name) const override {
-    return nodesmap.at(name);
-  }
-  const std::vector<entity_project::IGraphNode*>& GetNodes() const override {
-    return nodesvec;
-  }
-  void AddNode(entity_project::IGraphNode* node) {
-    nodesvec.push_back(node);
-    nodesmap[node->GetName()] = node;
-  }
-  void AddNodes(std::vector<entity_project::IGraphNode*> nodes) {
-    for (auto i = nodes.begin(); i != nodes.end(); ++i) {
-      AddNode(*i);
-    }
-  }
-private:
-  std::unordered_map<std::string,entity_project::IGraphNode*> nodesmap;
-  std::vector<entity_project::IGraphNode*> nodesvec;
-};
 
-class TestNode : public entity_project::IGraphNode {
-public:
-  TestNode(std::string newName, float x, float y, float z) {
-    name = newName;
-    position = {x,y,z};
-  }
-  const std::string& GetName() const override {return name;}
-  const std::vector<entity_project::IGraphNode*>& GetNeighbors() const override {return neighbors;}
-  const std::vector<float> GetPosition() const override {return position;}
-  void SetPosition(float x, float y, float z) {position = {x,y,z};}
-  void AddNeighbor(entity_project::IGraphNode* node) {neighbors.push_back(node);}
-  void SetNeighbors(std::vector<entity_project::IGraphNode*> nodes) {neighbors = nodes;}
-private:
-  std::string name;
-  std::vector<float> position;
-  std::vector<entity_project::IGraphNode*> neighbors;
-};
-
-float RouteLength(std::vector<entity_project::IGraphNode*> route) {
-  RouteManager rm;
-  float acc = 0;
-  for( auto i = route.begin() + 1; i != route.end(); ++i ) {
-    acc += rm.GetRouteDistanceBetween(*i, *(i-1));
-  }
-  return acc;
-}
 
 /*******************************************************************************
  * Test Cases
@@ -121,7 +75,9 @@ TEST_F(RouteManagerTest, BasicRoute) {
   for(auto i = route.begin(); i != route.end(); ++i) {
     std::cout << (*i)->GetName() << std::endl;
   }
-  ASSERT_FLOAT_EQ(RouteLength(route),4);
+  ASSERT_EQ(route.size(),5);
+  ASSERT_EQ(route.at(0)->GetName(),"0");
+  ASSERT_EQ(route.at(4)->GetName(),"8");
 }
 
 TEST_F(RouteManagerTest, SpecificRoute) {
@@ -179,8 +135,8 @@ TEST_F(RouteManagerTest, NoRoute) {
   n8.SetNeighbors(std::vector<entity_project::IGraphNode*>{&n8});
   n1.SetNeighbors(std::vector<entity_project::IGraphNode*>{&n0,&n4,&n2});
   n3.SetNeighbors(std::vector<entity_project::IGraphNode*>{&n0,&n4,&n6});
-  n5.SetNeighbors(std::vector<entity_project::IGraphNode*>{&n8,&n4,&n2});
-  n7.SetNeighbors(std::vector<entity_project::IGraphNode*>{&n6,&n4,&n8});
+  n5.SetNeighbors(std::vector<entity_project::IGraphNode*>{&n4,&n2});
+  n7.SetNeighbors(std::vector<entity_project::IGraphNode*>{&n6,&n4});
   n4.SetNeighbors(std::vector<entity_project::IGraphNode*>{&n1,&n3,&n5,&n7,&n0});
 
   g.AddNodes(std::vector<entity_project::IGraphNode*>{&n0,&n1,&n2,&n3,&n4,&n5,&n6,&n7,&n8});
@@ -193,7 +149,7 @@ TEST_F(RouteManagerTest, NoRoute) {
     std::cout << (*i)->GetName() << std::endl;
     routeNames += (*i)->GetName();
   }
-  ASSERT_EQ(routeNames,"08");
+  ASSERT_EQ(routeNames,"8");
 }
 
 }  // namespace csci3081
