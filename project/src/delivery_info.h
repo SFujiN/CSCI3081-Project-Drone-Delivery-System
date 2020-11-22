@@ -24,4 +24,4 @@ class DeliveryInfo {
 
 }  // namespace csci3081
 
-#endif //PROJECT_SRC_DELIVERY_INFO_H_
+#endif  // PROJECT_SRC_DELIVERY_INFO_H_

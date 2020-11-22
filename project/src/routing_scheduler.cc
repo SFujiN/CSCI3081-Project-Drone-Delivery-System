@@ -9,7 +9,7 @@ void csci3081::RoutingScheduler::ScheduleDelivery(
     const std::vector<entity_project::Entity*>& entities,
     const picojson::object& details
 ) {
-  if(package->IsDynamic()) return;
+  if (package->IsDynamic()) return;
   package->NotifyScheduled();
   Drone* to_dispatch = findAppropriateDrone(
       package, customer, entities);
