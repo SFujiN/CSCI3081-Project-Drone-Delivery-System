@@ -27,9 +27,9 @@ class ObservableObserverIntegration : public ::testing::Test {
     obj["type"] = picojson::value("package");
     obj["name"] = picojson::value("TEST PACKAGE 1");
     obj["position"] = picojson::value(picojson::array(
-     {picojson::value(1.0),
-     picojson::value(2.0),
-     picojson::value(3.0)} ));
+        {picojson::value(1.0),
+         picojson::value(2.0),
+         picojson::value(3.0)}));
     package = system->CreateEntity(obj)->AsType<Package>();
     system->AddEntity(package);
 
@@ -53,27 +53,25 @@ class ObservableObserverIntegration : public ::testing::Test {
 
 
 TEST_F(ObservableObserverIntegration, PackageObservation) {
-  system->AddObserver(package,obs);
+  system->AddObserver(package, obs);
 
   package->NotifyScheduled();
   EXPECT_TRUE(obs->notifiedScheduled);
   EXPECT_FALSE(obs->notifiedPickedUp);
   EXPECT_FALSE(obs->notifiedDelivered);
-  EXPECT_EQ(obs->name,"TEST PACKAGE 1");
+  EXPECT_EQ(obs->name, "TEST PACKAGE 1");
 
   package->DronePickUp();
   EXPECT_TRUE(obs->notifiedScheduled);
   EXPECT_TRUE(obs->notifiedPickedUp);
   EXPECT_FALSE(obs->notifiedDelivered);
-  EXPECT_EQ(obs->name,"TEST PACKAGE 1");
+  EXPECT_EQ(obs->name, "TEST PACKAGE 1");
 
   package->NotifyDelivered();
   EXPECT_TRUE(obs->notifiedScheduled);
   EXPECT_TRUE(obs->notifiedPickedUp);
   EXPECT_TRUE(obs->notifiedDelivered);
-  EXPECT_EQ(obs->name,"TEST PACKAGE 1");
-
-
+  EXPECT_EQ(obs->name, "TEST PACKAGE 1");
 }
 
-} // namespace csci3081
+}  // namespace csci3081
