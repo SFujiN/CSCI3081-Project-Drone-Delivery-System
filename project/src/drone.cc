@@ -68,6 +68,7 @@ bool Drone::FollowRoute(float dt) {
 
     auto point = RouteManager::AsVec(route.front());
     float dist = pos.distanceTo(point);
+    SetVecDirection(pos.directionTo(point));
     if (dist < remainingDistance) {
       pos = point;
       remainingDistance -= dist;
@@ -89,6 +90,12 @@ void csci3081::Drone::SetVecPos(Vector3d vec) {
   position_[0] = vec.x;
   position_[1] = vec.y;
   position_[2] = vec.z;
+}
+
+void csci3081::Drone::SetVecDirection(Vector3d vec) {
+  direction_[0] = vec.x;
+  direction_[1] = vec.y;
+  direction_[2] = vec.z;
 }
 
 const std::vector<std::string>& Drone::GetCurrentRoute() const {

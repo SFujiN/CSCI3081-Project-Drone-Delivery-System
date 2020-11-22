@@ -55,6 +55,8 @@ class Drone : public entity_project::Drone {
   Vector3d GetVecPos();
   /// Move to the location of the Vector3d
   void SetVecPos(Vector3d);
+  /// Set the drone to point in the desired direction
+  void SetVecDirection(Vector3d);
   /// Update the deliveries assigned to this drone
   void SetDeliveryPlan(csci3081::Package* package, csci3081::Customer* customer, RouteManager rm);
   /// Update the drone's route based on current state
