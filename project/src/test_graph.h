@@ -3,11 +3,14 @@
 
 #include <EntityProject/graph.h>
 #include "src/route_utils.h"
+#include <vector>
+#include <string>
+#include <unordered_map>
 
 namespace csci3081 {
 
 class TestGraph : public entity_project::IGraph {
-public:
+ public:
   const entity_project::IGraphNode* GetNode(const std::string& name) const override {
     return nodesmap.at(name);
   }
@@ -23,29 +26,28 @@ public:
       AddNode(*i);
     }
   }
-private:
-  std::unordered_map<std::string,entity_project::IGraphNode*> nodesmap;
+ private:
+  std::unordered_map<std::string, entity_project::IGraphNode*> nodesmap;
   std::vector<entity_project::IGraphNode*> nodesvec;
 };
 
 class TestNode : public entity_project::IGraphNode {
-public:
+ public:
   TestNode(std::string newName, float x, float y, float z) {
     name = newName;
-    position = {x,y,z};
+    position = {x, y, z};
   }
-  const std::string& GetName() const override {return name;}
+  const std::string& GetName() const override { return name; }
   const std::vector<entity_project::IGraphNode*>& GetNeighbors() const override {return neighbors;}
-  const std::vector<float> GetPosition() const override {return position;}
-  void SetPosition(float x, float y, float z) {position = {x,y,z};}
-  void AddNeighbor(entity_project::IGraphNode* node) {neighbors.push_back(node);}
-  void SetNeighbors(std::vector<entity_project::IGraphNode*> nodes) {neighbors = nodes;}
-private:
+  const std::vector<float> GetPosition() const override { return position; }
+  void SetPosition(float x, float y, float z) { position = {x, y, z}; }
+  void AddNeighbor(entity_project::IGraphNode* node) { neighbors.push_back(node); }
+  void SetNeighbors(std::vector<entity_project::IGraphNode*> nodes) { neighbors = nodes; }
+ private:
   std::string name;
   std::vector<float> position;
   std::vector<entity_project::IGraphNode*> neighbors;
 };
 
-
-} // namespace csci3081
+}  // namespace csci3081
 #endif

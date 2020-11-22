@@ -18,8 +18,8 @@ void DroneSimulation::Update(float dt) {
     if (package != nullptr) {
       if (package->ShouldDelete()) {
         entities_.erase(
-                std::remove(entities_.begin(), entities_.end(), entity),
-                entities_.end());
+            std::remove(entities_.begin(), entities_.end(), entity),
+            entities_.end());
       }
     }
   }

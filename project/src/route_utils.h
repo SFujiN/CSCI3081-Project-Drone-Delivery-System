@@ -10,6 +10,7 @@
 #include "src/vector_3d.h"
 #include <unordered_map>
 #include <iostream>
+#include <vector>
 
 namespace csci3081 {
 
@@ -25,15 +26,15 @@ class RouteManager {
    * @brief Find the distance from one route point to another, following only known routes
    */
   float GetRouteDistanceBetween(
-          const entity_project::IGraphNode* start,
-          const entity_project::IGraphNode* end);
+      const entity_project::IGraphNode* start,
+      const entity_project::IGraphNode* end);
 
   /**
    * @brief Get the actual route between two points.
    */
   std::vector<entity_project::IGraphNode*> GetRoute(
-          const entity_project::IGraphNode* start,
-          const entity_project::IGraphNode* end);
+      const entity_project::IGraphNode* start,
+      const entity_project::IGraphNode* end);
 
   /**
    * @brief Convert a RoutePoint to a Vector3d
@@ -48,4 +49,4 @@ class RouteManager {
 
 }  // namespace csci3081
 
-#endif //PROJECT_ROUTE_UTILS_H
+#endif  // PROJECT_ROUTE_UTILS_H

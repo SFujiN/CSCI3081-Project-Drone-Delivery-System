@@ -71,7 +71,7 @@ class Package : public entity_project::Package {
 
   /// Lets the package know if it has been picked up by a Drone
   void DronePickUp() {
-    if(!HasBeenPickedUp) {
+    if (!HasBeenPickedUp) {
       HasBeenPickedUp = true;
       NotifyPickedUp();
     }

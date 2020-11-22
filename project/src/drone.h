@@ -4,15 +4,19 @@
 #include <EntityProject/ANVIL2/drone.h>
 #include <queue>
 #include <EntityProject/graph.h>
-#include "vector_3d.h"
+#include "src/vector_3d.h"
 #include "src/package.h"
-#include "route_utils.h"
+#include "src/route_utils.h"
 #include "src/json_helper.h"
 #include "src/drone_pool.h"
+#include <unordered_map>
+#include <vector>
+#include <string>
 
 namespace csci3081 {
 
-  static std::unordered_map<std::string,csci3081::droneSpecs> models_ = csci3081::createDroneModelList("data/planet-x.csv");
+static std::unordered_map<std::string, csci3081::droneSpecs>
+    models_ = csci3081::createDroneModelList("data/planet-x.csv");
 
 
 /// TODO: Add documentation. You may edit this class including adding members or methods.
@@ -91,7 +95,7 @@ class Drone : public entity_project::Drone {
   /// Returns true if the drone has incomplete deliveries
   bool IsDelivering() { return package != nullptr; }
 
-    void SetDroneSpecs(const std::unordered_map<std::string,droneSpecs> list);
+  void SetDroneSpecs(const std::unordered_map<std::string, droneSpecs> list);
 
  private:
   std::queue<entity_project::IGraphNode*> route;
