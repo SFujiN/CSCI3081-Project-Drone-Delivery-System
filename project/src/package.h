@@ -8,6 +8,7 @@
 #include "src/customer.h"
 #include "src/json_helper.h"
 #include "src/vector_3d.h"
+#include "delivery_info.h"
 
 namespace csci3081 {
 
@@ -79,12 +80,16 @@ class Package : public entity_project::Package {
   /// True if being carried by drone
   bool PickedUp() { return HasBeenPickedUp; }
 
+  /// Set the delivery info for the package, currently unused
+  void SetDeliveryInfo(DeliveryInfo);
+
  private:
   bool HasBeenScheduled = false;  ///< boolean to track scheduled state
   bool HasBeenDelivered = false;  ///< boolean to track delivered state
   Observable packageObservable;  ///< Calls subject functionality
   bool HasBeenPickedUp = false;
   Customer* dest;
+  DeliveryInfo info;
 };
 
 }  // namespace csci3081
