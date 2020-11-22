@@ -216,7 +216,7 @@ void Drone::PhysicsUpdate(float dt) {
       speed = 0;
       return;
     }
-    float force = GetBaseAcceleration() / spec_.mass_;
+    float force = GetBaseAcceleration() * spec_.mass_;
     float totalmass = spec_.mass_ + package->GetWeight();
     float accel = force / totalmass;
     speed = speed + accel * dt;
