@@ -96,7 +96,11 @@ class Drone : public entity_project::Drone {
 
   /// Returns true if the drone has incomplete deliveries
   bool IsDelivering() { return package != nullptr; }
-
+  /**
+   * Set drone specs for given model
+   * 
+   * @param list that holds current model specs
+   */
   void SetDroneSpecs(const std::unordered_map<std::string, droneSpecs> list);
 
   void PhysicsUpdate(float dt);
