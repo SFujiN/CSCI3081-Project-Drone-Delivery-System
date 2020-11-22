@@ -7,7 +7,9 @@
 #include "src/json_helper.h"
 #include "src/entity_factory.h"
 #include "src/routing_scheduler.h"
+#include "src/drone_pool.h"
 #include <EntityProject/entity_console_logger.h>
+
 namespace csci3081 {
 
 
@@ -23,10 +25,9 @@ class DroneSimulation : public entity_project::DroneDeliverySystem {
 
   /// TODO: Add documentation.
   entity_project::Entity* CreateEntity(const picojson::object& val) {
-
     // Investigate json object that is passed in
     JsonHelper::PrintKeyValues(val);
-
+    csci3081::updateDroneModelList(models_, "data/planet-x.csv");
     return EntityFactory::CreateEntity(val);
   }
 
@@ -82,7 +83,10 @@ class DroneSimulation : public entity_project::DroneDeliverySystem {
  private:
   std::string teamName_;
   std::vector<entity_project::Entity*> entities_;
-  RoutingScheduler scheduler;
+  /**
+   * @brief The simulation's routing manager. This is called whenever a new delivery is scheduled and must be routed.
+   */
+  csci3081::RoutingScheduler scheduler;
 };
 
 }  // namespace csci3081

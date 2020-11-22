@@ -26,6 +26,14 @@ Drone::Drone(const picojson::object& initfrom) : Drone() {
   for (int i = 0; i<3; ++i) {
     direction_[i] = JsonHelper::ArrayGetNoFail<double>(arr, i, default_direction.at(i));
   }
+  if (details_.find("model") != details_.end()) {
+    modelNum = details_["model"].get<std::string>();
+  } else {
+    modelNum = "Q-36-01";
+  }
+  // SetDroneSpecs(models_);
+  SetDroneSpecs(csci3081::createDroneModelList("data/planet-x.csv"));
+  //std::cout << "\ndroneList: \n" << spec_ << "\n";
 
   radius_ = JsonHelper::GetNoFail<double>(initfrom, "radius", 3);
 }
@@ -89,27 +97,27 @@ const std::vector<std::string>& Drone::GetCurrentRoute() const {
 
 float csci3081::Drone::GetRemainingBattery() const {
   // TODO
-  return 0;
+  return battery;
 }
 
 float csci3081::Drone::GetCurrentSpeed() const {
   // TODO
-  return 30;
+  return speed;
 }
 
 float csci3081::Drone::GetMaxCapacity() const {
   // TODO
-  return 0;
+  return spec_.weight_cap_;
 }
 
 float csci3081::Drone::GetRemainingCapacity() const {
   // TODO
-  return 0;
+  return spec_.weight_cap_ - currLoadWeight;
 }
 
 float csci3081::Drone::GetBaseAcceleration() const {
   // TODO
-  return 0;
+  return spec_.base_acc_;
 }
 
 void Drone::SetDeliveryPlan(csci3081::Package* package_, csci3081::Customer* customer, RouteManager rm) {
@@ -149,6 +157,14 @@ void Drone::UpdatePackages() {
     } else if (/*Touching(package)*/ true) {
       package->DronePickUp();
     }
+}
+
+void csci3081::Drone::SetDroneSpecs(const std::unordered_map<std::string,csci3081::droneSpecs> list) {
+    if (csci3081::isModelListed(list, modelNum)) {
+      spec_ = list.at(modelNum);
+    }
+
+    battery = spec_.base_bat_cap_;
 }
 
 void Drone::NotifyIdled() {

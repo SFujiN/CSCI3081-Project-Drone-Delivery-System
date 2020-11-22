@@ -8,8 +8,12 @@
 #include "src/package.h"
 #include "route_utils.h"
 #include "src/json_helper.h"
+#include "src/drone_pool.h"
 
 namespace csci3081 {
+
+  static std::unordered_map<std::string,csci3081::droneSpecs> models_ = csci3081::createDroneModelList("data/planet-x.csv");
+
 
 /// TODO: Add documentation. You may edit this class including adding members or methods.
 /**
@@ -87,6 +91,8 @@ class Drone : public entity_project::Drone {
   /// Returns true if the drone has incomplete deliveries
   bool IsDelivering() { return package != nullptr; }
 
+    void SetDroneSpecs(const std::unordered_map<std::string,droneSpecs> list);
+
  private:
   std::queue<entity_project::IGraphNode*> route;
   csci3081::Package* package = nullptr;
@@ -94,6 +100,12 @@ class Drone : public entity_project::Drone {
   std::vector<std::string> route_by_node_name;
   RouteManager routemanager;
   Observable droneObservable;
+  /// The speed at which the drone moves, in simulation-units per second
+  float speed = 100;
+  float battery;
+  float currLoadWeight = 0;
+  std::string modelNum;
+  droneSpecs spec_;
 };
 
 }  // namespace csci3081
