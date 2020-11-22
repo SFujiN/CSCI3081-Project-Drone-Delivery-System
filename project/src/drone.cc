@@ -46,6 +46,7 @@ void csci3081::Drone::Update(float dt) {
   if (!completed) return;
   if (!hasPickedUpPackage_) {
     hasPickedUpPackage_ = true;
+    CarryPackages();
     package->NotifyPickedUp();
     RouteTo(package->GetDestination());
   } else {
@@ -146,6 +147,7 @@ void Drone::SetRoute(std::vector<entity_project::IGraphNode*> newRoute) {
 
 void Drone::CarryPackages() {
   if (hasPickedUpPackage_) {
+    std::cout << "movin the package" << std::endl;
     package->SetVecPos(this->GetVecPos() - Vector3d(0, 0.5, 0));
   }
 }
