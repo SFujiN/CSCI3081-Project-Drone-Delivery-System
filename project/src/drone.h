@@ -97,6 +97,8 @@ class Drone : public entity_project::Drone {
 
   void SetDroneSpecs(const std::unordered_map<std::string, droneSpecs> list);
 
+  void PhysicsUpdate(float dt);
+
  private:
   std::queue<entity_project::IGraphNode*> route;
   csci3081::Package* package = nullptr;
@@ -110,6 +112,7 @@ class Drone : public entity_project::Drone {
   float currLoadWeight = 0;
   std::string modelNum;
   droneSpecs spec_;
+  std::string physicsModel = "velocity";
 };
 
 }  // namespace csci3081

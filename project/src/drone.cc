@@ -189,4 +189,31 @@ void Drone::NotifyMoving() {
   droneObservable.Notify(event);
 }
 
+void Drone::PhysicsUpdate(float dt) {
+  if (physicsModel == "velocity") {
+    speed = spec_.max_speed_;
+  } else if (physicsModel == "acceleration") {
+    if(!IsDelivering()) {
+      speed = 0;
+      return;
+    }
+    speed = speed + spec_.base_acc_ * dt;
+    if (speed > spec_.max_speed_) {
+      speed = spec_.max_speed_;
+    }
+  } else if (physicsModel == "force") {
+    if (!IsDelivering()) {
+      speed = 0;
+      return;
+    }
+    float force = GetBaseAcceleration() / spec_.mass_;
+    float totalmass = spec_.mass_ + package->GetWeight();
+    float accel = force / totalmass;
+    speed = speed + accel * dt;
+    if (speed > spec_.max_speed_) {
+      speed = spec_.max_speed_;
+    }
+  }
+}
+
 }  // namespace csci3081
