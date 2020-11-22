@@ -7,7 +7,7 @@
 #include <iostream>
 // using namespace csci3081;
 
-int main(int argc, char**argv) {
+int main(int argc, char** argv) {
   std::cout << "Usage: ./build/web-app 8081 web" << std::endl;
 
   if (argc > 2) {

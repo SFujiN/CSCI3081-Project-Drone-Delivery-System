@@ -5,7 +5,7 @@
 #include "src/package.h"
 #include "src/vector_3d.h"
 #include <vector>
-#include <algorithm>
+#include <string>
 
 namespace csci3081 {
 
@@ -17,13 +17,13 @@ Package::Package(const picojson::object& initfrom) : Package() {
 
   picojson::array arr;
   arr = JsonHelper::GetNoFail<picojson::array>(initfrom, "position", picojson::array{});
-  for (int i = 0; i<3; ++i) {
+  for (int i = 0; i < 3; ++i) {
     position_[i] = JsonHelper::ArrayGetNoFail<double>(arr, i, 0);
   }
 
-  std::vector<float> default_direction{1,0,0};
+  std::vector<float> default_direction{1, 0, 0};
   arr = JsonHelper::GetNoFail<picojson::array>(initfrom, "direction", picojson::array{});
-  for (int i = 0; i<3; ++i) {
+  for (int i = 0; i < 3; ++i) {
     direction_[i] = JsonHelper::ArrayGetNoFail<double>(arr, i, default_direction.at(i));
   }
 
@@ -69,6 +69,5 @@ void Package::NotifyPickedUp() {
   const picojson::value& event = picojson::value(obj);
   packageObservable.Notify(event);
 }
-
 
 }  // namespace csci3081

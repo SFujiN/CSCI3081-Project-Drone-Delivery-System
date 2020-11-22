@@ -27,7 +27,7 @@ class DroneSimulation : public entity_project::DroneDeliverySystem {
   entity_project::Entity* CreateEntity(const picojson::object& val) {
     // Investigate json object that is passed in
     JsonHelper::PrintKeyValues(val);
-    csci3081::updateDroneModelList(models_, "data/planet-x.csv");
+    // csci3081::updateDroneModelList(models_, "data/planet-x.csv");
     return EntityFactory::CreateEntity(val);
   }
 
@@ -46,7 +46,7 @@ class DroneSimulation : public entity_project::DroneDeliverySystem {
 
   /// TODO: Add documentation.
   void ScheduleDelivery(entity_project::Package* package,
-    entity_project::Customer* dest, const picojson::object& details) {
+                        entity_project::Customer* dest, const picojson::object& details) {
     scheduler.ScheduleDelivery(package->AsType<Package>(), dest->AsType<Customer>(), entities_);
   }
 
@@ -56,7 +56,7 @@ class DroneSimulation : public entity_project::DroneDeliverySystem {
     csci3081::Drone* d = entity->AsType<Drone>();
     if (p != nullptr) {
       p->GetObservable().Attach(observer);
-    } 
+    }
     if (d != nullptr) {
       d->GetObservable().Attach(observer);
     }
@@ -84,7 +84,8 @@ class DroneSimulation : public entity_project::DroneDeliverySystem {
   std::string teamName_;
   std::vector<entity_project::Entity*> entities_;
   /**
-   * @brief The simulation's routing manager. This is called whenever a new delivery is scheduled and must be routed.
+   * @brief The simulation's routing manager.
+   * This is called whenever a new delivery is scheduled and must be routed.
    */
   csci3081::RoutingScheduler scheduler;
 };

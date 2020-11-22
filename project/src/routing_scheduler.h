@@ -4,7 +4,7 @@
 #include "src/drone.h"
 #include "src/package.h"
 #include "src/customer.h"
-#include "route_utils.h"
+#include "src/route_utils.h"
 #include <EntityProject/entity.h>
 #include <vector>
 
@@ -34,8 +34,8 @@ class RoutingScheduler {
    * @return Null if no drones are available, otherwise the closest drone.
    */
   Drone* findAppropriateDrone(
-          Package* package, Customer* customer,
-          const std::vector<entity_project::Entity*>& entities);
+      Package* package, Customer* customer,
+      const std::vector<entity_project::Entity*>& entities);
 };
 
 }  // namespace csci3081

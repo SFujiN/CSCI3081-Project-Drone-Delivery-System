@@ -26,5 +26,4 @@ struct Vector3d {
   float x, y, z;
 };
 
-
 #endif  // SRC_VECTOR_3D_H
