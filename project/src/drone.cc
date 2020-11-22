@@ -33,6 +33,8 @@ Drone::Drone(const picojson::object& initfrom) : Drone() {
   // SetDroneSpecs(models_);
   SetDroneSpecs(csci3081::createDroneModelList("data/planet-x.csv"));
 
+  physicsModel = JsonHelper::GetNoFail<std::string>(initfrom, "physics-model", "velocity");
+
   radius_ = JsonHelper::GetNoFail<double>(initfrom, "radius", 3);
 }
 
