@@ -55,6 +55,8 @@ class Drone : public entity_project::Drone {
   Vector3d GetVecPos();
   /// Move to the location of the Vector3d
   void SetVecPos(Vector3d);
+  /// Set the drone to point in the desired direction
+  void SetVecDirection(Vector3d);
   /// Update the deliveries assigned to this drone
   void SetDeliveryPlan(csci3081::Package* package, csci3081::Customer* customer, RouteManager rm);
   /// Update the drone's route based on current state
@@ -97,6 +99,8 @@ class Drone : public entity_project::Drone {
 
   void SetDroneSpecs(const std::unordered_map<std::string, droneSpecs> list);
 
+  void PhysicsUpdate(float dt);
+
  private:
   std::queue<entity_project::IGraphNode*> route;
   csci3081::Package* package = nullptr;
@@ -105,11 +109,12 @@ class Drone : public entity_project::Drone {
   RouteManager routemanager;
   Observable droneObservable;
   /// The speed at which the drone moves, in simulation-units per second
-  float speed = 100;
+  float speed = 0;
   float battery;
   float currLoadWeight = 0;
   std::string modelNum;
   droneSpecs spec_;
+  std::string physicsModel = "velocity";
 };
 
 }  // namespace csci3081

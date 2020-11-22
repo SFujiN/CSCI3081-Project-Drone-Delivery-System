@@ -33,10 +33,13 @@ Drone::Drone(const picojson::object& initfrom) : Drone() {
   // SetDroneSpecs(models_);
   SetDroneSpecs(csci3081::createDroneModelList("data/planet-x.csv"));
 
+  physicsModel = JsonHelper::GetNoFail<std::string>(initfrom, "physics-model", "velocity");
+
   radius_ = JsonHelper::GetNoFail<double>(initfrom, "radius", 3);
 }
 
 void csci3081::Drone::Update(float dt) {
+  PhysicsUpdate(dt);
   if (!IsDelivering()) return;
   bool completed = FollowRoute(dt);
   CarryPackages();
@@ -65,6 +68,7 @@ bool Drone::FollowRoute(float dt) {
 
     auto point = RouteManager::AsVec(route.front());
     float dist = pos.distanceTo(point);
+    SetVecDirection(pos.directionTo(point));
     if (dist < remainingDistance) {
       pos = point;
       remainingDistance -= dist;
@@ -86,6 +90,12 @@ void csci3081::Drone::SetVecPos(Vector3d vec) {
   position_[0] = vec.x;
   position_[1] = vec.y;
   position_[2] = vec.z;
+}
+
+void csci3081::Drone::SetVecDirection(Vector3d vec) {
+  direction_[0] = vec.x;
+  direction_[1] = vec.y;
+  direction_[2] = vec.z;
 }
 
 const std::vector<std::string>& Drone::GetCurrentRoute() const {
@@ -187,6 +197,33 @@ void Drone::NotifyMoving() {
   const picojson::value& event = picojson::value(obj);
 
   droneObservable.Notify(event);
+}
+
+void Drone::PhysicsUpdate(float dt) {
+  if (physicsModel == "velocity") {
+    speed = spec_.max_speed_;
+  } else if (physicsModel == "acceleration") {
+    if (!IsDelivering()) {
+      speed = 0;
+      return;
+    }
+    speed = speed + spec_.base_acc_ * dt;
+    if (speed > spec_.max_speed_) {
+      speed = spec_.max_speed_;
+    }
+  } else if (physicsModel == "force") {
+    if (!IsDelivering()) {
+      speed = 0;
+      return;
+    }
+    float force = GetBaseAcceleration() * spec_.mass_;
+    float totalmass = spec_.mass_ + package->GetWeight();
+    float accel = force / totalmass;
+    speed = speed + accel * dt;
+    if (speed > spec_.max_speed_) {
+      speed = spec_.max_speed_;
+    }
+  }
 }
 
 }  // namespace csci3081
