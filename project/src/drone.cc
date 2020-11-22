@@ -203,7 +203,7 @@ void Drone::PhysicsUpdate(float dt) {
   if (physicsModel == "velocity") {
     speed = spec_.max_speed_;
   } else if (physicsModel == "acceleration") {
-    if(!IsDelivering()) {
+    if (!IsDelivering()) {
       speed = 0;
       return;
     }
