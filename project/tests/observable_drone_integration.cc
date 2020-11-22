@@ -27,32 +27,32 @@ class ObservableDroneIntegration : public ::testing::Test {
     obj["type"] = picojson::value("package");
     obj["name"] = picojson::value("TEST PACKAGE 1");
     obj["position"] = picojson::value(picojson::array(
-     {picojson::value(505.303),
-     picojson::value(264.0),
-     picojson::value(-283.616)} ));
+        {picojson::value(505.303),
+         picojson::value(264.0),
+         picojson::value(-283.616)}));
     package = system->CreateEntity(obj)->AsType<Package>();
     system->AddEntity(package);
 
     obj["type"] = picojson::value("drone");
     obj["name"] = picojson::value("TEST DRONE 1");
     obj["position"] = picojson::value(picojson::array(
-     {picojson::value(505.303),
-     picojson::value(264.0),
-     picojson::value(-283.616)} ));
+        {picojson::value(505.303),
+         picojson::value(264.0),
+         picojson::value(-283.616)}));
     drone = system->CreateEntity(obj)->AsType<Drone>();
     system->AddEntity(drone);
 
     obj["type"] = picojson::value("customer");
     obj["name"] = picojson::value("TEST CUSTOMER 1");
     obj["position"] = picojson::value(picojson::array(
-     {picojson::value(505.303),
-     picojson::value(264.0),
-     picojson::value(-283.616)} ));
+        {picojson::value(505.303),
+         picojson::value(264.0),
+         picojson::value(-283.616)}));
     customer = system->CreateEntity(obj)->AsType<Customer>();
     system->AddEntity(customer);
 
     obs = new TestObserver();
-    system->AddObserver(package,obs);
+    system->AddObserver(package, obs);
   }
   virtual void TearDown() {
     delete obs;
@@ -75,17 +75,17 @@ class ObservableDroneIntegration : public ::testing::Test {
 
 TEST_F(ObservableDroneIntegration, PackageObservationWithDrone) {
   picojson::object dummyobj;
-  system->ScheduleDelivery(package,customer,dummyobj);
+  system->ScheduleDelivery(package, customer, dummyobj);
   EXPECT_TRUE(obs->notifiedScheduled);
   EXPECT_FALSE(obs->notifiedPickedUp);
   EXPECT_FALSE(obs->notifiedDelivered);
-  EXPECT_EQ(obs->name,"TEST PACKAGE 1");
+  EXPECT_EQ(obs->name, "TEST PACKAGE 1");
 
   for (int i = 0; i < 5; i++) { system->Update(0.2); }
   EXPECT_TRUE(obs->notifiedScheduled);
   EXPECT_TRUE(obs->notifiedPickedUp);
   EXPECT_TRUE(obs->notifiedDelivered);
-  EXPECT_EQ(obs->name,"TEST PACKAGE 1");
+  EXPECT_EQ(obs->name, "TEST PACKAGE 1");
 }
 
-} // namespace csci3081
+}  // namespace csci3081
