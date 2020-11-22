@@ -39,6 +39,7 @@ Drone::Drone(const picojson::object& initfrom) : Drone() {
 }
 
 void csci3081::Drone::Update(float dt) {
+  PhysicsUpdate(dt);
   if (!IsDelivering()) return;
   bool completed = FollowRoute(dt);
   CarryPackages();
