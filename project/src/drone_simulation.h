@@ -47,7 +47,11 @@ class DroneSimulation : public entity_project::DroneDeliverySystem {
   /// TODO: Add documentation.
   void ScheduleDelivery(entity_project::Package* package,
                         entity_project::Customer* dest, const picojson::object& details) {
-    scheduler.ScheduleDelivery(package->AsType<Package>(), dest->AsType<Customer>(), entities_);
+    scheduler.ScheduleDelivery(
+        package->AsType<Package>(),
+        dest->AsType<Customer>(),
+        entities_,
+        details);
   }
 
   /// TODO: Add documentation.
