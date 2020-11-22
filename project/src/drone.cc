@@ -159,17 +159,16 @@ void Drone::UpdatePackages() {
     }
 }
 
-<<<<<<< HEAD
 }  // nmespace csci3081
 
-  void csci3081::Drone::SetDroneSpecs(const std::unordered_map<std::string,csci3081::droneSpecs> list) {
+void csci3081::Drone::SetDroneSpecs(const std::unordered_map<std::string,csci3081::droneSpecs> list) {
     if (csci3081::isModelListed(list, modelNum)) {
       spec_ = list.at(modelNum);
     }
 
     battery = spec_.base_bat_cap_;
-  }
-=======
+}
+
 void Drone::NotifyIdled() {
   picojson::object obj;
   obj["type"] = picojson::value("notify");
