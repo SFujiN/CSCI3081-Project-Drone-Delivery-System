@@ -107,7 +107,7 @@ class Drone : public entity_project::Drone {
   RouteManager routemanager;
   Observable droneObservable;
   /// The speed at which the drone moves, in simulation-units per second
-  float speed = 100;
+  float speed = 0;
   float battery;
   float currLoadWeight = 0;
   std::string modelNum;
