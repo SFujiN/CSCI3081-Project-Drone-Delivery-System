@@ -11,6 +11,10 @@
 
 namespace csci3081 {
 
+/**
+ * @brief a class that contains a single static function that constructs and entity from a JSON.
+ * A simple concrete factory
+ */
 class EntityFactory {
  public:
   /**

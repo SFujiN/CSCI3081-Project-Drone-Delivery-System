@@ -14,6 +14,12 @@
 
 namespace csci3081 {
 
+/**
+ * @brief A collection of functions that encapsulate routing
+ *
+ * This is where the implementation of dijkstra's lives, as well as allowing conversions
+ * to and from graph nodes
+ */
 class RouteManager {
  public:
   /**
