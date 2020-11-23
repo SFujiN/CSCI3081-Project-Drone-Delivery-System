@@ -5,10 +5,8 @@
 #include "src/json_helper.h"
 
 namespace csci3081 {
-/// TODO: Add documentation. You may edit this class including adding members or methods.
-/**
- * TODO: Add detailed documentation.
- */
+
+/// Represents a customer in the drone system.
 class Customer : public entity_project::Customer {
  public:
   /// TODO: Add documentation.
