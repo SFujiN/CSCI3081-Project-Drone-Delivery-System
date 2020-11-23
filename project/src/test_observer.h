@@ -10,6 +10,7 @@ namespace csci3081 {
 /// Class used to test Observable class
 class TestObserver : public entity_project::EntityObserver {
  public:
+  /// called when an event occurs
   void OnEvent(const picojson::value& event, const entity_project::Entity& entity) {
     picojson::object eventobj;
     if (event.is<picojson::object>()) {
