@@ -10,6 +10,10 @@
 
 namespace csci3081 {
 
+/**
+ * @brief Stores information about a delivery's scheduling status
+ * Currently, this data is only stored and not used.
+ */
 class DeliveryInfo {
  public:
   DeliveryInfo() = default;

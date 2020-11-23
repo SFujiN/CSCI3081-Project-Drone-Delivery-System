@@ -19,13 +19,13 @@ static std::unordered_map<std::string, csci3081::droneSpecs>
     models_ = csci3081::createDroneModelList("data/planet-x.csv");
 
 
-/// TODO: Add documentation. You may edit this class including adding members or methods.
-/**
- * TODO: Add detailed documentation.
- */
+/// Represents a drone in the drone system.
 class Drone : public entity_project::Drone {
  public:
-  /// TODO: Add documentation.
+  /**
+   * @brief Create a default drone. this will likely not do what you want it to.
+   * You probably want to instantiate a drone from a json description
+   */
   Drone() { AddType<Drone>(); }
   /**
    * @brief Create a Drone from the JSON encoding.
