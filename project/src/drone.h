@@ -89,7 +89,8 @@ class Drone : public entity_project::Drone {
   void NotifyIdled();
 
   /**
-  * Notify observers that the drone is moving.
+  * Notify observers that the drone is moving. Also
+  * passes route information to observers.
   * 
   */
   void NotifyMoving();
@@ -111,7 +112,7 @@ class Drone : public entity_project::Drone {
   bool hasPickedUpPackage_ = false;
   std::vector<std::string> route_by_node_name;
   RouteManager routemanager;
-  Observable droneObservable;
+  Observable droneObservable;  ///< Used to call subject functionality
   /// The speed at which the drone moves, in simulation-units per second
   float speed = 0;
   float battery;
