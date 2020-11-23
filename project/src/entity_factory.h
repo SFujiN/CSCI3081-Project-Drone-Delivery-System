@@ -11,16 +11,19 @@
 
 namespace csci3081 {
 
+/**
+ * @brief a class that contains a single static function that constructs and entity from a JSON.
+ * A simple concrete factory
+ */
 class EntityFactory {
  public:
   /**
    * @brief Create an entity that corresponds to the passed in JSON encoding
    * @return A new reference to a new entity. The caller is responsible for managing this memory.
-   * This should probably just return the entity itself and allow move semantics to optimize the returning process, but no.
    */
   static entity_project::Entity* CreateEntity(const picojson::object&);
 };
 
-}  // namespace csci3081;
+}  // namespace csci3081
 
-#endif //PROJECT_ENTITY_FACTORY_H
+#endif  // PROJECT_ENTITY_FACTORY_H

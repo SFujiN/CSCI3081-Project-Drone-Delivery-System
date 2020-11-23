@@ -13,11 +13,11 @@ namespace csci3081 {
  */
 class Observable {
  public:
- /**
-  * Attaches an EntityObserver* to the observer list of a subject
-  * 
-  * @param observer is an EntityObserver* that wants to observe this subject
-  */
+  /**
+   * Attaches an EntityObserver* to the observer list of a subject
+   *
+   * @param observer is an EntityObserver* that wants to observe this subject
+   */
   void Attach(entity_project::EntityObserver* observer) { observers.push_back(observer); }
 
   /**
@@ -26,7 +26,8 @@ class Observable {
   * @param observer is an EntityObserver* that wants to be detached from this subject
   */
   void Detach(entity_project::EntityObserver* observer) {
-      observers.erase(std::remove(observers.begin(), observers.end(), observer), observers.end()); }
+    observers.erase(std::remove(observers.begin(), observers.end(), observer), observers.end());
+  }
 
   /**
   * Notifies all EntityObservers* of observers of an event
@@ -44,8 +45,10 @@ class Observable {
   void SetEntity(entity_project::Entity* e) { entity = e; }
 
  private:
-  const entity_project::Entity* entity = nullptr;  ///< Entity* that's using the Observable functionality
-  std::vector<entity_project::EntityObserver*> observers;  ///< List of observers of the subject
+  /// Entity* that's using the Observable functionality
+  const entity_project::Entity* entity = nullptr;
+  /// List of observers of the subject
+  std::vector<entity_project::EntityObserver*> observers;
 };
 
 }  // namespace csci3081

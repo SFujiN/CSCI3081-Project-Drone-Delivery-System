@@ -11,8 +11,10 @@ var scenePosition = [0,-13,0];
 var camera, scene, renderer, controls;
 var models = [];
 var routes = [];
+var paths = {};
 var currentView = -1;
 var showRoutes = false;
+var showPaths = true;
 
 // More important related to models and animation.
 var geometry, material, mesh;
@@ -171,12 +173,6 @@ function loadScene(file, initialScene = true) {
   sceneFile = file;
   $.getJSON(sceneFile, function(json) {
     console.log(json);
-    if (initialScene) {
-      socket.send(JSON.stringify({command: "runScript", "init":true, "script": json}));
-    }
-    else {
-      socket.send(JSON.stringify({command: "runScript", "script": json}));
-    }
     for (var i = 0; i < json.length; i++) {
       var command = json[i];
       console.log(command);
@@ -192,6 +188,12 @@ function loadScene(file, initialScene = true) {
       }
     }
     loadModels();
+    if (initialScene) {
+      socket.send(JSON.stringify({command: "runScript", "init":true, "script": json}));
+    }
+    else {
+      socket.send(JSON.stringify({command: "runScript", "script": json}));
+    }
   });
 }
 
@@ -202,12 +204,64 @@ function displayJSON(data) {
     type_lookup = {
       'scheduled': ' scheduled.',
       'delivered': ' delivered to customer.',
-      'en route': ' picked up.'
+      'en route': ' picked up.',
+      'moving': ' now moving.',
+      'idle': ' stopped moving.'
     }
     string_ending = type_lookup[data["value"]];
-    additional_string = "Package #" + data["id"] + string_ending + "\r\n";
+    additional_string = "Entity #" + data["id"] + string_ending + "\r\n";
     notifbar = document.getElementById("notification-bar");
     notifbar.textContent += additional_string;
+
+    const entityId = data["id"];
+
+    if (data["value"] == 'idle' || data["value"] == 'moving') {
+      if (entityId in paths) {
+        scene.remove(paths[entityId]);
+        delete paths[entityId];
+      }
+    }
+    if (data["value"] == 'idle') {
+      for ( var mixer of mixers ) {
+        if (entityId == mixer.id) {
+          mixer.duration = 0;
+        }
+      }
+    }
+    else if (data["value"] == 'moving') {
+      if ("path" in data) {
+        //create a blue LineBasicMaterial
+        var material = new THREE.LineBasicMaterial( { color: 0xf0fc03 } );
+        const points = [];
+        for (var point of  data["path"]) {
+          points.push( new THREE.Vector3( point[0], point[1], point[2] ) );
+        }
+        /*points.push( new THREE.Vector3( - 10, 0, 0 ) );
+        points.push( new THREE.Vector3( 0, 10, 0 ) );
+        points.push( new THREE.Vector3( 10, 0, 0 ) );*/
+        const geometry = new THREE.BufferGeometry().setFromPoints( points );
+
+        const line = new THREE.Line( geometry, material );
+        //console.log(routes);
+        if (routes.length > 0) {
+          line.position.copy( routes[0].position );
+          line.scale.copy( routes[0].scale );
+          line.material.color.setHex(routes[0].material.color.getHex());
+        }
+
+        //"position": [-0.0,-12.5,-0.0],
+        //      "scale": [0.0705,0.05,0.0705],
+        paths[entityId] = line;
+        scene.add( line );
+      }
+
+      for ( var mixer of mixers ) {
+        if (entityId == mixer.id) {
+
+          mixer.duration = 2;
+        }
+      }
+    }
   }
 }
 
@@ -269,7 +323,13 @@ function toggleRoutes() {
   for (var routeNum = 0; routeNum < routes.length; routeNum++) {
     routes[routeNum].visible = showRoutes;
   }
+}
 
+function togglePaths() {
+  showPaths = !showPaths;
+  for (const key in paths) {
+    paths[key].visible = showPaths;
+  }
 }
 
 // This function is a helper for loadScene().
@@ -333,7 +393,7 @@ const onLoad = ( gltf, position, scale, start, duration, id ) => {
   
   if (!(typeof animation === "undefined")) {
 	const mixer = new THREE.AnimationMixer( model );
-    mixers.push( {mixer: mixer, start: start, duration: duration} );
+    mixers.push( {id: id, mixer: mixer, start: start, duration: duration} );
   var action = mixer.clipAction(animation);
   	action.play();
   }

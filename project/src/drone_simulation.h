@@ -5,32 +5,30 @@
 #include <vector>
 #include <string>
 #include "src/json_helper.h"
-#include "entity_factory.h"
-#include "routing_scheduler.h"
+#include "src/entity_factory.h"
+#include "src/routing_scheduler.h"
+#include "src/drone_pool.h"
 #include <EntityProject/entity_console_logger.h>
+
 namespace csci3081 {
 
 
-/// TODO: Add documentation. You may edit this class including adding members or methods.
-/**
- * TODO: Add detailed documentation.
- */
+/// The abstract facade of a drone delivery subsystem.
 class DroneSimulation : public entity_project::DroneDeliverySystem {
  public:
   ~DroneSimulation() override;
-  /// TODO: Add documentation.
+  /// Returns the team name for the drone system.
   const std::string& GetTeamName() const { return teamName_; }
 
-  /// TODO: Add documentation.
+  /// Creates an entity based on a JSON object passed in.
   entity_project::Entity* CreateEntity(const picojson::object& val) {
-
     // Investigate json object that is passed in
     JsonHelper::PrintKeyValues(val);
-
+    // csci3081::updateDroneModelList(models_, "data/planet-x.csv");
     return EntityFactory::CreateEntity(val);
   }
 
-  /// TODO: Add documentation.
+  /// Register the entity with the system.
   void AddEntity(entity_project::Entity* entity) {
     // Console Observer
     static entity_project::EntityConsoleLogger logger;
@@ -39,42 +37,61 @@ class DroneSimulation : public entity_project::DroneDeliverySystem {
   }
 
 #ifdef ANVIL2
-  /// TODO: Add documentation.
+  /// Adds the graph used for dynamic routing in the delivery system.
   void SetGraph(const entity_project::IGraph* graph) { scheduler.SetGraph(graph); }
 #endif
 
-  /// TODO: Add documentation.
+  /**
+   * @brief Schedule a drone delivery for a package to be delivered to a customer.
+   * Details allows extra specifications for package delivery based on the business needs.
+   */
   void ScheduleDelivery(entity_project::Package* package,
-    entity_project::Customer* dest, const picojson::object& details) {
-    scheduler.ScheduleDelivery(package->AsType<Package>(), dest->AsType<Customer>(), entities_);
+                        entity_project::Customer* dest, const picojson::object& details) {
+    scheduler.ScheduleDelivery(
+        package->AsType<Package>(),
+        dest->AsType<Customer>(),
+        entities_,
+        details);
   }
 
-  /// TODO: Add documentation.
+  /// Add an observer to a specific entity.
   void AddObserver(entity_project::Entity* entity, entity_project::EntityObserver* observer) {
     csci3081::Package* p = entity->AsType<Package>();
+    csci3081::Drone* d = entity->AsType<Drone>();
     if (p != nullptr) {
       p->GetObservable().Attach(observer);
     }
-  }
-
-  /// TODO: Add documentation.
-  void RemoveObserver(entity_project::Entity* entity, entity_project::EntityObserver* observer) {
-    csci3081::Package* p = entity->AsType<Package>();
-    if (p != nullptr) {
-      p->GetObservable().Detach(observer);
+    if (d != nullptr) {
+      d->GetObservable().Attach(observer);
     }
   }
 
-  /// TODO: Add documentation.
+  /// Remove an observer from a specific entity.
+  void RemoveObserver(entity_project::Entity* entity, entity_project::EntityObserver* observer) {
+    csci3081::Package* p = entity->AsType<Package>();
+    csci3081::Drone* d = entity->AsType<Drone>();
+    if (p != nullptr) {
+      p->GetObservable().Detach(observer);
+    }
+    if (d != nullptr) {
+      d->GetObservable().Detach(observer);
+    }
+  }
+
+  /// Returns all the entities that are added to the drone system.
   const std::vector<entity_project::Entity*>& GetEntities() const { return entities_; }
 
-  /// TODO: Add documentation.
+  /// Updates the drone system time by dt.
   void Update(float dt);
 
  private:
   std::string teamName_;
   std::vector<entity_project::Entity*> entities_;
-  RoutingScheduler scheduler;
+  /**
+   * @brief The simulation's routing manager.
+   * This is called whenever a new delivery is scheduled and must be routed.
+   */
+  csci3081::RoutingScheduler scheduler;
 };
 
 }  // namespace csci3081

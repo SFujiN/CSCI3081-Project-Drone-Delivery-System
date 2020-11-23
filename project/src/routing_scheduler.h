@@ -4,7 +4,7 @@
 #include "src/drone.h"
 #include "src/package.h"
 #include "src/customer.h"
-#include "route_utils.h"
+#include "src/route_utils.h"
 #include <EntityProject/entity.h>
 #include <vector>
 
@@ -18,12 +18,16 @@ namespace csci3081 {
 class RoutingScheduler {
  public:
   /**
-   * @brief Find the drone that can deliver the Package to the Customer the fastest, and dispatch it
+   * @brief Find the drone that can deliver the Package to the Customer the fastest, and dispatch.
    *
-   * This ends up being the closest drone to the package that is not already en-route to a package or delivery point.
+   * Contains the logic for deciding which drone to assign a delivery to. Called by
+   * DroneSimulation to handle deliveries. Also contains the RouteManager which all
+   * drones will use to make their route calculations.
    */
-  void ScheduleDelivery(Package*, Customer*, const std::vector<entity_project::Entity*>&);
+  void ScheduleDelivery(Package*, Customer*, const std::vector<entity_project::Entity*>&,
+      const picojson::object&);
 
+  /// Sets the graph the RouteManager uses to compute routes with
   void SetGraph(const entity_project::IGraph* graph) { routemanager.SetGraph(graph); }
 
  private:
@@ -34,8 +38,8 @@ class RoutingScheduler {
    * @return Null if no drones are available, otherwise the closest drone.
    */
   Drone* findAppropriateDrone(
-          Package* package, Customer* customer,
-          const std::vector<entity_project::Entity*>& entities);
+      Package* package, Customer* customer,
+      const std::vector<entity_project::Entity*>& entities);
 };
 
 }  // namespace csci3081

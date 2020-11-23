@@ -4,20 +4,28 @@
 #include <EntityProject/ANVIL2/drone.h>
 #include <queue>
 #include <EntityProject/graph.h>
-#include "vector_3d.h"
+#include "src/vector_3d.h"
 #include "src/package.h"
 #include "src/route_utils.h"
 #include "src/json_helper.h"
+#include "src/drone_pool.h"
+#include <unordered_map>
+#include <vector>
+#include <string>
 
 namespace csci3081 {
 
-/// TODO: Add documentation. You may edit this class including adding members or methods.
-/**
- * TODO: Add detailed documentation.
- */
+static std::unordered_map<std::string, csci3081::droneSpecs>
+    models_ = csci3081::createDroneModelList("data/planet-x.csv");
+
+
+/// Represents a drone in the drone system.
 class Drone : public entity_project::Drone {
  public:
-  /// TODO: Add documentation.
+  /**
+   * @brief Create a default drone. this will likely not do what you want it to.
+   * You probably want to instantiate a drone from a json description
+   */
   Drone() { AddType<Drone>(); }
   /**
    * @brief Create a Drone from the JSON encoding.
@@ -47,6 +55,8 @@ class Drone : public entity_project::Drone {
   Vector3d GetVecPos();
   /// Move to the location of the Vector3d
   void SetVecPos(Vector3d);
+  /// Set the drone to point in the desired direction
+  void SetVecDirection(Vector3d);
   /// Update the deliveries assigned to this drone
   void SetDeliveryPlan(csci3081::Package* package, csci3081::Customer* customer, RouteManager rm);
   /// Update the drone's route based on current state
@@ -65,13 +75,51 @@ class Drone : public entity_project::Drone {
    */
   void UpdatePackages();
 
+  /**
+  * Retrieves a Drone's Observable reference to call functions
+  * related to the subject of an observer pattern.
+  *
+  * @return Observable object reference. Returns droneObservable
+  */
+  Observable& GetObservable() { return droneObservable; }
+
+  /**
+  * Notify observers that the drone is idle.
+  */
+  void NotifyIdled();
+
+  /**
+  * Notify observers that the drone is moving. Also
+  * passes route information to observers.
+  * 
+  */
+  void NotifyMoving();
+
   /// Returns true if the drone has incomplete deliveries
-  bool IsDelivering() { return !packages.empty(); }
+  bool IsDelivering() { return package != nullptr; }
+  /**
+   * Set drone specs for given model
+   * 
+   * @param list that holds current model specs
+   */
+  void SetDroneSpecs(const std::unordered_map<std::string, droneSpecs> list);
+
+  void PhysicsUpdate(float dt);
 
  private:
   std::queue<entity_project::IGraphNode*> route;
-  std::vector<Package*> packages;
+  csci3081::Package* package = nullptr;
+  bool hasPickedUpPackage_ = false;
+  std::vector<std::string> route_by_node_name;
   RouteManager routemanager;
+  Observable droneObservable;  ///< Used to call subject functionality
+  /// The speed at which the drone moves, in simulation-units per second
+  float speed = 0;
+  float battery;
+  float currLoadWeight = 0;
+  std::string modelNum;
+  droneSpecs spec_;
+  std::string physicsModel = "velocity";
 };
 
 }  // namespace csci3081

@@ -7,7 +7,6 @@
 #include "src/json_helper.h"
 #include <EntityProject/osm_graph_parser.h>
 
-
 #include <iostream>
 
 namespace csci3081 {
@@ -46,67 +45,67 @@ TEST_F(DroneSimRegTest, EntityCreationRegression) {
   ASSERT_EQ(entity, nullptr);
 
   // incorrect type provide by json
-  obj["type"] = picojson::value(double(45));
+  obj["type"] = picojson::value(static_cast<double>(45));
   entity = system->CreateEntity(obj);
   ASSERT_EQ(entity, nullptr);
 
   // only type given
-  //Drone
+  // Drone
   obj["type"] = picojson::value("drone");
 
   entity = system->CreateEntity(obj);
   ASSERT_NE(entity, nullptr);
   Drone* drone = entity->AsType<Drone>();
   ASSERT_NE(drone, nullptr);
-  EXPECT_FLOAT_EQ(drone->GetPosition()[0],0);
-  EXPECT_FLOAT_EQ(drone->GetPosition()[1],0);
-  EXPECT_FLOAT_EQ(drone->GetPosition()[2],0);
-  EXPECT_FLOAT_EQ(drone->GetDirection()[0],1);
-  EXPECT_FLOAT_EQ(drone->GetDirection()[1],0);
-  EXPECT_FLOAT_EQ(drone->GetDirection()[2],0);
-  EXPECT_NE(drone->GetRadius(),0);
+  EXPECT_FLOAT_EQ(drone->GetPosition()[0], 0);
+  EXPECT_FLOAT_EQ(drone->GetPosition()[1], 0);
+  EXPECT_FLOAT_EQ(drone->GetPosition()[2], 0);
+  EXPECT_FLOAT_EQ(drone->GetDirection()[0], 1);
+  EXPECT_FLOAT_EQ(drone->GetDirection()[1], 0);
+  EXPECT_FLOAT_EQ(drone->GetDirection()[2], 0);
+  EXPECT_NE(drone->GetRadius(), 0);
 
-  //Package
+  // Package
   obj["type"] = picojson::value("package");
 
   entity = system->CreateEntity(obj);
   ASSERT_NE(entity, nullptr);
   Package* package = entity->AsType<Package>();
   ASSERT_NE(package, nullptr);
-  EXPECT_FLOAT_EQ(package->GetPosition()[0],0);
-  EXPECT_FLOAT_EQ(package->GetPosition()[1],0);
-  EXPECT_FLOAT_EQ(package->GetPosition()[2],0);
-  EXPECT_FLOAT_EQ(package->GetDirection()[0],1);
-  EXPECT_FLOAT_EQ(package->GetDirection()[1],0);
-  EXPECT_FLOAT_EQ(package->GetDirection()[2],0);
-  EXPECT_NE(package->GetRadius(),0);
+  EXPECT_FLOAT_EQ(package->GetPosition()[0], 0);
+  EXPECT_FLOAT_EQ(package->GetPosition()[1], 0);
+  EXPECT_FLOAT_EQ(package->GetPosition()[2], 0);
+  EXPECT_FLOAT_EQ(package->GetDirection()[0], 1);
+  EXPECT_FLOAT_EQ(package->GetDirection()[1], 0);
+  EXPECT_FLOAT_EQ(package->GetDirection()[2], 0);
+  EXPECT_NE(package->GetRadius(), 0);
 
-  //Customer
+  // Customer
   obj["type"] = picojson::value("customer");
 
   entity = system->CreateEntity(obj);
   ASSERT_NE(entity, nullptr);
   Customer* customer = entity->AsType<Customer>();
   ASSERT_NE(customer, nullptr);
-  EXPECT_FLOAT_EQ(customer->GetPosition()[0],0);
-  EXPECT_FLOAT_EQ(customer->GetPosition()[1],0);
-  EXPECT_FLOAT_EQ(customer->GetPosition()[2],0);
-  EXPECT_FLOAT_EQ(customer->GetDirection()[0],1);
-  EXPECT_FLOAT_EQ(customer->GetDirection()[1],0);
-  EXPECT_FLOAT_EQ(customer->GetDirection()[2],0);
-  EXPECT_NE(customer->GetRadius(),0);
+  EXPECT_FLOAT_EQ(customer->GetPosition()[0], 0);
+  EXPECT_FLOAT_EQ(customer->GetPosition()[1], 0);
+  EXPECT_FLOAT_EQ(customer->GetPosition()[2], 0);
+  EXPECT_FLOAT_EQ(customer->GetDirection()[0], 1);
+  EXPECT_FLOAT_EQ(customer->GetDirection()[1], 0);
+  EXPECT_FLOAT_EQ(customer->GetDirection()[2], 0);
+  EXPECT_NE(customer->GetRadius(), 0);
 
   // All attributes given
   // Drone
   obj["type"] = picojson::value("drone");
   obj["position"] = picojson::value(picojson::array(
-   {picojson::value(1.0),
-   picojson::value(2.0),
-   picojson::value(3.0)} ));
+      {picojson::value(1.0),
+       picojson::value(2.0),
+       picojson::value(3.0)}));
   obj["direction"] = picojson::value(picojson::array(
-   {picojson::value(-1.0),
-   picojson::value(-2.0),
-   picojson::value(-3.0)} ));
+      {picojson::value(-1.0),
+       picojson::value(-2.0),
+       picojson::value(-3.0)}));
   obj["radius"] = picojson::value(4.9);
 
   entity = system->CreateEntity(obj);
@@ -114,24 +113,24 @@ TEST_F(DroneSimRegTest, EntityCreationRegression) {
   delete drone;
   drone = entity->AsType<Drone>();
   ASSERT_NE(drone, nullptr);
-  EXPECT_FLOAT_EQ(drone->GetPosition()[0],1);
-  EXPECT_FLOAT_EQ(drone->GetPosition()[1],2);
-  EXPECT_FLOAT_EQ(drone->GetPosition()[2],3);
-  EXPECT_FLOAT_EQ(drone->GetDirection()[0],-1);
-  EXPECT_FLOAT_EQ(drone->GetDirection()[1],-2);
-  EXPECT_FLOAT_EQ(drone->GetDirection()[2],-3);
-  EXPECT_FLOAT_EQ(drone->GetRadius(),4.9);
+  EXPECT_FLOAT_EQ(drone->GetPosition()[0], 1);
+  EXPECT_FLOAT_EQ(drone->GetPosition()[1], 2);
+  EXPECT_FLOAT_EQ(drone->GetPosition()[2], 3);
+  EXPECT_FLOAT_EQ(drone->GetDirection()[0], -1);
+  EXPECT_FLOAT_EQ(drone->GetDirection()[1], -2);
+  EXPECT_FLOAT_EQ(drone->GetDirection()[2], -3);
+  EXPECT_FLOAT_EQ(drone->GetRadius(), 4.9);
 
-  //Package
+  // Package
   obj["type"] = picojson::value("package");
   obj["position"] = picojson::value(picojson::array(
-    {picojson::value(1.0),
-    picojson::value(2.0),
-    picojson::value(3.0)} ));
+      {picojson::value(1.0),
+       picojson::value(2.0),
+       picojson::value(3.0)}));
   obj["direction"] = picojson::value(picojson::array(
-    {picojson::value(-1.0),
-    picojson::value(-2.0),
-    picojson::value(-3.0)} ));
+      {picojson::value(-1.0),
+       picojson::value(-2.0),
+       picojson::value(-3.0)}));
   obj["radius"] = picojson::value(4.9);
 
   entity = system->CreateEntity(obj);
@@ -139,24 +138,24 @@ TEST_F(DroneSimRegTest, EntityCreationRegression) {
   delete package;
   package = entity->AsType<Package>();
   ASSERT_NE(package, nullptr);
-  EXPECT_FLOAT_EQ(package->GetPosition()[0],1);
-  EXPECT_FLOAT_EQ(package->GetPosition()[1],2);
-  EXPECT_FLOAT_EQ(package->GetPosition()[2],3);
-  EXPECT_FLOAT_EQ(package->GetDirection()[0],-1);
-  EXPECT_FLOAT_EQ(package->GetDirection()[1],-2);
-  EXPECT_FLOAT_EQ(package->GetDirection()[2],-3);
-  EXPECT_FLOAT_EQ(package->GetRadius(),4.9);
+  EXPECT_FLOAT_EQ(package->GetPosition()[0], 1);
+  EXPECT_FLOAT_EQ(package->GetPosition()[1], 2);
+  EXPECT_FLOAT_EQ(package->GetPosition()[2], 3);
+  EXPECT_FLOAT_EQ(package->GetDirection()[0], -1);
+  EXPECT_FLOAT_EQ(package->GetDirection()[1], -2);
+  EXPECT_FLOAT_EQ(package->GetDirection()[2], -3);
+  EXPECT_FLOAT_EQ(package->GetRadius(), 4.9);
 
-  //Customer
+  // Customer
   obj["type"] = picojson::value("customer");
   obj["position"] = picojson::value(picojson::array(
-    {picojson::value(1.0),
-    picojson::value(2.0),
-    picojson::value(3.0)} ));
+      {picojson::value(1.0),
+       picojson::value(2.0),
+       picojson::value(3.0)}));
   obj["direction"] = picojson::value(picojson::array(
-    {picojson::value(-1.0),
-    picojson::value(-2.0),
-    picojson::value(-3.0)} ));
+      {picojson::value(-1.0),
+       picojson::value(-2.0),
+       picojson::value(-3.0)}));
   obj["radius"] = picojson::value(4.9);
 
   entity = system->CreateEntity(obj);
@@ -164,13 +163,13 @@ TEST_F(DroneSimRegTest, EntityCreationRegression) {
   delete customer;
   customer = entity->AsType<Customer>();
   ASSERT_NE(customer, nullptr);
-  EXPECT_FLOAT_EQ(customer->GetPosition()[0],1);
-  EXPECT_FLOAT_EQ(customer->GetPosition()[1],2);
-  EXPECT_FLOAT_EQ(customer->GetPosition()[2],3);
-  EXPECT_FLOAT_EQ(customer->GetDirection()[0],-1);
-  EXPECT_FLOAT_EQ(customer->GetDirection()[1],-2);
-  EXPECT_FLOAT_EQ(customer->GetDirection()[2],-3);
-  EXPECT_FLOAT_EQ(customer->GetRadius(),4.9);
+  EXPECT_FLOAT_EQ(customer->GetPosition()[0], 1);
+  EXPECT_FLOAT_EQ(customer->GetPosition()[1], 2);
+  EXPECT_FLOAT_EQ(customer->GetPosition()[2], 3);
+  EXPECT_FLOAT_EQ(customer->GetDirection()[0], -1);
+  EXPECT_FLOAT_EQ(customer->GetDirection()[1], -2);
+  EXPECT_FLOAT_EQ(customer->GetDirection()[2], -3);
+  EXPECT_FLOAT_EQ(customer->GetRadius(), 4.9);
 }
 
 TEST_F(DroneSimRegTest, AddEntityToSimulationRegression) {
@@ -184,7 +183,7 @@ TEST_F(DroneSimRegTest, AddEntityToSimulationRegression) {
   system->AddEntity(drone);
   ASSERT_EQ(system->GetEntities().size(), 1);
   ASSERT_EQ(picojson::value(system->GetEntities()[0]->GetDetails()).serialize(),
-      picojson::value(obj).serialize());
+            picojson::value(obj).serialize());
 
   obj["type"] = picojson::value("package");
   entity = system->CreateEntity(obj);
@@ -195,7 +194,7 @@ TEST_F(DroneSimRegTest, AddEntityToSimulationRegression) {
   system->AddEntity(package);
   ASSERT_EQ(system->GetEntities().size(), 2);
   ASSERT_EQ(picojson::value(system->GetEntities()[1]->GetDetails()).serialize(),
-      picojson::value(obj).serialize());
+            picojson::value(obj).serialize());
 
   obj["type"] = picojson::value("customer");
   entity = system->CreateEntity(obj);
@@ -206,7 +205,7 @@ TEST_F(DroneSimRegTest, AddEntityToSimulationRegression) {
   system->AddEntity(customer);
   ASSERT_EQ(system->GetEntities().size(), 3);
   ASSERT_EQ(picojson::value(system->GetEntities()[2]->GetDetails()).serialize(),
-      picojson::value(obj).serialize());
+            picojson::value(obj).serialize());
 }
 
 TEST_F(DroneSimRegTest, ScheduleDeliveryRegression) {
@@ -222,17 +221,17 @@ TEST_F(DroneSimRegTest, ScheduleDeliveryRegression) {
   packobj["type"] = picojson::value("package");
 
   droneobj["position"] = picojson::value(picojson::array(
-    {picojson::value(drone_start_position[0]),
-    picojson::value(drone_start_position[1]),
-    picojson::value(drone_start_position[2])} ));
+      {picojson::value(drone_start_position[0]),
+       picojson::value(drone_start_position[1]),
+       picojson::value(drone_start_position[2])}));
   packobj["position"] = picojson::value(picojson::array(
-    {picojson::value(1.0),
-    picojson::value(200.0),
-    picojson::value(3.0)} ));
+      {picojson::value(1.0),
+       picojson::value(200.0),
+       picojson::value(3.0)}));
   custobj["position"] = picojson::value(picojson::array(
-    {picojson::value(1.0),
-    picojson::value(2.0),
-    picojson::value(300.0)} ));
+      {picojson::value(1.0),
+       picojson::value(2.0),
+       picojson::value(300.0)}));
 
   entity = system->CreateEntity(droneobj);
   Drone* drone = entity->AsType<Drone>();
@@ -246,7 +245,7 @@ TEST_F(DroneSimRegTest, ScheduleDeliveryRegression) {
 
   // make sure drone is at its starting position
   for (int i = 0; i < 3; i++) {
-    ASSERT_FLOAT_EQ(drone->GetPosition()[i],drone_start_position[i]);
+    ASSERT_FLOAT_EQ(drone->GetPosition()[i], drone_start_position[i]);
   }
 
   steps = 10;
@@ -256,10 +255,10 @@ TEST_F(DroneSimRegTest, ScheduleDeliveryRegression) {
 
   // make sure drone has not moved
   for (int i = 0; i < 3; i++) {
-    EXPECT_FLOAT_EQ(drone->GetPosition()[i],drone_start_position[i]);
+    EXPECT_FLOAT_EQ(drone->GetPosition()[i], drone_start_position[i]);
   }
 
-  system->ScheduleDelivery(package,customer,dummyobj);
+  system->ScheduleDelivery(package, customer, dummyobj);
   steps = 50;
   for (int i = 0; i < steps; i++) {
     system->Update(0.1);
@@ -267,8 +266,8 @@ TEST_F(DroneSimRegTest, ScheduleDeliveryRegression) {
 
   // check that drone is moving in response to ScheduleDelivery
   for (int i = 0; i < 3; i++) {
-    EXPECT_NE(drone->GetPosition()[i],drone_start_position[i]);
+    EXPECT_NE(drone->GetPosition()[i], drone_start_position[i]);
   }
 }
 
-} // namespace csci3081
+}  // namespace csci3081

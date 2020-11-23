@@ -7,6 +7,8 @@
 #include <vector>
 #include "src/customer.h"
 #include "src/json_helper.h"
+#include "src/vector_3d.h"
+#include "src/delivery_info.h"
 
 namespace csci3081 {
 
@@ -24,6 +26,12 @@ class Package : public entity_project::Package {
   explicit Package(const picojson::object&);
   /// Provides the package weight
   float GetWeight() const override;
+
+  /// Get the packages's position, converted into a Vector3d
+  Vector3d GetVecPos();
+
+  /// Copy the Vector3d into the package's position value
+  void SetVecPos(Vector3d vec);
 
   /**
   * Tell the drone that it has been picked up so it becomes dynamic.
@@ -50,7 +58,10 @@ class Package : public entity_project::Package {
   */
   Observable& GetObservable() { return packageObservable; }
 
+  /// Check if the package should be deleted (if it has been delivered)
   bool ShouldDelete() { return HasBeenDelivered; }
+
+  /// Check if the package may start moving (if it's been scheduled)
   bool IsDynamic() const override { return HasBeenScheduled; }
 
   /// Sets a destination Customer
@@ -64,7 +75,7 @@ class Package : public entity_project::Package {
 
   /// Lets the package know if it has been picked up by a Drone
   void DronePickUp() {
-    if(!HasBeenPickedUp) {
+    if (!HasBeenPickedUp) {
       HasBeenPickedUp = true;
       NotifyPickedUp();
     }
@@ -72,12 +83,16 @@ class Package : public entity_project::Package {
   /// True if being carried by drone
   bool PickedUp() { return HasBeenPickedUp; }
 
+  /// Set the delivery info for the package, currently unused
+  void SetDeliveryInfo(DeliveryInfo);
+
  private:
   bool HasBeenScheduled = false;  ///< boolean to track scheduled state
   bool HasBeenDelivered = false;  ///< boolean to track delivered state
   Observable packageObservable;  ///< Calls subject functionality
   bool HasBeenPickedUp = false;
   Customer* dest;
+  DeliveryInfo info;
 };
 
 }  // namespace csci3081
