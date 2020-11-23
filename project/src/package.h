@@ -58,7 +58,10 @@ class Package : public entity_project::Package {
   */
   Observable& GetObservable() { return packageObservable; }
 
+  /// Check if the package should be deleted (if it has been delivered)
   bool ShouldDelete() { return HasBeenDelivered; }
+
+  /// Check if the package may start moving (if it's been scheduled)
   bool IsDynamic() const override { return HasBeenScheduled; }
 
   /// Sets a destination Customer
