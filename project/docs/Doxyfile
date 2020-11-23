@@ -831,7 +831,7 @@ WARN_LOGFILE           =
 
 INPUT                  = ../src \
                          /project/grades/Fall-2020/csci3081/dependencies/include/EntityProject \
-                         /project/grades/Fall-2020/csci3081/dependencies/include/EntityProject/ANVIL
+                         /project/grades/Fall-2020/csci3081/dependencies/include/EntityProject/ANVIL2
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding. Doxygen uses
