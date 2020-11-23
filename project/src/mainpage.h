@@ -33,5 +33,5 @@
  * Drones and Packages can now be observed. This functionality is handled by the
  * Observable object.
  *
- * \image html "3081W Project UML Iter1 final Alan Wang.png" "UML diagram of the drone delivery simulation" width=120%
+ * \image html "Iteration 2 3081W Project UML.png" "UML diagram of the drone delivery simulation" width=120%
  */
