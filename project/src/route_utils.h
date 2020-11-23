@@ -40,7 +40,9 @@ class RouteManager {
    * @brief Convert a RoutePoint to a Vector3d
    */
   static Vector3d AsVec(const entity_project::IGraphNode*);
-
+  /**
+   * @brief Sets the graph that the routes are calculated on
+   */
   void SetGraph(const entity_project::IGraph* g) { graph = g; }
 
  private:
