@@ -20,8 +20,9 @@ class RoutingScheduler {
   /**
    * @brief Find the drone that can deliver the Package to the Customer the fastest, and dispatch.
    *
-   * This ends up being the closest drone to the package that is not already en-route
-   * to a package or delivery point.
+   * Contains the logic for deciding which drone to assign a delivery to. Called by
+   * DroneSimulation to handle deliveries. Also contains the RouteManager which all
+   * drones will use to make their route calculations.
    */
   void ScheduleDelivery(Package*, Customer*, const std::vector<entity_project::Entity*>&,
       const picojson::object&);
