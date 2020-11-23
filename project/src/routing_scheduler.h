@@ -27,6 +27,7 @@ class RoutingScheduler {
   void ScheduleDelivery(Package*, Customer*, const std::vector<entity_project::Entity*>&,
       const picojson::object&);
 
+  /// Sets the graph the RouteManager uses to compute routes with
   void SetGraph(const entity_project::IGraph* graph) { routemanager.SetGraph(graph); }
 
  private:
