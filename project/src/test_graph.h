@@ -11,7 +11,7 @@ namespace csci3081 {
 /// A class used to test RouteManager
 class TestGraph : public entity_project::IGraph {
  public:
-   /// Creates a node from a name
+  /// Creates a node from a name
   const entity_project::IGraphNode* GetNode(const std::string& name) const override {
     return nodesmap.at(name);
   }
