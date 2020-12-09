@@ -6,6 +6,10 @@ Statistics::Statistics() {
   // nothing yet
 }
 
+Statistics::~Statistics() {
+  // nothing yet
+}
+
 void Statistics::OnEvent(const picojson::value& event, const entity_project::Entity& entity) {
   picojson::object eventobj;
   if (event.is<picojson::object>()) {
@@ -14,32 +18,25 @@ void Statistics::OnEvent(const picojson::value& event, const entity_project::Ent
 
   std::string type = JsonHelper::GetNoFail<std::string>(eventobj, "type", "no type");
   std::string value = JsonHelper::GetNoFail<std::string>(eventobj, "value", "no value");
-  std::string name = entity.GetName();
+  //std::string name = entity.GetName();
   int id = entity.GetId();
 
-  if (name == "") {
-    if (type == "notify") {
-      if (value == "scheduled") {
-        // package was scheduled
-      }
-      if (value == "en route") {
-        // package is enroute
-      }
-      if (value == "delivered") {
-        // package was delivered
-      }
+  if (type == "notify") {
+    if (value == "scheduled") {
+      // package was scheduled
     }
-  }
-
-  if (name == "") {
-    if (type == "notify") {
-      if (value == "idle") {
-        // drone is idle
-      }
-      if (value == "moving") {
-        // drone is moving
-        OnEventDroneMoving(event, entity);
-      }
+    if (value == "en route") {
+      // package is enroute
+    }
+    if (value == "delivered") {
+      // package was delivered
+    }
+    if (value == "idle") {
+      // drone is idle
+    }
+    if (value == "moving") {
+      // drone is moving
+      OnEventDroneMoving(event, entity);
     }
   }
 

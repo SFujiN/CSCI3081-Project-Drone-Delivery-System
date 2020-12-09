@@ -15,15 +15,20 @@ namespace csci3081 {
  */
 class Statistics : public entity_project::EntityObserver {
 private:
+  /// private constructor because this is Singleton
   Statistics();
+  /// single instance of this class
   static Statistics* instance;
 public:
+  /// returns the same instance each time
   static Statistics* GetInstance() {
     if (!instance) {
       instance = new Statistics;
     }
     return instance;
   }
+  /// Destructor
+  ~Statistics();
   /// called when an event occurs
   void OnEvent(const picojson::value& event, const entity_project::Entity& entity);
   /// called when a drone movement event is received
@@ -44,9 +49,12 @@ protected:
     float time_idle;
     float distance_traveled;
   };
-  std::unordered_map<std::string,PackData> package_data;
-  std::unordered_map<std::string,DroneData> drone_data;
+  /// maps from the Entity id to their associated data
+  std::unordered_map<int,PackData> package_data;
+  std::unordered_map<int,DroneData> drone_data;
 };
+
+Statistics* Statistics::instance = 0;
 
 }  // namespace csci3081
 
