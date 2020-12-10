@@ -48,6 +48,10 @@ void Statistics::OnEventDroneMoving(const picojson::value& event, const entity_p
   // do things
 }
 
+void Statistics::Update(float dt) {
+  simulation_time += dt;
+}
+
 void Statistics::AddTime(float dt, int droneID) {
   // std::cout << "Added " << dt << " time to Drone " << droneID << std::endl;
   time_elapsed += dt;
