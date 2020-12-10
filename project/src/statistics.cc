@@ -48,7 +48,7 @@ void Statistics::OnEventDroneMoving(const picojson::value& event, const entity_p
   // do things
 }
 
-void Update(float dt) {
+void Statistics::Update(float dt) {
   simulation_time += dt;
 }
 
