@@ -78,8 +78,8 @@ void Statistics::SetFalse(int droneID) {
 
 void Statistics::AddRouteDistance(float dist, int droneID) {
   drone_data[droneID].distance_traveled += dist;
-  std::cout << "drone_data's distance_traveled is " <<
-    drone_data[droneID].distance_traveled << " for drone " << droneID << std::endl;
+  // std::cout << "drone_data's distance_traveled is " <<
+  // drone_data[droneID].distance_traveled << " for drone " << droneID << std::endl;
 }
 
 void Statistics::AddTimeDelivering(float dt, int droneID) {
@@ -88,14 +88,6 @@ void Statistics::AddTimeDelivering(float dt, int droneID) {
 }
 
 
-  //float time_elapsed = 0;
-  //float deliveries_made = 0;
-  //float time_moving = 0;
-  //float time_delivering = 0;
-  //float time_idle = 0;
-  //float distance_traveled = 0;
-
-  
 void Statistics::WriteStats() {
   // "data/DroneData.csv"
   std::ofstream fout;
@@ -113,7 +105,8 @@ void Statistics::WriteStats() {
   fout << "Time Moving,";
   fout << "Time Delivering,";
   fout << "Time Idle,";
-  fout << "Distance Traveled";
+  fout << "Traveled Distance,";
+  fout << "Planned Distance";
   fout << std::endl;
 
   // Initialize data
@@ -125,13 +118,17 @@ void Statistics::WriteStats() {
     fout << i->second.time_moving << ',';
     fout << i->second.time_delivering << ',';
     fout << i->second.time_idle << ',';
-    fout << i->second.distance_traveled;
+    fout << i->second.distance_traveled << ',';
+    fout << i->second.distance_traveled2;
     fout << std::endl;
   }
 
   fout.close();
+}
 
-  
+void Statistics::AddRouteDist2(float dist, int droneID) {
+  drone_data[droneID].distance_traveled2 += dist;
+  // std::cout << drone_data[droneID].distance_traveled2 << std::endl;
 }
 
 }  // namespace csci3081
