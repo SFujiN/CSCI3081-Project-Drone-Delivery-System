@@ -200,6 +200,10 @@ void Drone::NotifyMoving() {
   droneObservable.Notify(event);
 }
 
+float Drone::PathDistance(std::queue<entity_project::IGraphNode*> route) {
+  
+}
+
 void Drone::PhysicsUpdate(float dt) {
   if (physicsModel == "velocity") {
     speed = spec_.max_speed_;

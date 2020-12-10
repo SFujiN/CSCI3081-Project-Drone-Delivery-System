@@ -37,6 +37,8 @@ public:
   void AddTime(float dt, int droneID);
   /// sets private boolean variables to false, to track drone status
   void SetFalse();
+  /// Adds the distance of the current route to the struct variable
+  void AddCurrentRoute(float dist, int droneID);
 protected:
   float time_elapsed = 0;
   bool is_idled = false;

@@ -105,6 +105,8 @@ class Drone : public entity_project::Drone {
    */
   void SetDroneSpecs(const std::unordered_map<std::string, droneSpecs> list);
 
+  float PathDistance(std::queue<entity_project::IGraphNode*> route);
+
   void PhysicsUpdate(float dt);
 
  private:
