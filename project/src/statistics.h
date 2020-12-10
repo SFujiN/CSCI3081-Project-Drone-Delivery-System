@@ -41,6 +41,8 @@ public:
   void SetFalse(int droneID);
   /// adds the distance of a new route to the drone distance accumulator
   void AddRouteDistance(float dist, int droneID);
+  /// adds the time a drone spends delivering to time accumulator
+  void AddTimeDelivering(float dt, int droneID);
 
 protected:
 
@@ -58,7 +60,6 @@ protected:
     float distance_traveled = 0;
     bool is_idled = false;
     bool is_moving = false;
-    bool is_delivering = false;
   };
   /// maps from the Entity id to their associated data
   std::unordered_map<int,PackData> package_data;
