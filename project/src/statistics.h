@@ -34,6 +34,8 @@ public:
   /// called when a drone movement event is received
   void OnEventDroneMoving(const picojson::value& event, const entity_project::Entity& entity);
   /// called every update, used to keep track of in-simulation runtime
+  void Update(float dt);
+  /// called by every drone, used to keep track of drone times
   void AddTime(float dt, int droneID);
   /// sets private boolean variables to false, to track drone status
   void SetFalse();
@@ -57,6 +59,8 @@ protected:
   /// maps from the Entity id to their associated data
   std::unordered_map<int,PackData> package_data;
   std::unordered_map<int,DroneData> drone_data;
+
+  float simulation_time = 0;
 };
 
 }  // namespace csci3081
