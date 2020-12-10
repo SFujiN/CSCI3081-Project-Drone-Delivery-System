@@ -38,15 +38,11 @@ public:
   /// called by every drone, used to keep track of drone times
   void AddTime(float dt, int droneID);
   /// sets private boolean variables to false, to track drone status
-  void SetFalse();
-  /// sets a new drone_data[droneID] in unordered_map
-  void InitializeDrone(int droneID);
+  void SetFalse(int droneID);
 
 protected:
   float time_elapsed = 0;
-  bool is_idled = false;
-  bool is_moving = false;
-  bool is_delivering = false;
+
   struct PackData {
     float time_scheduled = 0;
     float time_enroute = 0;
@@ -58,6 +54,9 @@ protected:
     float time_delivering = 0;
     float time_idle = 0;
     float distance_traveled = 0;
+    bool is_idled = false;
+    bool is_moving = false;
+    bool is_delivering = false;
   };
   /// maps from the Entity id to their associated data
   std::unordered_map<int,PackData> package_data;
