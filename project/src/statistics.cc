@@ -22,13 +22,11 @@ void Statistics::OnEvent(const picojson::value& event, const entity_project::Ent
   std::string value = JsonHelper::GetNoFail<std::string>(eventobj, "value", "no value");
   // std::string name = entity.GetName();
   int id = entity.GetId();
-  is_idled = false;
-  is_moving = false;
+  SetFalse();
 
   if (type == "notify") {
     if (value == "scheduled") {
       // package was scheduled
-      is_moving = true;
     }
     if (value == "en route") {
       // package is enroute
@@ -68,11 +66,11 @@ void Statistics::AddTime(float dt, int droneID) {
 
   if (is_idled) {
     drone_data[droneID].time_idle += dt;
-    std::cout << "IS IDLED BEING ADDED" << std::endl;
+    // std::cout << "IS IDLED BEING ADDED" << std::endl;
   } 
   if (is_moving) {
     drone_data[droneID].time_moving += dt;
-    std::cout << "IS MOVING BEING ADDED" << std::endl;
+    // std::cout << "IS MOVING BEING ADDED" << std::endl;
   }
 }
 
