@@ -39,6 +39,8 @@ public:
   void AddTime(float dt, int droneID);
   /// sets private boolean variables to false, to track drone status
   void SetFalse(int droneID);
+  /// adds the length of a drone's route to the distance accumulator
+  void 
 
 protected:
 

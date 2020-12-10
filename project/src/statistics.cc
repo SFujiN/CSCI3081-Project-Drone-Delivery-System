@@ -58,12 +58,12 @@ void Statistics::Update(float dt) {
 
 void Statistics::AddTime(float dt, int droneID) {
   // std::cout << "Added " << dt << " time to Drone " << droneID << std::endl;
-  time_elapsed += dt;
+  drone_data[droneID].time_elapsed += dt;
 
   if (drone_data[droneID].is_idled) {
     drone_data[droneID].time_idle += dt;
     // Debug: std::cout << drone_data[droneID].time_idle << std::endl;
-  } 
+  }
   if (drone_data[droneID].is_moving) {
     drone_data[droneID].time_moving += dt;
     // Debug: std::cout << drone_data[droneID].time_moving << std::endl;
