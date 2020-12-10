@@ -23,6 +23,8 @@ void DroneSimulation::Update(float dt) {
       }
     }
   }
+
+  Statistics::GetInstance()->Update(dt);
 }
 
 DroneSimulation::~DroneSimulation() {
