@@ -26,15 +26,21 @@ void Statistics::OnEvent(const picojson::value& event, const entity_project::Ent
 
   if (type == "notify") {
     if (value == "scheduled") {
+      SetFalse(id);
+      
       // package was scheduled
     }
     if (value == "en route") {
+      SetFalse(id);
+      drone_data[id].is_delivering = true;
       // package is enroute
     }
     if (value == "delivered") {
+      SetFalse(id);
       // package was delivered
     }
     if (value == "idle") {
+      SetFalse(id);
       // drone is idle
       // set a boolean value here to be used in Update()
       drone_data[id].is_idled = true;
@@ -58,12 +64,12 @@ void Statistics::Update(float dt) {
 
 void Statistics::AddTime(float dt, int droneID) {
   // std::cout << "Added " << dt << " time to Drone " << droneID << std::endl;
-  time_elapsed += dt;
+  drone_data[droneID].time_elapsed += dt;
 
   if (drone_data[droneID].is_idled) {
     drone_data[droneID].time_idle += dt;
     // Debug: std::cout << drone_data[droneID].time_idle << std::endl;
-  } 
+  }
   if (drone_data[droneID].is_moving) {
     drone_data[droneID].time_moving += dt;
     // Debug: std::cout << drone_data[droneID].time_moving << std::endl;
@@ -74,6 +80,12 @@ void Statistics::SetFalse(int droneID) {
   drone_data[droneID].is_idled = false;
   drone_data[droneID].is_moving = false;
   drone_data[droneID].is_delivering = false;
+}
+
+void Statistics::AddRouteDistance(float dist, int droneID) {
+  drone_data[droneID].distance_traveled += dist;
+  std::cout << "drone_data's distance_traveled is " <<
+    drone_data[droneID].distance_traveled << " for drone " << droneID << std::endl;
 }
 
 

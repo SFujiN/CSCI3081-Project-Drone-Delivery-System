@@ -39,9 +39,10 @@ public:
   void AddTime(float dt, int droneID);
   /// sets private boolean variables to false, to track drone status
   void SetFalse(int droneID);
+  /// adds the distance of a new route to the drone distance accumulator
+  void AddRouteDistance(float dist, int droneID);
 
 protected:
-  float time_elapsed = 0;
 
   struct PackData {
     float time_scheduled = 0;
@@ -49,6 +50,7 @@ protected:
     float time_delivered = 0;
   };
   struct DroneData {
+    float time_elapsed = 0;
     float deliveries_made = 0;
     float time_moving = 0;
     float time_delivering = 0;

@@ -145,6 +145,7 @@ void Drone::SetRoute(std::vector<entity_project::IGraphNode*> newRoute) {
     route_by_node_name.push_back(node->GetName());
   }
   route = newRouteQueue;
+  Statistics::GetInstance()->AddRouteDistance(PathDistance(route), id_);
   NotifyMoving();
 }
 
@@ -198,6 +199,20 @@ void Drone::NotifyMoving() {
   const picojson::value& event = picojson::value(obj);
 
   droneObservable.Notify(event);
+}
+
+float Drone::PathDistance(std::queue<entity_project::IGraphNode*> route) {
+  float totalDist = 0;
+  auto pos = GetVecPos();
+  auto TempRoute = route;
+  while (!(TempRoute.empty())) {
+    auto point = RouteManager::AsVec(TempRoute.front());
+    totalDist += pos.distanceTo(point);
+    pos = point;
+    TempRoute.pop();
+    // Debug: std::cout << "Total distance: " << totalDist << std::endl;
+  }
+  return totalDist;
 }
 
 void Drone::PhysicsUpdate(float dt) {
