@@ -42,6 +42,7 @@ void Statistics::OnEvent(const picojson::value& event, const entity_project::Ent
       SetFalse();
       is_idled = true;
       // drone is idle
+      drone_data[id].deliveries_made += 1;
     }
     if (value == "moving") {
       // drone is moving
@@ -53,6 +54,10 @@ void Statistics::OnEvent(const picojson::value& event, const entity_project::Ent
 
 void Statistics::OnEventDroneMoving(const picojson::value& event, const entity_project::Entity& entity) {
   // do things
+}
+
+void Statistics::Update(float dt) {
+  simulation_time += dt;
 }
 
 void Statistics::AddTime(float dt, int droneID) {

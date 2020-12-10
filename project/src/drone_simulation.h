@@ -33,6 +33,7 @@ class DroneSimulation : public entity_project::DroneDeliverySystem {
     // Console Observer
     static entity_project::EntityConsoleLogger logger;
     AddObserver(entity, &logger);
+    AddObserver(entity, Statistics::GetInstance());
     entities_.push_back(entity);
   }
 
