@@ -57,14 +57,28 @@ void Statistics::AddTime(float dt, int droneID) {
   // std::cout << "Added " << dt << " time to Drone " << droneID << std::endl;
   time_elapsed += dt;
 
+  if (drone_data.find(droneID) == drone_data.end()) {
+    InitializeDrone(droneID);
+  }
+
   if (is_idled) {
-    // drone_data[id].time_idle += dt;
+    drone_data[droneID].time_idle += dt;
     std::cout << "IS IDLED BEING ADDED" << std::endl;
   } 
   if (is_moving) {
-    // drone_data[id].time_moving += dt;
+    drone_data[droneID].time_moving += dt;
     std::cout << "IS MOVING BEING ADDED" << std::endl;
   }
+}
+
+void Statistics::InitializeDrone(int droneID) {
+  struct DroneData drone;
+  drone_data[droneID] = drone;
+  drone_data[droneID].deliveries_made = 0;
+  drone_data[droneID].time_moving = 0;
+  drone_data[droneID].time_delivering = 0;
+  drone_data[droneID].time_idle = 0;
+  drone_data[droneID].distance_traveled = 0;
 }
 
 void Statistics::SetFalse() {

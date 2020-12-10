@@ -37,6 +37,9 @@ public:
   void AddTime(float dt, int droneID);
   /// sets private boolean variables to false, to track drone status
   void SetFalse();
+  /// sets a new drone_data[droneID] in unordered_map
+  void InitializeDrone(int droneID);
+
 protected:
   float time_elapsed = 0;
   bool is_idled = false;
