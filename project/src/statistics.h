@@ -45,16 +45,16 @@ protected:
   bool is_moving = false;
   bool is_delivering = false;
   struct PackData {
-    float time_scheduled;
-    float time_enroute;
-    float time_delivered;
+    float time_scheduled = 0;
+    float time_enroute = 0;
+    float time_delivered = 0;
   };
   struct DroneData {
-    float deliveries_made;
-    float time_moving;
-    float time_delivering;
-    float time_idle;
-    float distance_traveled;
+    float deliveries_made = 0;
+    float time_moving = 0;
+    float time_delivering = 0;
+    float time_idle = 0;
+    float distance_traveled = 0;
   };
   /// maps from the Entity id to their associated data
   std::unordered_map<int,PackData> package_data;
