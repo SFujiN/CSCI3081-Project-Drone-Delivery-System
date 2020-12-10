@@ -20,36 +20,38 @@ void Statistics::OnEvent(const picojson::value& event, const entity_project::Ent
 
   std::string type = JsonHelper::GetNoFail<std::string>(eventobj, "type", "no type");
   std::string value = JsonHelper::GetNoFail<std::string>(eventobj, "value", "no value");
-  //std::string name = entity.GetName();
+  // std::string name = entity.GetName();
   int id = entity.GetId();
+  SetFalse(id);
 
   if (type == "notify") {
     if (value == "scheduled") {
-      SetFalse();
-      is_moving = true;
+      SetFalse(id);
+      
       // package was scheduled
     }
     if (value == "en route") {
-      SetFalse();
-      is_delivering = true;
+      SetFalse(id);
+      drone_data[id].is_delivering = true;
       // package is enroute
     }
     if (value == "delivered") {
-      SetFalse();
+      SetFalse(id);
       // package was delivered
     }
     if (value == "idle") {
-      SetFalse();
-      is_idled = true;
+      SetFalse(id);
       // drone is idle
+      // set a boolean value here to be used in Update()
+      drone_data[id].is_idled = true;
       drone_data[id].deliveries_made += 1;
     }
     if (value == "moving") {
       // drone is moving
+      drone_data[id].is_moving = true;
       OnEventDroneMoving(event, entity);
     }
   }
-
 }
 
 void Statistics::OnEventDroneMoving(const picojson::value& event, const entity_project::Entity& entity) {
@@ -62,28 +64,29 @@ void Statistics::Update(float dt) {
 
 void Statistics::AddTime(float dt, int droneID) {
   // std::cout << "Added " << dt << " time to Drone " << droneID << std::endl;
-  time_elapsed += dt;
-  if (is_delivering) {
-    if (drone_data.find(droneID) != drone_data.end()) {
-      drone_data[droneID].time_delivering += dt;
-    } else {
-      struct DroneData drone;
-      drone_data[droneID] = drone;
-      drone_data[droneID].time_delivering = 0;
-      drone_data[droneID].time_delivering += dt;
-    }
+  drone_data[droneID].time_elapsed += dt;
 
+  if (drone_data[droneID].is_idled) {
+    drone_data[droneID].time_idle += dt;
+    // Debug: std::cout << drone_data[droneID].time_idle << std::endl;
+  }
+  if (drone_data[droneID].is_moving) {
+    drone_data[droneID].time_moving += dt;
+    // Debug: std::cout << drone_data[droneID].time_moving << std::endl;
   }
 }
 
-void Statistics::SetFalse() {
-  is_idled = false;
-  is_moving = false;
-  is_delivering = false;
+void Statistics::SetFalse(int droneID) {
+  drone_data[droneID].is_idled = false;
+  drone_data[droneID].is_moving = false;
+  drone_data[droneID].is_delivering = false;
 }
 
-void Statistics::AddCurrentRoute(float dist, int droneID) {
-  
+void Statistics::AddRouteDistance(float dist, int droneID) {
+  drone_data[droneID].distance_traveled += dist;
+  std::cout << "drone_data's distance_traveled is " <<
+    drone_data[droneID].distance_traveled << " for drone " << droneID << std::endl;
 }
+
 
 }  // namespace csci3081
