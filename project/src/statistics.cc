@@ -54,10 +54,10 @@ void Statistics::Update(float dt) {
   time_elapsed += dt;
 
   if (is_idled) {
-    drone_data[id].time_idle += dt;
+    // drone_data[id].time_idle += dt;
   } 
   if (is_moving) {
-    drone_data[id].time_moving += dt;
+    // drone_data[id].time_moving += dt;
   }
 }
 
