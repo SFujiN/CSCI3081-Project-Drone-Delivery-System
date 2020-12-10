@@ -9,6 +9,7 @@
 #include "src/route_utils.h"
 #include "src/json_helper.h"
 #include "src/drone_pool.h"
+#include "src/statistics.h"
 #include <unordered_map>
 #include <vector>
 #include <string>
@@ -91,7 +92,7 @@ class Drone : public entity_project::Drone {
   /**
   * Notify observers that the drone is moving. Also
   * passes route information to observers.
-  * 
+  *
   */
   void NotifyMoving();
 
@@ -99,7 +100,7 @@ class Drone : public entity_project::Drone {
   bool IsDelivering() { return package != nullptr; }
   /**
    * Set drone specs for given model
-   * 
+   *
    * @param list that holds current model specs
    */
   void SetDroneSpecs(const std::unordered_map<std::string, droneSpecs> list);
