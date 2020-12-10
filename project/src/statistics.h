@@ -34,9 +34,14 @@ public:
   /// called when a drone movement event is received
   void OnEventDroneMoving(const picojson::value& event, const entity_project::Entity& entity);
   /// called every update, used to keep track of in-simulation runtime
-  void Update(float dt);
+  void AddTime(float dt, int droneID);
+  /// sets private boolean variables to false, to track drone status
+  void SetFalse();
 protected:
   float time_elapsed = 0;
+  bool is_idled = false;
+  bool is_moving = false;
+  bool is_delivering = false;
   struct PackData {
     float time_scheduled;
     float time_enroute;
@@ -53,8 +58,6 @@ protected:
   std::unordered_map<int,PackData> package_data;
   std::unordered_map<int,DroneData> drone_data;
 };
-
-Statistics* Statistics::instance = 0;
 
 }  // namespace csci3081
 

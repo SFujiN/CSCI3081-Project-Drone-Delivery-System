@@ -2,6 +2,8 @@
 
 namespace csci3081 {
 
+Statistics* Statistics::instance = nullptr;
+
 Statistics::Statistics() {
   // nothing yet
 }
@@ -46,8 +48,15 @@ void Statistics::OnEventDroneMoving(const picojson::value& event, const entity_p
   // do things
 }
 
-void Statistics::Update(float dt) {
+void Statistics::AddTime(float dt, int droneID) {
+  // std::cout << "Added " << dt << " time to Drone " << droneID << std::endl;
   time_elapsed += dt;
+}
+
+void Statistics::SetFalse() {
+  is_idled = false;
+  is_moving = false;
+  is_delivering = false;
 }
 
 }  // namespace csci3081
