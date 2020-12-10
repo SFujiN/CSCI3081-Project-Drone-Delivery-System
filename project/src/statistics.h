@@ -4,6 +4,7 @@
 #include <EntityProject/entity_observer.h>
 #include <string>
 #include <unordered_map>
+#include <fstream>
 #include "src/json_helper.h"
 
 namespace csci3081 {
@@ -43,6 +44,8 @@ public:
   void AddRouteDistance(float dist, int droneID);
   /// adds the time a drone spends delivering to time accumulator
   void AddTimeDelivering(float dt, int droneID);
+  /// writes drone_data to "data/DroneData.csv"
+  void WriteStats();
 
 protected:
 
