@@ -22,21 +22,15 @@ void Statistics::OnEvent(const picojson::value& event, const entity_project::Ent
   std::string value = JsonHelper::GetNoFail<std::string>(eventobj, "value", "no value");
   // std::string name = entity.GetName();
   int id = entity.GetId();
-  SetFalse(id);
-
+  
   if (type == "notify") {
     if (value == "scheduled") {
-      SetFalse(id);
-      
       // package was scheduled
     }
     if (value == "en route") {
-      SetFalse(id);
-      drone_data[id].is_delivering = true;
       // package is enroute
     }
     if (value == "delivered") {
-      SetFalse(id);
       // package was delivered
     }
     if (value == "idle") {
@@ -47,6 +41,7 @@ void Statistics::OnEvent(const picojson::value& event, const entity_project::Ent
       drone_data[id].deliveries_made += 1;
     }
     if (value == "moving") {
+      SetFalse(id);
       // drone is moving
       drone_data[id].is_moving = true;
       OnEventDroneMoving(event, entity);
@@ -79,13 +74,17 @@ void Statistics::AddTime(float dt, int droneID) {
 void Statistics::SetFalse(int droneID) {
   drone_data[droneID].is_idled = false;
   drone_data[droneID].is_moving = false;
-  drone_data[droneID].is_delivering = false;
 }
 
 void Statistics::AddRouteDistance(float dist, int droneID) {
   drone_data[droneID].distance_traveled += dist;
   std::cout << "drone_data's distance_traveled is " <<
     drone_data[droneID].distance_traveled << " for drone " << droneID << std::endl;
+}
+
+void Statistics::AddTimeDelivering(float dt, int droneID) {
+  drone_data[droneID].time_delivering += dt;
+  std::cout << "Adding dt: " << dt << std::endl;
 }
 
 
