@@ -19,7 +19,7 @@ void Statistics::OnEvent(const picojson::value& event, const entity_project::Ent
   std::string type = JsonHelper::GetNoFail<std::string>(eventobj, "type", "no type");
   std::string value = JsonHelper::GetNoFail<std::string>(eventobj, "value", "no value");
   // std::string name = entity.GetName();
-  id = entity.GetId();
+  int id = entity.GetId();
   is_idled = false;
   is_moving = false;
 

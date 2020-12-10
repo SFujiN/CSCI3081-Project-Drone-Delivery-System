@@ -39,7 +39,6 @@ protected:
   float time_elapsed = 0;
   bool is_idled = false;
   bool is_moving = false;
-  int id;
 
   struct PackData {
     float time_scheduled;
