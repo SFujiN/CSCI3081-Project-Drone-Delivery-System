@@ -2,6 +2,8 @@
 
 namespace csci3081 {
 
+Statistics* Statistics::instance = nullptr;
+
 Statistics::Statistics() {
   // nothing yet
 }
@@ -26,6 +28,7 @@ void Statistics::OnEvent(const picojson::value& event, const entity_project::Ent
   if (type == "notify") {
     if (value == "scheduled") {
       // package was scheduled
+      is_moving = true;
     }
     if (value == "en route") {
       // package is enroute
@@ -50,7 +53,8 @@ void Statistics::OnEventDroneMoving(const picojson::value& event, const entity_p
   // do things
 }
 
-void Statistics::Update(float dt) {
+void Statistics::AddTime(float dt, int droneID) {
+  // std::cout << "Added " << dt << " time to Drone " << droneID << std::endl;
   time_elapsed += dt;
 
   if (is_idled) {
@@ -61,6 +65,12 @@ void Statistics::Update(float dt) {
     // drone_data[id].time_moving += dt;
     std::cout << "IS MOVING BEING ADDED" << std::endl;
   }
+}
+
+void Statistics::SetFalse() {
+  is_idled = false;
+  is_moving = false;
+  is_delivering = false;
 }
 
 }  // namespace csci3081
