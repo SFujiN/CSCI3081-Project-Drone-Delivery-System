@@ -35,6 +35,7 @@ void Statistics::OnEvent(const picojson::value& event, const entity_project::Ent
     }
     if (value == "idle") {
       // drone is idle
+      drone_data[id].deliveries_made += 1;
     }
     if (value == "moving") {
       // drone is moving
