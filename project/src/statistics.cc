@@ -55,9 +55,11 @@ void Statistics::Update(float dt) {
 
   if (is_idled) {
     // drone_data[id].time_idle += dt;
+    std::cout << "IS IDLED BEING ADDED" << std::endl;
   } 
   if (is_moving) {
     // drone_data[id].time_moving += dt;
+    std::cout << "IS MOVING BEING ADDED" << std::endl;
   }
 }
 
