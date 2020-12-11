@@ -27,7 +27,6 @@ void Statistics::OnEvent(const picojson::value& event,
       JsonHelper::GetNoFail<std::string>(eventobj, "value", "no value");
   // std::string name = entity.GetName();
   int id = entity.GetId();
-
   if (type == "notify") {
     if (value == "scheduled") {
       // package was scheduled
@@ -55,8 +54,8 @@ void Statistics::OnEvent(const picojson::value& event,
 }
 
 void Statistics::OnEventDroneMoving(const picojson::value& event,
-                                    const entity_project::Entity& entity) {
-  // do things
+const entity_project::Entity& entity) {
+// do things
 }
 
 void Statistics::Update(float dt) { simulation_time += dt; }
@@ -80,11 +79,10 @@ void Statistics::SetFalse(int droneID) {
   drone_data[droneID].is_moving = false;
 }
 
-void Statistics::AddRouteDistance(float dist, int droneID) {
-  drone_data[droneID].distance_traveled += dist;
-  // std::cout << "drone_data's distance_traveled is " <<
-  // drone_data[droneID].distance_traveled << " for drone " << droneID <<
-  // std::endl;
+void Statistics::AddPlannedRouteDistance(float dist, int droneID) {
+  drone_data[droneID].planned_distance += dist;
+  // std::cout << "drone_data's planned_distance is " <<
+  // drone_data[droneID].planned_distance << " for drone " << droneID << std::endl;
 }
 
 void Statistics::AddTimeDelivering(float dt, int droneID) {
@@ -122,17 +120,17 @@ void Statistics::WriteStats() {
     fout << i->second.time_moving << ',';
     fout << i->second.time_delivering << ',';
     fout << i->second.time_idle << ',';
-    fout << i->second.distance_traveled << ',';
-    fout << i->second.distance_traveled2;
+    fout << i->second.planned_distance << ',';
+    fout << i->second.traveled_distance;
     fout << std::endl;
   }
 
   fout.close();
 }
 
-void Statistics::AddRouteDist2(float dist, int droneID) {
-  drone_data[droneID].distance_traveled2 += dist;
-  // std::cout << drone_data[droneID].distance_traveled2 << std::endl;
+void Statistics::AddDroneTraveledDistance(float dist, int droneID) {
+  drone_data[droneID].traveled_distance += dist;
+  // std::cout << drone_data[droneID].traveled_distance << std::endl;
 }
 
 }  // namespace csci3081

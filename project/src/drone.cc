@@ -64,11 +64,11 @@ void csci3081::Drone::Update(float dt) {
 bool Drone::FollowRoute(float dt) {
   auto pos = GetVecPos();
   float remainingDistance = GetCurrentSpeed() * dt;
-  Statistics::GetInstance()->AddRouteDist2(remainingDistance, id_);
+  Statistics::GetInstance()->AddDroneTraveledDistance(remainingDistance, id_);
   while (remainingDistance > 0) {
     if (route.empty()) {
       float negate = 0 - remainingDistance;
-      Statistics::GetInstance()->AddRouteDist2(negate, id_);
+      Statistics::GetInstance()->AddDroneTraveledDistance(negate, id_);
       SetVecPos(pos);
       return true;
     }
@@ -150,7 +150,7 @@ void Drone::SetRoute(std::vector<entity_project::IGraphNode*> newRoute) {
     route_by_node_name.push_back(node->GetName());
   }
   route = newRouteQueue;
-  Statistics::GetInstance()->AddRouteDistance(PathDistance(route), id_);
+  Statistics::GetInstance()->AddPlannedRouteDistance(PathDistance(route), id_);
   NotifyMoving();
 }
 
