@@ -2,9 +2,11 @@
 #define STATISTICS_H_
 
 #include <EntityProject/entity_observer.h>
+
+#include <fstream>
 #include <string>
 #include <unordered_map>
-#include <fstream>
+
 #include "src/json_helper.h"
 
 namespace csci3081 {
@@ -17,10 +19,10 @@ namespace csci3081 {
 class Statistics : public entity_project::EntityObserver {
  private:
   /**
-     * @brief Default private constructor
-     * @details Constructor is private to avoid more than
-     * one instance
-     */
+   * @brief Default private constructor
+   * @details Constructor is private to avoid more than
+   * one instance
+   */
   Statistics();
   static Statistics* instance;  ///< single instance of this class
 
@@ -131,9 +133,12 @@ class Statistics : public entity_project::EntityObserver {
   * CSV file
   */
   struct PackData {
-    float time_scheduled = 0;  ///< time_scheduled float contains the time it has been scheduled for
-    float time_enroute = 0;  ///< time_enroute float contains the time is has been enroute
-    float time_delivered = 0;  ///< time_deliverd float contains the time is has been delivered for
+    float time_scheduled = 0;  ///< time_scheduled float contains the time it
+                               ///< has been scheduled for
+    float time_enroute =
+        0;  ///< time_enroute float contains the time is has been enroute
+    float time_delivered =
+        0;  ///< time_deliverd float contains the time is has been delivered for
   };
  /** 
   *  @struct DroneData
@@ -143,22 +148,50 @@ class Statistics : public entity_project::EntityObserver {
   * CSV file
   */
   struct DroneData {
-    float time_elapsed = 0;  ///< time_delivered float contains total elapsed time of it's existence
-    float deliveries_made = 0;  ///< deliveries_made float numbers the total delivieries of a drone
-    float time_moving = 0;  ///< time_moving float contains total time spent moving
-    float time_delivering = 0;  ///< time_delivering float contains total time delivering
-    float time_idle = 0;  ///< time_idle float contains total time idling
+    float time_elapsed = 0;  ///< time_delivered float contains total elapsed
+                             ///< time of it's existence
+    float deliveries_made =
+        0;  ///< deliveries_made float numbers the total delivieries of a drone
+    float time_moving =
+        0;  ///< time_moving float contains total time spent moving
+    float time_delivering =
+        0;  ///< time_delivering float contains total time delivering
+    float time_idle = 0;         ///< time_idle float contains total time idling
     float planned_distance = 0;  ///< total route lengths planned by drone
-    float traveled_distance = 0;  ///< total distance traveled in simulation by drone
-    bool is_idled = false;  ///< is_idled bool tracks if the drone is idled or not
-    bool is_moving = false;  ///< is_moving bool tracks if the drone is moving or not
+    float traveled_distance =
+        0;  ///< total distance traveled in simulation by drone
+    bool is_idled =
+        false;  ///< is_idled bool tracks if the drone is idled or not
+    bool is_moving =
+        false;  ///< is_moving bool tracks if the drone is moving or not
   };
   /// maps from the Package id to its associated data
   std::unordered_map<int, PackData> package_data;
   /// maps from the Drone id to its associated data
   std::unordered_map<int, DroneData> drone_data;
 
-  float simulation_time = 0;  ///< simulation_time float tracks total simulation time at the end
+  /// simulation_time float tracks total simulation time at the end
+  float simulation_time = 0;
+
+ public:
+  /**
+   * Getter for package_data
+   *
+   * @return protected package_data member variable
+   */
+  std::unordered_map<int, PackData> GetPackageData() { return package_data; }
+  /**
+   * Getter for drone_data
+   *
+   * @return protected drone_data member variable
+   */
+  std::unordered_map<int, DroneData> GetDroneData() { return drone_data; }
+  /**
+   * Getter for simulation_time
+   *
+   * @return float simulation_time
+   */
+  float GetSimTime() { return simulation_time; }
 };
 
 }  // namespace csci3081
