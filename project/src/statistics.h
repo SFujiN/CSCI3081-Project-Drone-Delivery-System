@@ -15,6 +15,15 @@ namespace csci3081 {
  * @brief Statistics class
  *
  * Statistics class is a Singleton class and is an EntityObserver.
+ * Statistics implements the strategy to keep track of useful information on drones
+ * This is done by mapping individual drones by ID to stats:
+ * time_elapsed, total time elapsed since drone was created
+ * deliveries_made, deliveris made by drone
+ * time_moving, drone's time spent moving
+ * time_delivering, drone's time spent delivering
+ * time_idle, drone's time idle
+ * planned_distance, total planned distance of drone's route
+ * traveled_distance, total distance traveled by the drone
  */
 class Statistics : public entity_project::EntityObserver {
  private:
