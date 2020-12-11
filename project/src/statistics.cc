@@ -105,8 +105,8 @@ void Statistics::WriteStats() {
   fout << "Time Moving,";
   fout << "Time Delivering,";
   fout << "Time Idle,";
-  fout << "Traveled Distance,";
-  fout << "Planned Distance";
+  fout << "Planned Distance,";
+  fout << "Traveled Distance";
   fout << std::endl;
 
   // Initialize data
