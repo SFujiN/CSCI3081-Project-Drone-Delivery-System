@@ -37,7 +37,7 @@ class StatisticsIntegration : public ::testing::Test {
     p_obj["type"] = picojson::value("package");
     p_obj["name"] = picojson::value("TEST PACKAGE 1");
     p_obj["position"] = picojson::value(picojson::array(
-        {picojson::value(1.0), picojson::value(2.0), picojson::value(3.0)}));
+        {picojson::value(0.0), picojson::value(0.0), picojson::value(0.0)}));
     package = system->CreateEntity(p_obj)->AsType<Package>();
     system->AddEntity(package);
 
@@ -66,10 +66,48 @@ TEST_F(StatisticsIntegration, SimulationTime) {
 
 TEST_F(StatisticsIntegration, PackageTest) {
   system->AddObserver(package, Statistics::GetInstance());
+  EXPECT_FLOAT_EQ(Statistics::GetInstance()
+                      ->GetPackageData()[package->GetId()]
+                      .time_scheduled,
+                  0.0);
+  EXPECT_FLOAT_EQ(Statistics::GetInstance()
+                      ->GetPackageData()[package->GetId()]
+                      .time_enroute,
+                  0.0);
+  EXPECT_FLOAT_EQ(Statistics::GetInstance()
+                      ->GetPackageData()[package->GetId()]
+                      .time_delivered,
+                  0.0);
 }
 
 TEST_F(StatisticsIntegration, DroneTest) {
   system->AddObserver(drone, Statistics::GetInstance());
+  EXPECT_FLOAT_EQ(
+      Statistics::GetInstance()->GetDroneData()[drone->GetId()].time_elapsed,
+      0.0);
+  EXPECT_FLOAT_EQ(
+      Statistics::GetInstance()->GetDroneData()[drone->GetId()].deliveries_made,
+      0.0);
+  EXPECT_FLOAT_EQ(
+      Statistics::GetInstance()->GetDroneData()[drone->GetId()].time_moving,
+      0.0);
+  EXPECT_FLOAT_EQ(
+      Statistics::GetInstance()->GetDroneData()[drone->GetId()].time_delivering,
+      0.0);
+  EXPECT_FLOAT_EQ(
+      Statistics::GetInstance()->GetDroneData()[drone->GetId()].time_idle, 0.0);
+  EXPECT_FLOAT_EQ(Statistics::GetInstance()
+                      ->GetDroneData()[drone->GetId()]
+                      .distance_traveled,
+                  0.0);
+  EXPECT_FLOAT_EQ(Statistics::GetInstance()
+                      ->GetDroneData()[drone->GetId()]
+                      .distance_traveled2,
+                  0.0);
+  EXPECT_FALSE(
+      Statistics::GetInstance()->GetDroneData()[drone->GetId()].is_idled);
+  EXPECT_FALSE(
+      Statistics::GetInstance()->GetDroneData()[drone->GetId()].is_moving);
 }
 
 }  // namespace csci3081
