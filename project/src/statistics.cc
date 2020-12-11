@@ -84,8 +84,54 @@ void Statistics::AddRouteDistance(float dist, int droneID) {
 
 void Statistics::AddTimeDelivering(float dt, int droneID) {
   drone_data[droneID].time_delivering += dt;
-  std::cout << "Adding dt: " << dt << std::endl;
+  // std::cout << "Adding dt: " << dt << std::endl;
 }
 
+
+  //float time_elapsed = 0;
+  //float deliveries_made = 0;
+  //float time_moving = 0;
+  //float time_delivering = 0;
+  //float time_idle = 0;
+  //float distance_traveled = 0;
+
+  
+void Statistics::WriteStats() {
+  // "data/DroneData.csv"
+  std::ofstream fout;
+  fout.open("data/DroneData.csv");
+
+  if (!fout.is_open()) {
+    std::cout << "File open failed!" << std::endl;
+    return;
+  }
+
+  // Initialize columns
+  fout << "Drone ID,";
+  fout << "Total Drone Time,";
+  fout << "Drone Deliveries,";
+  fout << "Time Moving,";
+  fout << "Time Delivering,";
+  fout << "Time Idle,";
+  fout << "Distance Traveled";
+  fout << std::endl;
+
+  // Initialize data
+  // Reference: cplusplus.com/reference/unordered_map/unordered_map/begin/
+  for (auto i = drone_data.begin(); i != drone_data.end(); i++) {  
+    fout << i->first << ',';
+    fout << i->second.time_elapsed << ',';
+    fout << i->second.deliveries_made << ',';
+    fout << i->second.time_moving << ',';
+    fout << i->second.time_delivering << ',';
+    fout << i->second.time_idle << ',';
+    fout << i->second.distance_traveled;
+    fout << std::endl;
+  }
+
+  fout.close();
+
+  
+}
 
 }  // namespace csci3081
