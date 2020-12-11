@@ -98,11 +98,11 @@ TEST_F(StatisticsIntegration, DroneTest) {
       Statistics::GetInstance()->GetDroneData()[drone->GetId()].time_idle, 0.0);
   EXPECT_FLOAT_EQ(Statistics::GetInstance()
                       ->GetDroneData()[drone->GetId()]
-                      .distance_traveled,
+                      .planned_distance,
                   0.0);
   EXPECT_FLOAT_EQ(Statistics::GetInstance()
                       ->GetDroneData()[drone->GetId()]
-                      .distance_traveled2,
+                      .traveled_distance,
                   0.0);
   EXPECT_FALSE(
       Statistics::GetInstance()->GetDroneData()[drone->GetId()].is_idled);
