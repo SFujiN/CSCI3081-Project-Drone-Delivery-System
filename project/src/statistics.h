@@ -26,8 +26,8 @@ class Statistics : public entity_project::EntityObserver {
 
  public:
   /**
-    * Returns the same instance of the class each time.
-    *
+    * @brief Returns the same instance of the class each time.
+    * 
     * @return instance a private static member instance of Statistics
     */
   static Statistics* GetInstance() {
@@ -40,67 +40,92 @@ class Statistics : public entity_project::EntityObserver {
    * Statistics destructor
    */
   ~Statistics();
-  /**
-    * Overrides the OnEvent(..) function of EntityObserver. It determines what
+   /**
+    * @brief Determines what statistics to update given state of an Entity
+    *  
+    * @param event picojson::value& reference detailing the state of an Entity
+    * @param entity the Entity reference, used to get an Id for stats collecting
+    * 
+    * @post Overrides the OnEvent(..) function of EntityObserver. It determines what
     * state an Entity is in, and it will collect stats or set boolean variables
     * that determine which stats need to be updated in other functions.
-    *
-    * @param event picojson::value& reference detailing the state of an Entity
-    * @param entity the Entity reference, used to get an Id for stats collecting
     */
   void OnEvent(const picojson::value& event, const entity_project::Entity& entity);
-  /**
-    * Called when there is a drone movement event
+   /**
+    * @brief Called when there is a drone movement event
     *
     * @param event picojson::value& reference detailing the state of an Entity
     * @param entity the Entity reference, used to get an Id for stats collecting
+    * 
+    * @post Will collect stats from the a Drone movement state
     */
   void OnEventDroneMoving(const picojson::value& event, const entity_project::Entity& entity);
-  /**
-    * Called every update, used to keep track of in-simulation runtime
+   /**
+    * @brief Called every update, used to keep track of in-simulation runtime
     *
     * @param dt float value that is used in incrementing simulation time
+    * 
+    * @post Updates simulation_time incrementally
     */
   void Update(float dt);
-  /**
+   /**
+    * @brief Updates time statistics for unique Drone
+    * 
     * Called by every drone, used to keep track of drone times whether they
     * are idled or moving
     *
     * @param dt float value that is used in incrementing simulation time
     * @param droneID int value that holds the id of the Entity that needs stats update
+    * 
+    * @post Updates a specific time based statisitic for a unique drone
     */
   void AddTime(float dt, int droneID);
-  /**
-    * Sets private boolean variables to false, to track drone status
-    * and ensure drone is in correct state for stats collecting
+   /**
+    * @brief Manages Drone statistic update state
     *
     * @param droneID int value that pertains to unique id of a drone
+    * 
+    * @post Sets private boolean variables to false, to track drone status
+    * and ensure drone is in correct state for stats collecting
     */
   void SetFalse(int droneID);
   /**
-    * Adds the entire distance of a new route to the drone distance accumulator
+    * @brief Adds the entire distance of a new route to the drone distance accumulator
     *
     * @param dist float value that pertains to distance stat
     * @param droneID int value that pertains to unique id of a drone
+    * 
+    * @post Updates planned_distance statistic of DroneData using dist
     */
   void AddPlannedRouteDistance(float dist, int droneID);
   /**
-    * Adds the time a drone spends delivering to time accumulator
+    * @brief Adds the time a drone spends delivering to time accumulator
     *
     * @param droneID int value that pertains to unique id of a drone
     * @param dt float value that pertains to incremental simulation time
     */
   void AddTimeDelivering(float dt, int droneID);
   /**
-    * Writes drone_data to "data/DroneData.csv"
-    *
+    * @brief Writes Statistics to an outfile
+    * 
+    * @post Writes simulation statistics to data/DroneData.csv outfile. 
+    * Runs at the end of the simulation.
     */
   void WriteStats();
-  /// Used to keep track of drone traveled distance per Update
+  /**
+    * @brief Used to keep track of drone traveled distance per Update
+    *
+    * @param droneID int value that pertains to unique id of a drone
+    * @param dt float value that pertains to incremental simulation time
+    * 
+    * @post Updates traveled_distance statistic of DroneData using dist
+    */
   void AddDroneTraveledDistance(float dist, int droneID);
 
  protected:
- /** @struct PackData
+ /** 
+  *  @struct PackData
+  *  
   *  @brief This structure contains members used for holding
   * Package related statistics that will later be written to a
   * CSV file
@@ -110,7 +135,9 @@ class Statistics : public entity_project::EntityObserver {
     float time_enroute = 0;  ///< time_enroute float contains the time is has been enroute
     float time_delivered = 0;  ///< time_deliverd float contains the time is has been delivered for
   };
- /** @struct DroneData
+ /** 
+  *  @struct DroneData
+  *  
   *  @brief This structure contains members used for holding
   * Drone related statistics that will later be written to a
   * CSV file
@@ -126,9 +153,10 @@ class Statistics : public entity_project::EntityObserver {
     bool is_idled = false;  ///< is_idled bool tracks if the drone is idled or not
     bool is_moving = false;  ///< is_moving bool tracks if the drone is moving or not
   };
-  /// maps from the Entity id to their associated data
-  std::unordered_map<int, PackData> package_data;  ///< For Package Entity statistics
-  std::unordered_map<int, DroneData> drone_data;  ///< For Drone Entity statistics
+  /// maps from the Package id to its associated data
+  std::unordered_map<int, PackData> package_data;
+  /// maps from the Drone id to its associated data
+  std::unordered_map<int, DroneData> drone_data;
 
   float simulation_time = 0;  ///< simulation_time float tracks total simulation time at the end
 };
