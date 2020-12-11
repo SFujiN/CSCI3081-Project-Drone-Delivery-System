@@ -22,7 +22,6 @@ void Statistics::OnEvent(const picojson::value& event, const entity_project::Ent
   std::string value = JsonHelper::GetNoFail<std::string>(eventobj, "value", "no value");
   // std::string name = entity.GetName();
   int id = entity.GetId();
-  
   if (type == "notify") {
     if (value == "scheduled") {
       // package was scheduled
@@ -49,8 +48,9 @@ void Statistics::OnEvent(const picojson::value& event, const entity_project::Ent
   }
 }
 
-void Statistics::OnEventDroneMoving(const picojson::value& event, const entity_project::Entity& entity) {
-  // do things
+void Statistics::OnEventDroneMoving(const picojson::value& event,
+const entity_project::Entity& entity) {
+// do things
 }
 
 void Statistics::Update(float dt) {
@@ -87,7 +87,6 @@ void Statistics::AddTimeDelivering(float dt, int droneID) {
   // std::cout << "Adding dt: " << dt << std::endl;
 }
 
-
 void Statistics::WriteStats() {
   // "data/DroneData.csv"
   std::ofstream fout;
@@ -111,7 +110,7 @@ void Statistics::WriteStats() {
 
   // Initialize data
   // Reference: cplusplus.com/reference/unordered_map/unordered_map/begin/
-  for (auto i = drone_data.begin(); i != drone_data.end(); i++) {  
+  for (auto i = drone_data.begin(); i != drone_data.end(); i++) {
     fout << i->first << ',';
     fout << i->second.time_elapsed << ',';
     fout << i->second.deliveries_made << ',';
