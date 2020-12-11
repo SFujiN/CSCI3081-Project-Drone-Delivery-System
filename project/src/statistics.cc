@@ -12,17 +12,22 @@ Statistics::~Statistics() {
   // nothing yet
 }
 
-void Statistics::OnEvent(const picojson::value& event, const entity_project::Entity& entity) {
+void Statistics::OnEvent(const picojson::value& event,
+                         const entity_project::Entity& entity) {
   picojson::object eventobj;
   if (event.is<picojson::object>()) {
     eventobj = event.get<picojson::object>();
-  } else { return; }
+  } else {
+    return;
+  }
 
-  std::string type = JsonHelper::GetNoFail<std::string>(eventobj, "type", "no type");
-  std::string value = JsonHelper::GetNoFail<std::string>(eventobj, "value", "no value");
+  std::string type =
+      JsonHelper::GetNoFail<std::string>(eventobj, "type", "no type");
+  std::string value =
+      JsonHelper::GetNoFail<std::string>(eventobj, "value", "no value");
   // std::string name = entity.GetName();
   int id = entity.GetId();
-  
+
   if (type == "notify") {
     if (value == "scheduled") {
       // package was scheduled
@@ -49,13 +54,12 @@ void Statistics::OnEvent(const picojson::value& event, const entity_project::Ent
   }
 }
 
-void Statistics::OnEventDroneMoving(const picojson::value& event, const entity_project::Entity& entity) {
+void Statistics::OnEventDroneMoving(const picojson::value& event,
+                                    const entity_project::Entity& entity) {
   // do things
 }
 
-void Statistics::Update(float dt) {
-  simulation_time += dt;
-}
+void Statistics::Update(float dt) { simulation_time += dt; }
 
 void Statistics::AddTime(float dt, int droneID) {
   // std::cout << "Added " << dt << " time to Drone " << droneID << std::endl;
@@ -79,14 +83,14 @@ void Statistics::SetFalse(int droneID) {
 void Statistics::AddRouteDistance(float dist, int droneID) {
   drone_data[droneID].distance_traveled += dist;
   // std::cout << "drone_data's distance_traveled is " <<
-  // drone_data[droneID].distance_traveled << " for drone " << droneID << std::endl;
+  // drone_data[droneID].distance_traveled << " for drone " << droneID <<
+  // std::endl;
 }
 
 void Statistics::AddTimeDelivering(float dt, int droneID) {
   drone_data[droneID].time_delivering += dt;
   // std::cout << "Adding dt: " << dt << std::endl;
 }
-
 
 void Statistics::WriteStats() {
   // "data/DroneData.csv"
@@ -111,7 +115,7 @@ void Statistics::WriteStats() {
 
   // Initialize data
   // Reference: cplusplus.com/reference/unordered_map/unordered_map/begin/
-  for (auto i = drone_data.begin(); i != drone_data.end(); i++) {  
+  for (auto i = drone_data.begin(); i != drone_data.end(); i++) {
     fout << i->first << ',';
     fout << i->second.time_elapsed << ',';
     fout << i->second.deliveries_made << ',';
