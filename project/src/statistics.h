@@ -15,7 +15,7 @@ namespace csci3081 {
  * Statistics class is a Singleton class and is an EntityObserver. 
  */
 class Statistics : public entity_project::EntityObserver {
-private:
+ private:
   /**
      * @brief Default private constructor
      * @details Constructor is private to avoid more than
@@ -23,7 +23,8 @@ private:
      */
   Statistics();
   static Statistics* instance;  ///< single instance of this class
-public:
+
+ public:
   /**
     * Returns the same instance of the class each time.
     *
@@ -60,7 +61,7 @@ public:
     *
     * @param dt float value that is used in incrementing simulation time
     */
-  void Update(float dt); 
+  void Update(float dt);
   /**
     * Called by every drone, used to keep track of drone times whether they
     * are idled or moving
@@ -82,7 +83,7 @@ public:
     * @param dist float value that pertains to distance stat
     * @param droneID int value that pertains to unique id of a drone
     */
-  void AddRouteDistance(float dist, int droneID); 
+  void AddRouteDistance(float dist, int droneID);
   /**
     * Adds the time a drone spends delivering to time accumulator
     * 
@@ -98,7 +99,7 @@ public:
   /// alternative distance traveled function
   void AddRouteDist2(float dist, int droneID);
 
-protected:
+ protected:
  /** @struct PackData
   *  @brief This structure contains members used for holding
   * Package related statistics that will later be written to a 

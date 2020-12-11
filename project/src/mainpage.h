@@ -37,15 +37,14 @@
  * 
  * The feature our team implemented was the Drone Statistics feature. This was 
  * achieved by using a mix of the Singleton Pattern and the Drone Observer Pattern
- * from Iteration 2. By having our statistics.h (Singleton class) inherit from 
- * EntityObserver, the instance could be added to a drone’s observer list and receive 
- * information about a drone’s state during runtime. This information was easily 
- * utilized to update statistics about a drone’s time spent moving, idling, or 
+ * (from Iteration 2). By having our statistics.h (Singleton class) inherit from 
+ * EntityObserver, the Statistics instance could be added to a drone’s observer list
+ * and receive information about a drone’s state during runtime. This information was
+ * easily utilized to update statistics about a drone’s time spent moving, idling, or 
  * delivering, etc, based on a picojson::value event. After the simulation is 
- * run, in the destructor of DroneSimulation, a call to a function of Statistics 
- * called WriteStats() is made that takes all of the data written to each drone’s 
- * corresponding struct of statistic variables and written to a CSV file for later 
- * analyzing. 
+ * run, in the destructor of DroneSimulation a call to Statistics::WriteStats()
+ * is made that takes all of the statistics data stored in an unordered map and writes it
+ * to a CSV file for analysis.
  *
  * \image html "Iteration 2 3081W Project UML.png" "UML diagram of the drone delivery simulation" width=120%
  */
