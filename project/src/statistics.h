@@ -2,9 +2,11 @@
 #define STATISTICS_H_
 
 #include <EntityProject/entity_observer.h>
+
+#include <fstream>
 #include <string>
 #include <unordered_map>
-#include <fstream>
+
 #include "src/json_helper.h"
 
 namespace csci3081 {
@@ -15,12 +17,13 @@ namespace csci3081 {
  * This class
  */
 class Statistics : public entity_project::EntityObserver {
-private:
+ private:
   /// private constructor because this is Singleton
   Statistics();
   /// single instance of this class
   static Statistics* instance;
-public:
+
+ public:
   /// returns the same instance each time
   static Statistics* GetInstance() {
     if (!instance) {
@@ -31,9 +34,11 @@ public:
   /// Destructor
   ~Statistics();
   /// called when an event occurs
-  void OnEvent(const picojson::value& event, const entity_project::Entity& entity);
+  void OnEvent(const picojson::value& event,
+               const entity_project::Entity& entity);
   /// called when a drone movement event is received
-  void OnEventDroneMoving(const picojson::value& event, const entity_project::Entity& entity);
+  void OnEventDroneMoving(const picojson::value& event,
+                          const entity_project::Entity& entity);
   /// called every update, used to keep track of in-simulation runtime
   void Update(float dt);
   /// called by every drone, used to keep track of drone times
@@ -49,8 +54,7 @@ public:
   /// alternative distance traveled function
   void AddRouteDist2(float dist, int droneID);
 
-protected:
-
+ protected:
   struct PackData {
     float time_scheduled = 0;
     float time_enroute = 0;
@@ -68,10 +72,15 @@ protected:
     bool is_moving = false;
   };
   /// maps from the Entity id to their associated data
-  std::unordered_map<int,PackData> package_data;
-  std::unordered_map<int,DroneData> drone_data;
+  std::unordered_map<int, PackData> package_data;
+  std::unordered_map<int, DroneData> drone_data;
 
   float simulation_time = 0;
+
+ public:
+  std::unordered_map<int, PackData> GetPackageData() { return package_data; }
+  std::unordered_map<int, DroneData> GetDroneData() { return drone_data; }
+  float GetSimTime() { return simulation_time; }
 };
 
 }  // namespace csci3081
