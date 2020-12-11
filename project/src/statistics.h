@@ -12,7 +12,7 @@ namespace csci3081 {
 /**
  * @brief Statistics class
  *
- * Statistics class is a Singleton class and is an EntityObserver. 
+ * Statistics class is a Singleton class and is an EntityObserver.
  */
 class Statistics : public entity_project::EntityObserver {
  private:
@@ -43,7 +43,7 @@ class Statistics : public entity_project::EntityObserver {
   /**
     * Overrides the OnEvent(..) function of EntityObserver. It determines what
     * state an Entity is in, and it will collect stats or set boolean variables
-    * that determine which stats need to be updated in other functions. 
+    * that determine which stats need to be updated in other functions.
     *
     * @param event picojson::value& reference detailing the state of an Entity
     * @param entity the Entity reference, used to get an Id for stats collecting
@@ -78,31 +78,31 @@ class Statistics : public entity_project::EntityObserver {
     */
   void SetFalse(int droneID);
   /**
-    * Adds the distance of a new route to the drone distance accumulator
+    * Adds the entire distance of a new route to the drone distance accumulator
     *
     * @param dist float value that pertains to distance stat
     * @param droneID int value that pertains to unique id of a drone
     */
-  void AddRouteDistance(float dist, int droneID);
+  void AddPlannedRouteDistance(float dist, int droneID);
   /**
     * Adds the time a drone spends delivering to time accumulator
-    * 
+    *
     * @param droneID int value that pertains to unique id of a drone
     * @param dt float value that pertains to incremental simulation time
     */
   void AddTimeDelivering(float dt, int droneID);
   /**
     * Writes drone_data to "data/DroneData.csv"
-    * 
+    *
     */
   void WriteStats();
-  /// alternative distance traveled function
-  void AddRouteDist2(float dist, int droneID);
+  /// Used to keep track of drone traveled distance per Update
+  void AddDroneTraveledDistance(float dist, int droneID);
 
  protected:
  /** @struct PackData
   *  @brief This structure contains members used for holding
-  * Package related statistics that will later be written to a 
+  * Package related statistics that will later be written to a
   * CSV file
   */
   struct PackData {
@@ -112,7 +112,7 @@ class Statistics : public entity_project::EntityObserver {
   };
  /** @struct DroneData
   *  @brief This structure contains members used for holding
-  * Drone related statistics that will later be written to a 
+  * Drone related statistics that will later be written to a
   * CSV file
   */
   struct DroneData {
@@ -121,8 +121,8 @@ class Statistics : public entity_project::EntityObserver {
     float time_moving = 0;  ///< time_moving float contains total time spent moving
     float time_delivering = 0;  ///< time_delivering float contains total time delivering
     float time_idle = 0;  ///< time_idle float contains total time idling
-    float distance_traveled = 0;  ///< total distance traveled in simulation
-    float distance_traveled2 = 0;  ///< total distance traveled in simulation
+    float planned_distance = 0;  ///< total route lengths planned by drone
+    float traveled_distance = 0;  ///< total distance traveled in simulation by drone
     bool is_idled = false;  ///< is_idled bool tracks if the drone is idled or not
     bool is_moving = false;  ///< is_moving bool tracks if the drone is moving or not
   };
