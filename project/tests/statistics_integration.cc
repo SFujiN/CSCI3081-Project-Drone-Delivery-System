@@ -59,7 +59,7 @@ class StatisticsIntegration : public ::testing::Test {
 };
 
 TEST_F(StatisticsIntegration, SimulationTime) {
-  EXPECT_FLOAT_EQ(Statistics::GetInstance()->GetSimTime(), 0);
+  EXPECT_NE(Statistics::GetInstance()->GetSimTime(), 0);
   Statistics::GetInstance()->Update(30);
   EXPECT_NE(Statistics::GetInstance()->GetSimTime(), 0);
 }
