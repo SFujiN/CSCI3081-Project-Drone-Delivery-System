@@ -46,6 +46,8 @@ public:
   void AddTimeDelivering(float dt, int droneID);
   /// writes drone_data to "data/DroneData.csv"
   void WriteStats();
+  /// alternative distance traveled function
+  void AddRouteDist2(float dist, int droneID);
 
 protected:
 
@@ -61,6 +63,7 @@ protected:
     float time_delivering = 0;
     float time_idle = 0;
     float distance_traveled = 0;
+    float distance_traveled2 = 0;
     bool is_idled = false;
     bool is_moving = false;
   };
