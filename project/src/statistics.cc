@@ -87,7 +87,6 @@ void Statistics::AddTimeDelivering(float dt, int droneID) {
   // std::cout << "Adding dt: " << dt << std::endl;
 }
 
-
 void Statistics::WriteStats() {
   // "data/DroneData.csv"
   std::ofstream fout;
