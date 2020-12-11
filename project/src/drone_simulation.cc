@@ -28,7 +28,7 @@ void DroneSimulation::Update(float dt) {
 }
 
 DroneSimulation::~DroneSimulation() {
-  std::cout << "In DroneSim destructor!!!" << std::endl;
+  // std::cout << "In DroneSim destructor!!!" << std::endl;
   Statistics::GetInstance()->WriteStats();
   for (auto* entity : entities_) {
     delete entity;

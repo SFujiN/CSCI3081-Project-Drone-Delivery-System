@@ -95,6 +95,8 @@ public:
     * 
     */
   void WriteStats();
+  /// alternative distance traveled function
+  void AddRouteDist2(float dist, int droneID);
 
 protected:
  /** @struct PackData
@@ -119,6 +121,7 @@ protected:
     float time_delivering = 0;  ///< time_delivering float contains total time delivering
     float time_idle = 0;  ///< time_idle float contains total time idling
     float distance_traveled = 0;  ///< total distance traveled in simulation
+    float distance_traveled2 = 0;  ///< total distance traveled in simulation
     bool is_idled = false;  ///< is_idled bool tracks if the drone is idled or not
     bool is_moving = false;  ///< is_moving bool tracks if the drone is moving or not
   };

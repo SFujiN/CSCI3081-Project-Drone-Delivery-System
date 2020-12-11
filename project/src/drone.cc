@@ -64,12 +64,14 @@ void csci3081::Drone::Update(float dt) {
 bool Drone::FollowRoute(float dt) {
   auto pos = GetVecPos();
   float remainingDistance = GetCurrentSpeed() * dt;
+  Statistics::GetInstance()->AddRouteDist2(remainingDistance, id_);
   while (remainingDistance > 0) {
     if (route.empty()) {
+      float negate = 0 - remainingDistance;
+      Statistics::GetInstance()->AddRouteDist2(negate, id_);
       SetVecPos(pos);
       return true;
     }
-
     auto point = RouteManager::AsVec(route.front());
     float dist = pos.distanceTo(point);
     SetVecDirection(pos.directionTo(point));
