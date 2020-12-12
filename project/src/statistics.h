@@ -12,13 +12,13 @@
 namespace csci3081 {
 
 /**
- * @brief Statistics class
+ * @brief Statistics class, which tracks drone statistics
  *
  * Statistics class is a Singleton class and is an EntityObserver.
  * Statistics implements the strategy to keep track of useful information on
- * drones This is done by mapping individual drones by ID to stats:\n
+ * drones. This is done by mapping individual drones by ID to stats:\n
  * time_elapsed, total time elapsed since drone was created\n
- * deliveries_made, deliveris made by drone\n
+ * deliveries_made, deliveries made by drone\n
  * time_moving, drone's total time spent moving\n
  * time_delivering, drone's time spent delivering\n
  * time_idle, drone's time idle\n
@@ -48,7 +48,7 @@ class Statistics : public entity_project::EntityObserver {
     return instance;
   }
   /**
-   * Statistics destructor
+   * @brief Statistics destructor
    */
   ~Statistics();
   /**
@@ -188,19 +188,19 @@ class Statistics : public entity_project::EntityObserver {
 
  public:
   /**
-   * Getter for package_data
+   * @brief Getter for package_data
    *
    * @return protected package_data member variable
    */
   std::unordered_map<int, PackData> GetPackageData() { return package_data; }
   /**
-   * Getter for drone_data
+   * @brief Getter for drone_data
    *
    * @return protected drone_data member variable
    */
   std::unordered_map<int, DroneData> GetDroneData() { return drone_data; }
   /**
-   * Getter for simulation_time
+   * @brief Getter for simulation_time
    *
    * @return float simulation_time
    */
